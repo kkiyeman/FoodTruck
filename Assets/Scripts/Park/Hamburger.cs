@@ -2,17 +2,113 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hamburger : MonoBehaviour
+public abstract class Hamburger
 {
-    // Start is called before the first frame update
-    void Start()
+    public Dictionary<string, Ingredients> components;
+    public string Name { get; protected set; }
+    public string[] Recipe { get; protected set; }
+
+    public abstract void SetInfo();
+}
+
+public class Burger : Hamburger
+{
+
+    public Burger()
     {
-        
+        SetInfo();
+    }
+    public override void SetInfo()
+    {
+        Name = "ÇÜ¹ö°Å";
+        Recipe = new string[5]
+        {
+            "À­»§",
+            "¾Æ·§»§",
+            "°í±â",
+            "¾ç»óÃß",
+            "Åä¸¶Åä"
+        };
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddComponents(Ingredients ingredient)
     {
-        
+        components.Add(ingredient.Name,ingredient); ;
+    }
+
+}
+
+public class CheeseBurger : Hamburger
+{
+
+    public CheeseBurger()
+    {
+        SetInfo();
+    }
+    public override void SetInfo()
+    {
+        Name = "Ä¡Áî¹ö°Å";
+        Recipe = new string[6]
+        {
+            "À­»§",
+            "¾Æ·§»§",
+            "°í±â",
+            "¾ç»óÃß",
+            "Åä¸¶Åä",
+            "Ä¡Áî"
+        };
+    }
+
+    public void AddComponents(Ingredients ingredient)
+    {
+        components.Add(ingredient.Name, ingredient); ;
     }
 }
+
+public class VeganBurger : Hamburger
+{
+    public VeganBurger()
+    {
+        SetInfo();
+    }
+    public override void SetInfo()
+    {
+        Name = "ºñ°Ç¹ö°Å";
+        Recipe = new string[4]
+        {
+            "À­»§",
+            "¾Æ·§»§",
+            "¾ç»óÃß",
+            "Åä¸¶Åä"
+        };
+    }
+    public void AddComponents(Ingredients ingredient)
+    {
+        components.Add(ingredient.Name, ingredient); ;
+    }
+
+}
+
+public class MeetBurger : Hamburger
+{
+    public MeetBurger()
+    {
+        SetInfo();
+    }
+    public override void SetInfo()
+    {
+        Name = "°í±â¹ö°Å";
+        Recipe = new string[4]
+        {
+            "À­»§",
+            "¾Æ·§»§",
+            "°í±â",
+            "Ä¡Áî"
+        };
+    }
+    public void AddComponents(Ingredients ingredient)
+    {
+        components.Add(ingredient.Name, ingredient); ;
+    }
+}
+
