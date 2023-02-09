@@ -28,6 +28,7 @@ public class IngredientManager : MonoBehaviour
     {
         SetIngredientList();
         //IngredientCheck();
+        //SaleDay();
     }
 
     public void SetIngredientList()
@@ -35,18 +36,18 @@ public class IngredientManager : MonoBehaviour
         baseIngredientList = new List<Ingredient>();
         toppingList = new List<Ingredient>();
 
-        //기본재료 리스트
-        baseIngredientList.Add(new Ingredient("도우", 1, 20));
-        baseIngredientList.Add(new Ingredient("소스", 1, 20));
-        baseIngredientList.Add(new Ingredient("치즈", 1, 20));
+        //기본재료 리스트             (이름, 가격, 상점수량, 인벤수량, 세일여부)
+        baseIngredientList.Add(new Ingredient("도우", 1, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("소스", 1, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("치즈", 1, 20, 0, false));
 
-        //토핑재료 리스트
-        toppingList.Add(new Ingredient("페퍼로니", 1, 10));
-        toppingList.Add(new Ingredient("베이컨", 1, 10));
-        toppingList.Add(new Ingredient("포테이토", 1, 5));
-        toppingList.Add(new Ingredient("파인애플", 1, 5));
-        toppingList.Add(new Ingredient("올리브", 1, 5));
-        toppingList.Add(new Ingredient("버섯", 1, 5));
+        //토핑재료 리스트             (이름, 가격, 상점수량, 인벤수량, 세일여부)
+        toppingList.Add(new Ingredient("페퍼로니", 1, 10, 0, false));
+        toppingList.Add(new Ingredient("베이컨", 1, 10, 0, false));
+        toppingList.Add(new Ingredient("포테이토", 1, 5, 0, false));
+        toppingList.Add(new Ingredient("파인애플", 1, 5, 0, false));
+        toppingList.Add(new Ingredient("올리브", 1, 5, 0, false));
+        toppingList.Add(new Ingredient("버섯", 1, 5, 0, false));
 
     }
 
@@ -75,6 +76,31 @@ public class IngredientManager : MonoBehaviour
         for (int i = 0; i < toppingList.Count; i++)
         {
             Debug.Log(toppingList[i].Name);
+        }
+    }
+
+    public void SaleDay()
+    {
+        baseIngredientList[1].sale = true;
+        toppingList[2].sale = true;
+
+
+        for(int i = 0; i < baseIngredientList.Count; i++)
+        {
+            if (baseIngredientList[i].sale == true)
+            {
+                baseIngredientList[i].price = baseIngredientList[i].price * 0.8f;
+                Debug.Log($"[[세일상품]] : {baseIngredientList[i].Name}, [[가격]] : {baseIngredientList[i].price}");
+            }
+        }
+
+        for(int i = 0; i < toppingList.Count; i++)
+        {
+            if(toppingList[i].sale == true)
+            {
+                toppingList[i].price = toppingList[i].price * 0.8f;
+                Debug.Log($"[[세일상품]] : {toppingList[i].Name}, [[가격]] : {toppingList[i].price}");
+            }
         }
     }
 }

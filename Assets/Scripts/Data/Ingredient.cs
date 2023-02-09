@@ -6,12 +6,16 @@ public class Ingredient
 {
     public string Name;
     public float price;
-    public int amount;
+    public int shopAmount;
+    public int inPlayerInven;
+    public bool sale;
 
-    public Ingredient(string Name, float price, int amount)
+    public Ingredient(string Name, float price, int shopAmount, int inPlayerInven, bool sale)
     {
         this.Name = Name;
         this.price = price;
-        this.amount = amount;
+        this.shopAmount = shopAmount;
+        this.inPlayerInven = inPlayerInven;
+        this.sale = sale;
     }
 }
