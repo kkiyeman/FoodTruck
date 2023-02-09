@@ -22,19 +22,17 @@ public class PizzaManager : MonoBehaviour
 
     #endregion
 
-    public int pizzaListIdx;
-
     public List<Pizza> pizzaList;
 
     private void Awake()
     {
-        PizzaListSet();
-        //Debug.Log(pizzaList[0].Length);
-        //Debug.Log($"메뉴 : {pizzaList[0][3].pizzaName}, 가격 : {pizzaList[0][3].price}, 레시피 : {pizzaList[0][3].recipe}");
+        SetPizzaList();
+        //Debug.Log(pizzaList.Count);
+        //Debug.Log($"메뉴 : {pizzaList[3].pizzaName}, 가격 : {pizzaList[3].price}, 레시피 : {pizzaList[3].recipe}");
         //Recipecheck();
     }
 
-    public void PizzaListSet()
+    public void SetPizzaList()
     {
         pizzaList = new List<Pizza>();
 
@@ -52,6 +50,7 @@ public class PizzaManager : MonoBehaviour
         return pizzaList[pizzaListIdx];
     }
 
+    
     //레시피 잘 들어갔는지 확인용
     public void Recipecheck()
     {
