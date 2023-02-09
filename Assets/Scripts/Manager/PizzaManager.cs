@@ -22,9 +22,9 @@ public class PizzaManager : MonoBehaviour
 
     #endregion
 
-    public int pizzaListIdx = 0;
+    public int pizzaListIdx;
 
-    public List<Pizza[]> pizzaList = new List<Pizza[]>();
+    public List<Pizza> pizzaList;
 
     private void Awake()
     {
@@ -36,35 +36,29 @@ public class PizzaManager : MonoBehaviour
 
     public void PizzaListSet()
     {
-        pizzaList = new List<Pizza[]>();
+        pizzaList = new List<Pizza>();
 
-        //피자 (이름 ,  가격 ,    레시피)
-        pizzaList.Add(new Pizza[]
-        {
-            new Pizza("페퍼로니", 5.9f, new string[]{"도우","소스","치즈","페퍼로니"}),
-            new Pizza("베이컨포테이토", 6.9f, new string[]{"도우","소스","치즈","베이컨","포테이토"}),
-            new Pizza("하와이안", 6.9f, new string[]{"도우", "소스", "치즈","베이컨","파인애플"}),
-            new Pizza("99에비뉴", 7.9f, new string[]{"도우", "소스", "치즈","올리브","버섯","페퍼로니"})
-        });
+        //                  피자 (이름 ,  가격 ,    레시피)
+
+        pizzaList.Add(new Pizza("페퍼로니", 5.9f, new string[] { "도우", "소스", "치즈", "페퍼로니" }));
+        pizzaList.Add(new Pizza("베이컨포테이토", 6.9f, new string[] { "도우", "소스", "치즈", "베이컨", "포테이토" }));
+        pizzaList.Add(new Pizza("하와이안", 6.9f, new string[] { "도우", "소스", "치즈", "베이컨", "파인애플" }));
+        pizzaList.Add(new Pizza("99에비뉴", 7.9f, new string[] { "도우", "소스", "치즈", "올리브", "버섯", "페퍼로니" }));
+
     }
 
-    public void SetPizzaList(int pizzaList)
-    {
-        pizzaListIdx = pizzaList;
-    }
-
-    public Pizza[] GetPizzaList()
+    public Pizza GetPizzaList(int pizzaListIdx)
     {
         return pizzaList[pizzaListIdx];
     }
 
+    //레시피 잘 들어갔는지 확인용
     public void Recipecheck()
     {
-        for (int i = 0; i < pizzaList[0].Length; i++)
+        for (int i = 0; i < pizzaList.Count; i++)
         {
-            Debug.Log(pizzaList[0][i].recipe.Length);
+            Debug.Log(pizzaList[i].recipe.Length);
         }
-        
     }
 
 
