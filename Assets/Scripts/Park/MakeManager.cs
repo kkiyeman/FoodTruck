@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class MakeManager : MonoBehaviour
 {
 
@@ -12,9 +13,15 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Button btnCheese;
     [SerializeField] Button btnPatty;
     [SerializeField] Button btnLowerBread;
+    [SerializeField] Button btnServe;
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
-    [SerializeField] Image questBox;
+    [SerializeField] Quest[] orderList;
+    public int curOrderCount = 0;
+    public string curMakingBurger = "";
+
+    public List<Hamburger> burgerList = new List<Hamburger>();
+
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
     bool isStart;
@@ -23,45 +30,39 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitBurgerData();
         SetButton();
     }
 
+    private void InitBurgerData()
+    {
+        Burger burger = new Burger();
+        CheeseBurger cheeseburger = new CheeseBurger();
+        VeganBurger veganburger = new VeganBurger();
+        MeetBurger meetburger = new MeetBurger();
+
+        burgerList.Add(burger);
+        burgerList.Add(cheeseburger);
+        burgerList.Add(veganburger);
+        burgerList.Add(meetburger);
+    }
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public IEnumerator GetQuest()
     {
-        while(isStart)
+        while (isStart)
         {
             yield return wait5sec;
 
             int ran = Random.Range(1, 11);
-            if(ran>7)
+            if (ran > 3)
             {
-                int ranidx = Random.Range(1, 5);
-                var ob = Resources.Load<GameObject>("Practice/quest");
-                var go = Instantiate(ob);
-                go.transform.SetParent(questBox.transform);
-                var quest = go.GetComponent<Quest>();
-                switch(ranidx)
-                {
-                    case 1:
-                        quest.txtQuest.text = "햄버거";
-                        break;
-                    case 2:
-                        quest.txtQuest.text = "치즈버거";
-                        break;
-                    case 3:
-                        quest.txtQuest.text = "비건버거";
-                        break;
-                    case 4:
-                        quest.txtQuest.text = "고기버거";
-                        break;
-
-                }
+                if (curOrderCount < 2)
+                    GetOrder();
             }
         }
 
@@ -76,6 +77,7 @@ public class MakeManager : MonoBehaviour
         btnPatty.onClick.AddListener(OnClickSpawnPatty);
         btnLowerBread.onClick.AddListener(OnClickSpawnLowerBread);
         btnGameStart.onClick.AddListener(OnClickGameStart);
+        btnServe.onClick.AddListener(OnClickServe);
     }
 
     private void OnClickGameStart()
@@ -108,7 +110,45 @@ public class MakeManager : MonoBehaviour
     {
         SpawnIngredients("LowerBread");
     }
+    
+    private void OnClickServe()
+    {
 
+    }
+    
+    private void OnClickOrderList(int idx, string name)
+    {
+        curMakingBurger = name;
+
+
+    }
+    private void GetOrder()
+    {
+        int ran = Random.Range(1, 5);
+        var curBurger = burgerList[ran];
+        if(curOrderCount == 0)
+        {
+            int idx = ran;
+            orderList[0].txtQuest.text = curBurger.Name;
+            orderList[0].gameObject.SetActive(true);
+            orderList[0].GetComponent<Button>().onClick.AddListener(() => {OnClickOrderList(idx,curBurger.Name);});
+            curOrderCount++;
+        }
+        else
+        {
+            int idx = ran;
+            orderList[1].txtQuest.text = curBurger.Name;
+            orderList[1].gameObject.SetActive(true);
+            orderList[1].GetComponent<Button>().onClick.AddListener(() => { OnClickOrderList(idx,curBurger.Name); });
+            curOrderCount++;
+        }
+
+    }
+
+    private void OrderProgress(int idx)
+    {
+
+    }
     private void SpawnIngredients(string name)
     {
         var ob = Resources.Load($"Practice/{ name}");
