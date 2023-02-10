@@ -204,23 +204,27 @@ public class MakeManager : MonoBehaviour
         int recipe = hamburger.Recipe.Length;
         if (progress.Count<= recipe)
         {
+            int less = recipe - progress.Count;
             bool exist = false;
             int noIngredients = 0;
-            for (int i = 0; i < recipe; i++)
+            for (int i = 0; i < progress.Count; i++)
             {
-                for(int j = 0; j<progress.Count;j++)
+                for(int j = 0; j<recipe;j++)
                 {
-                    if (hamburger.Recipe[i] == progress[j])
+                    if (progress[i] == hamburger.Recipe[j])
                         exist = true;       
                 }
                 if(!exist)
                 {
                     noIngredients++;
-                    exist = false;
+                    Debug.Log($"틀린 재료 {progress[i]}!!");
                 }
-                
+                exist = false;
+
             }
-            int score = fullScore - (noIngredients * 10);
+            if (less > 0)
+                Debug.Log("재료가 부족합니다!");
+            int score = fullScore - (noIngredients * 10) - (less*10);
             return score;
         }
         else
