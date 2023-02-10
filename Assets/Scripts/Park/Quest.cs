@@ -6,5 +6,6 @@ using UnityEngine.UI;
 public class Quest : MonoBehaviour
 {
     public Text txtQuest;
+    
 
 }

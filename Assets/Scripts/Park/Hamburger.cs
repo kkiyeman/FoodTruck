@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Hamburger
 {
-    public Dictionary<string, Ingredients> components;
     public string Name { get; protected set; }
     public string[] Recipe { get; protected set; }
 
@@ -31,11 +30,6 @@ public class Burger : Hamburger
         };
     }
 
-    public void AddComponents(Ingredients ingredient)
-    {
-        components.Add(ingredient.Name,ingredient); ;
-    }
-
 }
 
 public class CheeseBurger : Hamburger
@@ -58,11 +52,6 @@ public class CheeseBurger : Hamburger
             "치즈"
         };
     }
-
-    public void AddComponents(Ingredients ingredient)
-    {
-        components.Add(ingredient.Name, ingredient); ;
-    }
 }
 
 public class VeganBurger : Hamburger
@@ -82,11 +71,6 @@ public class VeganBurger : Hamburger
             "토마토"
         };
     }
-    public void AddComponents(Ingredients ingredient)
-    {
-        components.Add(ingredient.Name, ingredient); ;
-    }
-
 }
 
 public class MeetBurger : Hamburger
@@ -105,10 +89,6 @@ public class MeetBurger : Hamburger
             "고기",
             "치즈"
         };
-    }
-    public void AddComponents(Ingredients ingredient)
-    {
-        components.Add(ingredient.Name, ingredient); ;
     }
 }
 

@@ -17,13 +17,17 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
+    [SerializeField] GameObject makingPool;
     public int curOrderCount = 0;
-    public string curMakingBurger = "";
+    public int curBurgerIdx;
 
     public List<Hamburger> burgerList = new List<Hamburger>();
+    public List<Ingredients> ingredientList = new List<Ingredients>();
 
+    public List<string> progress = new List<string>();
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
+    bool isMaking;
     bool isStart;
 
     Vector3 defaultRotation = new Vector3(-90, 0, 0);
@@ -31,9 +35,26 @@ public class MakeManager : MonoBehaviour
     void Start()
     {
         InitBurgerData();
+        InitIngredientsData();
         SetButton();
     }
 
+    private void InitIngredientsData()
+    {
+        UpperBread upperbread = new UpperBread();
+        Lettuce lettuce = new Lettuce();
+        Tomato tomato = new Tomato();
+        Cheese cheese = new Cheese();
+        Patty patty = new Patty();
+        LowerBread lowerbread = new LowerBread();
+
+        ingredientList.Add(upperbread); 
+        ingredientList.Add(lettuce);
+        ingredientList.Add(tomato) ;
+        ingredientList.Add(cheese);
+        ingredientList.Add(patty);
+        ingredientList.Add(lowerbread);
+    }
     private void InitBurgerData()
     {
         Burger burger = new Burger();
@@ -46,13 +67,8 @@ public class MakeManager : MonoBehaviour
         burgerList.Add(veganburger);
         burgerList.Add(meetburger);
     }
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
-
-    public IEnumerator GetQuest()
+    public IEnumerator InitQuest()
     {
         while (isStart)
         {
@@ -61,8 +77,8 @@ public class MakeManager : MonoBehaviour
             int ran = Random.Range(1, 11);
             if (ran > 3)
             {
-                if (curOrderCount < 2)
-                    GetOrder();
+                if (curOrderCount < 1)
+                    SetOrder();
             }
         }
 
@@ -83,77 +99,138 @@ public class MakeManager : MonoBehaviour
     private void OnClickGameStart()
     {
         isStart = true;
-        StartCoroutine(GetQuest());
+        StartCoroutine(InitQuest());
     }
     private void OnClickSpawnUpperBread()
     {
-        SpawnIngredients("UpperBread");
+        if(isMaking)
+            SpawnIngredients("윗빵");
     }
 
     private void OnClickSpawnLettuce()
     {
-        SpawnIngredients("Lettuce");
+        if (isMaking)
+            SpawnIngredients("양상추");
     }
     private void OnClickSpawnTomato()
     {
-        SpawnIngredients("Tomato");
+        if (isMaking)
+            SpawnIngredients("토마토");
     }
     private void OnClickSpawnCheese()
     {
-        SpawnIngredients("Cheese");
+        if (isMaking)
+            SpawnIngredients("치즈");
     }
     private void OnClickSpawnPatty()
     {
-        SpawnIngredients("Patty");
+        if (isMaking)
+            SpawnIngredients("고기");
     }
     private void OnClickSpawnLowerBread()
     {
-        SpawnIngredients("LowerBread");
+        if (isMaking)
+            SpawnIngredients("아랫빵");
     }
     
     private void OnClickServe()
     {
+        Debug.Log(GetScore(burgerList[curBurgerIdx]));
+        for(int i = 0; i<orderList.Length;i++)
+        {
+            if(orderList[i].txtQuest.text == burgerList[curBurgerIdx].Name)
+            {
+                orderList[i].txtQuest.text = "";
+                orderList[i].GetComponent<Button>().onClick.RemoveAllListeners();
+                orderList[i].gameObject.SetActive(false);
+            }
+        }
+        curOrderCount--;
+        isMaking = false;
+        for(int i = 0; i< makingPool.transform.childCount; i++)
+        {
+            Destroy(makingPool.transform.GetChild(i).gameObject);
+        }
+        curBurgerIdx = 0;
+        progress.Clear();
 
     }
     
-    private void OnClickOrderList(int idx, string name)
+    private void OnClickOrderList(int idx)
     {
-        curMakingBurger = name;
-
-
-    }
-    private void GetOrder()
-    {
-        int ran = Random.Range(1, 5);
-        var curBurger = burgerList[ran];
-        if(curOrderCount == 0)
+        if(!isMaking)
         {
-            int idx = ran;
+            int _idx = idx;
+            curBurgerIdx = _idx;
+            isMaking = true;
+        }
+    }
+    private void SetOrder()
+    {
+        int ran = Random.Range(0, 4 );
+        var curBurger = burgerList[ran];
+        if (curOrderCount == 0)
+        {
             orderList[0].txtQuest.text = curBurger.Name;
             orderList[0].gameObject.SetActive(true);
-            orderList[0].GetComponent<Button>().onClick.AddListener(() => {OnClickOrderList(idx,curBurger.Name);});
+            orderList[0].GetComponent<Button>().onClick.AddListener(() => {OnClickOrderList(ran);});
             curOrderCount++;
         }
         else
-        {
-            int idx = ran;
+        {   
             orderList[1].txtQuest.text = curBurger.Name;
             orderList[1].gameObject.SetActive(true);
-            orderList[1].GetComponent<Button>().onClick.AddListener(() => { OnClickOrderList(idx,curBurger.Name); });
+            orderList[1].GetComponent<Button>().onClick.AddListener(() => { OnClickOrderList(ran); });
             curOrderCount++;
         }
 
     }
 
-    private void OrderProgress(int idx)
-    {
 
-    }
     private void SpawnIngredients(string name)
     {
-        var ob = Resources.Load($"Practice/{ name}");
+        var burger = burgerList[curBurgerIdx];
+        var ob = Resources.Load($"Practice/{name}");
         var go = (GameObject)Instantiate(ob);
+        go.transform.SetParent(makingPool.transform);
         go.transform.localEulerAngles = defaultRotation;
         go.transform.position = SpawnPoint.position;
+        progress.Add(name);
+    }
+
+    private int GetScore(Hamburger hamburger)
+    {
+        int fullScore = 100;
+        int recipe = hamburger.Recipe.Length;
+        if (progress.Count<= recipe)
+        {
+            bool exist = false;
+            int noIngredients = 0;
+            for (int i = 0; i < recipe; i++)
+            {
+                for(int j = 0; j<progress.Count;j++)
+                {
+                    if (hamburger.Recipe[i] == progress[j])
+                        exist = true;       
+                }
+                if(!exist)
+                {
+                    noIngredients++;
+                    exist = false;
+                }
+                
+            }
+            int score = fullScore - (noIngredients * 10);
+            return score;
+        }
+        else
+        {
+            Debug.Log("재료가 너무 많습니다!");
+            int overload = progress.Count - recipe;
+            int score = fullScore - (overload * 10);
+            return score;
+        }
+
+
     }
 }
