@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Ingredient
 {
-    public string Name;
+    public string name;
     public float price;
     public int shopAmount;
     public int inPlayerInven;
     public bool sale;
 
-    public Ingredient(string Name, float price, int shopAmount, int inPlayerInven, bool sale)
+    public Ingredient(string name, float price, int shopAmount, int inPlayerInven, bool sale)
     {
-        this.Name = Name;
+        this.name = name;
         this.price = price;
         this.shopAmount = shopAmount;
         this.inPlayerInven = inPlayerInven;

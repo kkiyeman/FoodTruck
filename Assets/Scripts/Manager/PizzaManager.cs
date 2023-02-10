@@ -49,7 +49,6 @@ public class PizzaManager : MonoBehaviour
     {
         return pizzaList[pizzaListIdx];
     }
-
     
     //레시피 잘 들어갔는지 확인용
     public void Recipecheck()
@@ -59,5 +58,4 @@ public class PizzaManager : MonoBehaviour
             Debug.Log(pizzaList[i].recipe.Length);
         }
     }
-
 }

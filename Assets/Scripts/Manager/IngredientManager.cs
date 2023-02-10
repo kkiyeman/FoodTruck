@@ -48,7 +48,6 @@ public class IngredientManager : MonoBehaviour
         toppingList.Add(new Ingredient("파인애플", 1, 5, 0, false));
         toppingList.Add(new Ingredient("올리브", 1, 5, 0, false));
         toppingList.Add(new Ingredient("버섯", 1, 5, 0, false));
-
     }
 
     //기본재료
@@ -69,13 +68,13 @@ public class IngredientManager : MonoBehaviour
         Debug.Log("[[기본재료]]");
         for (int i = 0; i < baseIngredientList.Count; i++)
         {
-            Debug.Log(baseIngredientList[i].Name);
+            Debug.Log(baseIngredientList[i].name);
         }
 
         Debug.Log("[[토핑재료]]");
         for (int i = 0; i < toppingList.Count; i++)
         {
-            Debug.Log(toppingList[i].Name);
+            Debug.Log(toppingList[i].name);
         }
     }
 
@@ -90,7 +89,7 @@ public class IngredientManager : MonoBehaviour
             if (baseIngredientList[i].sale == true)
             {
                 baseIngredientList[i].price = baseIngredientList[i].price * 0.8f;
-                Debug.Log($"[[세일상품]] : {baseIngredientList[i].Name}, [[가격]] : {baseIngredientList[i].price}");
+                Debug.Log($"[[세일상품]] : {baseIngredientList[i].name}, [[가격]] : {baseIngredientList[i].price}");
             }
         }
 
@@ -99,7 +98,7 @@ public class IngredientManager : MonoBehaviour
             if(toppingList[i].sale == true)
             {
                 toppingList[i].price = toppingList[i].price * 0.8f;
-                Debug.Log($"[[세일상품]] : {toppingList[i].Name}, [[가격]] : {toppingList[i].price}");
+                Debug.Log($"[[세일상품]] : {toppingList[i].name}, [[가격]] : {toppingList[i].price}");
             }
         }
     }
