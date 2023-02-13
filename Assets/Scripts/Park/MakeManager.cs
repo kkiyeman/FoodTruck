@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 
 public class MakeManager : MonoBehaviour
@@ -20,6 +21,10 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject makingPool;
     public int curOrderCount = 0;
     public int curBurgerIdx;
+    [SerializeField] XRRayInteractor leftController;
+    [SerializeField] XRRayInteractor rightController;
+
+    
 
     public List<Hamburger> burgerList = new List<Hamburger>();
     public List<Ingredients> ingredientList = new List<Ingredients>();
@@ -237,4 +242,33 @@ public class MakeManager : MonoBehaviour
 
 
     }
+
+    public void ChooseIngredientsLeft()
+    {
+        
+        RaycastHit hit;
+        if(leftController.TryGetCurrent3DRaycastHit(out hit))
+        {
+            if (hit.collider.tag == "Untagged")
+                return;
+            SpawnIngredients(hit.collider.tag);
+        }
+    }
+    
+    public void ChooseIngredientsRight()
+    {
+        RaycastHit hit;
+        if (rightController.TryGetCurrent3DRaycastHit(out hit))
+        {
+            if (hit.collider.tag == "Untagged")
+                return;
+            SpawnIngredients(hit.collider.tag);
+        }
+    }
+
+    public void SetIngredients()
+    {
+
+    }
+    
 }
