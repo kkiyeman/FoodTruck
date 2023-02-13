@@ -21,6 +21,8 @@ public class ConsumerManager : MonoBehaviour
 
     #endregion
 
+
+
     public ConsumerBase[] consumerDatas = new ConsumerBase[]
     {
         new ConsumerSingle(0, false, 1),
@@ -37,6 +39,7 @@ public class ConsumerManager : MonoBehaviour
 
     void Start()
     {
+        
         int rand = Random.Range(0, consumerDatas.Length);
         consumerData = consumerDatas[rand];
         consumerData.Order();
