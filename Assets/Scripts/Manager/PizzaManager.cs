@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PizzaManager : MonoBehaviour
 {
@@ -59,17 +60,39 @@ public class PizzaManager : MonoBehaviour
         Debug.Log(pizzaList[i].recipe.Length);
     }
 
-    public void GetRandomPizza(int PizzaCnt)
+    //public void GetRandomPizza(int PizzaCnt)
+    //{
+    //    int rand;
+    //    Pizza[] pizzaArray = new Pizza[PizzaCnt];
+
+    //    for (int i = 0; i < PizzaCnt; i++)
+    //    {
+    //        rand = Random.Range(0, 3);
+    //        pizzaArray[i] = pizzaList[rand];
+    //        string orderPizzaName = pizzaList[rand].pizzaName;
+    //        Debug.Log(orderPizzaName);
+    //    }
+    //}
+
+    public Pizza[] GetRandomPizza(int PizzaCnt)
     {
         int rand;
         Pizza[] pizzaArray = new Pizza[PizzaCnt];
 
+
         for (int i = 0; i < PizzaCnt; i++)
         {
-            rand = Random.Range(0, 3);
+            rand = Random.Range(0, 4);
             pizzaArray[i] = pizzaList[rand];
-            string orderPizzaName = pizzaList[rand].pizzaName;
-            Debug.Log(orderPizzaName);
         }
+
+        pizzaArray = pizzaArray.OrderBy(data => pizzaList.IndexOf(data)).ToArray();
+
+        for (int i = 0; i < pizzaArray.Length; i++)
+        {
+            Debug.Log(pizzaArray[i].pizzaName);
+        }
+
+        return pizzaArray;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ConsumerBase
 {
+    public Pizza[] orderPizza;
     public int satisfaction;
     public bool giveTip;
     public int tip;
@@ -40,9 +41,11 @@ public class ConsumerSingle : ConsumerBase
     {
         Init();
         Debug.Log("ConsumerSingle 林巩");
-        int i = Random.Range(0, 4);
-        Pizza orderPizza = pizzaManager.GetPizzaList(i);
-        Debug.Log($"{orderPizza.pizzaName} 1魄 林技夸");
+        //int i = Random.Range(0, 4);
+        this.orderPizza = pizzaManager.GetRandomPizza(1);
+
+        //Pizza orderPizza = pizzaManager.GetPizzaList(i);
+        Debug.Log($"{orderPizza} 1魄 林技夸");
     }
 
     public override void GiveTip()
@@ -67,23 +70,31 @@ public class ConsumerDouble : ConsumerBase
     {
         Init();
         Debug.Log("ConsumerDouble 林巩");
+
+        //int i = Random.Range(0, 4);
+        this.orderPizza = pizzaManager.GetRandomPizza(2);
+
+
+        //Pizza orderPizza = pizzaManager.GetPizzaList(i);
+        //Debug.Log($"{orderPizza} 1魄 林技夸");
+
         //Pizza orderPizza1st;
         //Pizza orderPizza2nd;
-        Pizza[] pizzaArray = new Pizza[2];
-        float pay;
+        ////Pizza[] pizzaArray = new Pizza[2];
+        ////float pay;
 
-        for(int i = 0; i < pizzaArray.Length; i++)
-        {
-            int rand = Random.Range(0, pizzaManager.pizzaList.Count);
-            int min = rand;
+        ////for(int i = 0; i < pizzaArray.Length; i++)
+        ////{
+        ////    int rand = Random.Range(0, pizzaManager.pizzaList.Count);
+        ////    int min = rand;
 
-            for(int x = 0; x < pizzaArray.Length; x++)
-            {
-                pizzaArray[i] = pizzaManager.pizzaList[rand];
-            }
-        }
+        ////    for(int x = 0; x < pizzaArray.Length; x++)
+        ////    {
+        ////        pizzaArray[i] = pizzaManager.pizzaList[rand];
+        ////    }
+        ////}
 
-        Debug.Log($"{pizzaArray[0].pizzaName},{pizzaArray[1].pizzaName}");
+        ////Debug.Log($"{pizzaArray[0].pizzaName},{pizzaArray[1].pizzaName}");
 
         //orderPizza1st = pizzaManager.GetPizzaList(pizzaIdx1st);
         //orderPizza2nd = pizzaManager.GetPizzaList(pizzaIdx2nd);
