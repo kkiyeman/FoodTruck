@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConsumerBase
+public class ConsumerBase2
 {
-    public Dictionary<string, int> orderPizzaTest;
+    public List<string> orderPizzaTest;
     public int satisfaction;
     public bool giveTip;
     public int tip;
@@ -29,9 +29,9 @@ public class ConsumerBase
 }
 
 //1�� �ֹ� �մ�
-public class ConsumerSingle : ConsumerBase
+public class ConsumerSingle2 : ConsumerBase2
 {
-    public ConsumerSingle(int satisfaction, bool giveTip, int tip)
+    public ConsumerSingle2(int satisfaction, bool giveTip, int tip)
     {
         this.satisfaction = satisfaction;
         this.giveTip = giveTip;
@@ -47,9 +47,9 @@ public class ConsumerSingle : ConsumerBase
 
         orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
 
-        this.orderPizzaTest = new Dictionary<string, int>();
+        this.orderPizzaTest = new List<string>();
         
-        orderPizzaTest.Add(orderPizzaName, 1);
+        orderPizzaTest.Add(orderPizzaName);
         
         
         Debug.Log($"{orderPizzaName} 1판 주세요");
@@ -65,9 +65,9 @@ public class ConsumerSingle : ConsumerBase
 }
 
 //2�� �ֹ� �մ�
-public class ConsumerDouble : ConsumerBase
+public class ConsumerDouble2 : ConsumerBase2
 {
-    public ConsumerDouble(int satisfaction, bool giveTip, int tip)
+    public ConsumerDouble2(int satisfaction, bool giveTip, int tip)
     {
         this.satisfaction = satisfaction;
         this.giveTip = giveTip;
@@ -78,9 +78,9 @@ public class ConsumerDouble : ConsumerBase
         Init();
         Debug.Log("ConsumerDouble 주문");
 
+        this.orderPizzaTest = new List<string>();
+        int orderPizzaCnt = 1;
 
-        this.orderPizzaTest = new Dictionary<string, int>();
-        
         for(int i = 0; i < 2; i++)
         {
             string orderPizzaName;
@@ -88,25 +88,29 @@ public class ConsumerDouble : ConsumerBase
 
             orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
 
-            if(orderPizzaTest.ContainsKey(orderPizzaName))
+            if(orderPizzaTest.Contains(orderPizzaName))
             {
-                orderPizzaTest[orderPizzaName]++;
+                orderPizzaCnt++;
             }
             else
             {
-                orderPizzaTest.Add(orderPizzaName, 1);
+                orderPizzaTest.Add(orderPizzaName);
             }
         }
 
-        foreach (var pizza in orderPizzaTest)
+        if(orderPizzaTest.Count > 1)
         {
-            Debug.Log($"{pizza.Key} {pizza.Value}판 주세요.");
+            Debug.Log($"{orderPizzaTest[0]} 1판, {orderPizzaTest[1]} 1판 주세요.");
+        }
+        else
+        {
+            Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요." );
         }
     }
 }
 
 //3판 주문 손님
-public class ConsumerTriple : ConsumerBase
+public class ConsumerTriple2 : ConsumerBase2
 {
     //public ConsumerTriple(int orderIdx, int pay, int satisfaction, bool giveTip)
     //{

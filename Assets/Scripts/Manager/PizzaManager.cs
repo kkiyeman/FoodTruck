@@ -24,12 +24,13 @@ public class PizzaManager : MonoBehaviour
     #endregion
 
     public List<Pizza> pizzaList;
+    public int pizzaCnt;
 
     private void Awake()
     {
         SetPizzaList();
         //Debug.Log(pizzaList.Count);
-        //Debug.Log($"¸Ş´º : {pizzaList[3].pizzaName}, °¡°İ : {pizzaList[3].price}, ·¹½ÃÇÇ : {pizzaList[3].recipe}");
+        //Debug.Log($"ï¿½Ş´ï¿½ : {pizzaList[3].pizzaName}, ï¿½ï¿½ï¿½ï¿½ : {pizzaList[3].price}, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : {pizzaList[3].recipe}");
         //Recipecheck();
     }
 
@@ -37,12 +38,14 @@ public class PizzaManager : MonoBehaviour
     {
         pizzaList = new List<Pizza>();
 
-        //                  ÇÇÀÚ (ÀÌ¸§ ,  °¡°İ ,    ·¹½ÃÇÇ)
+        //                  ï¿½ï¿½ï¿½ï¿½ (ï¿½Ì¸ï¿½ ,  ï¿½ï¿½ï¿½ï¿½ ,    ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 
-        pizzaList.Add(new Pizza("ÆäÆÛ·Î´Ï", 5.9f, new string[] { "µµ¿ì", "¼Ò½º", "Ä¡Áî", "ÆäÆÛ·Î´Ï" }));
-        pizzaList.Add(new Pizza("º£ÀÌÄÁÆ÷Å×ÀÌÅä", 6.9f, new string[] { "µµ¿ì", "¼Ò½º", "Ä¡Áî", "º£ÀÌÄÁ", "Æ÷Å×ÀÌÅä" }));
-        pizzaList.Add(new Pizza("ÇÏ¿ÍÀÌ¾È", 6.9f, new string[] { "µµ¿ì", "¼Ò½º", "Ä¡Áî", "º£ÀÌÄÁ", "ÆÄÀÎ¾ÖÇÃ" }));
-        pizzaList.Add(new Pizza("99¿¡ºñ´º", 7.9f, new string[] { "µµ¿ì", "¼Ò½º", "Ä¡Áî", "¿Ã¸®ºê", "¹ö¼¸", "ÆäÆÛ·Î´Ï" }));
+        pizzaList.Add(new Pizza("í˜í¼ë¡œë‹ˆ", 5.9f, new string[] { "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ò½ï¿½", "Ä¡ï¿½ï¿½", "ï¿½ï¿½ï¿½Û·Î´ï¿½" }));
+        pizzaList.Add(new Pizza("ë² ì´ì»¨í¬í…Œì´í† ", 6.9f, new string[] { "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ò½ï¿½", "Ä¡ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" }));
+        pizzaList.Add(new Pizza("í•˜ì™€ì´ì•ˆ", 6.9f, new string[] { "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ò½ï¿½", "Ä¡ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½" }));
+        pizzaList.Add(new Pizza("99ì—ë¹„ë‰´", 7.9f, new string[] { "ï¿½ï¿½ï¿½ï¿½", "ï¿½Ò½ï¿½", "Ä¡ï¿½ï¿½", "ï¿½Ã¸ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½Û·Î´ï¿½" }));
+
+        pizzaCnt = pizzaList.Count;
     }
 
     public Pizza GetPizzaList(int pizzaListIdx)
@@ -50,7 +53,7 @@ public class PizzaManager : MonoBehaviour
         return pizzaList[pizzaListIdx];
     }
     
-    //·¹½ÃÇÇ Àß µé¾î°¬´ÂÁö È®ÀÎ¿ë
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½î°¬ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½
     public void Recipecheck(int i)
     {
         //for (int i = 0; i < pizzaList.Count; i++)
@@ -63,36 +66,38 @@ public class PizzaManager : MonoBehaviour
     //public void GetRandomPizza(int PizzaCnt)
     //{
     //    int rand;
-    //    Pizza[] pizzaArray = new Pizza[PizzaCnt];
 
     //    for (int i = 0; i < PizzaCnt; i++)
     //    {
     //        rand = Random.Range(0, 3);
-    //        pizzaArray[i] = pizzaList[rand];
     //        string orderPizzaName = pizzaList[rand].pizzaName;
     //        Debug.Log(orderPizzaName);
     //    }
     //}
+    
 
-    public Pizza[] GetRandomPizza(int PizzaCnt)
-    {
-        int rand;
-        Pizza[] pizzaArray = new Pizza[PizzaCnt];
+//ëœë¤í”¼ì ë°°ì—´ë¡œ ì „ë‹¬
+    // public Pizza[] GetRandomPizza(int PizzaCnt)
+    // {
+    //     int rand;
+    //     int pizzaArrayCnt = 0;
+    //     Pizza[] pizzaArray = new Pizza[PizzaCnt];
+    //     Pizza pizza;
 
+    //     for (int i = 0; i < PizzaCnt; i++)
+    //     {
+    //         rand = Random.Range(0, 4);
+    //         pizzaArray[i] = pizzaList[rand];
+    //         pizzaArrayCnt++;
+    //     }
 
-        for (int i = 0; i < PizzaCnt; i++)
-        {
-            rand = Random.Range(0, 4);
-            pizzaArray[i] = pizzaList[rand];
-        }
+    //     pizzaArray = pizzaArray.OrderBy(data => pizzaList.IndexOf(data)).ToArray();
 
-        pizzaArray = pizzaArray.OrderBy(data => pizzaList.IndexOf(data)).ToArray();
+    //     for (int i = 0; i < pizzaArray.Length; i++)
+    //     {
+    //         Debug.Log($"{pizzaArray[i].pizzaName} {pizzaArrayCnt}íŒ ì£¼ì„¸ìš”.");
+    //     }
 
-        for (int i = 0; i < pizzaArray.Length; i++)
-        {
-            Debug.Log(pizzaArray[i].pizzaName);
-        }
-
-        return pizzaArray;
-    }
+    //     return pizzaArray;
+    // }
 }

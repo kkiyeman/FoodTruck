@@ -23,10 +23,10 @@ public class ConsumerManager : MonoBehaviour
 
 
 
-    public ConsumerBase[] consumerDatas = new ConsumerBase[]
+    public ConsumerBase2[] consumerDatas = new ConsumerBase2[]
     {
-        new ConsumerSingle(0, false, 1),
-        new ConsumerDouble(0, false, 1),
+        new ConsumerSingle2(0, false, 1),
+        new ConsumerDouble2(0, false, 1),
     };
 
     public object GetRandomConsumer()
@@ -35,7 +35,7 @@ public class ConsumerManager : MonoBehaviour
         return consumerDatas[rand];
     }
 
-    public ConsumerBase consumerData;
+    public ConsumerBase2 consumerData;
 
     void Start()
     {
