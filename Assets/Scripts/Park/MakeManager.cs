@@ -23,6 +23,8 @@ public class MakeManager : MonoBehaviour
     public int curBurgerIdx;
     [SerializeField] XRRayInteractor leftController;
     [SerializeField] XRRayInteractor rightController;
+    [SerializeField] Image log;
+    [SerializeField] Text txtLog;
 
     
 
@@ -91,12 +93,6 @@ public class MakeManager : MonoBehaviour
 
     private void SetButton()
     {
-        btnUpperBread.onClick.AddListener(OnClickSpawnUpperBread);
-        btnLettuce.onClick.AddListener(OnClickSpawnLettuce);
-        btnTomato.onClick.AddListener(OnClickSpawnTomato);
-        btnCheese.onClick.AddListener(OnClickSpawnCheese);
-        btnPatty.onClick.AddListener(OnClickSpawnPatty);
-        btnLowerBread.onClick.AddListener(OnClickSpawnLowerBread);
         btnGameStart.onClick.AddListener(OnClickGameStart);
         btnServe.onClick.AddListener(OnClickServe);
     }
@@ -106,41 +102,11 @@ public class MakeManager : MonoBehaviour
         isStart = true;
         StartCoroutine(InitQuest());
     }
-    private void OnClickSpawnUpperBread()
-    {
-        if(isMaking)
-            SpawnIngredients("¿≠ªß");
-    }
 
-    private void OnClickSpawnLettuce()
-    {
-        if (isMaking)
-            SpawnIngredients("æÁªÛ√ﬂ");
-    }
-    private void OnClickSpawnTomato()
-    {
-        if (isMaking)
-            SpawnIngredients("≈‰∏∂≈‰");
-    }
-    private void OnClickSpawnCheese()
-    {
-        if (isMaking)
-            SpawnIngredients("ƒ°¡Ó");
-    }
-    private void OnClickSpawnPatty()
-    {
-        if (isMaking)
-            SpawnIngredients("∞Ì±‚");
-    }
-    private void OnClickSpawnLowerBread()
-    {
-        if (isMaking)
-            SpawnIngredients("æ∆∑ßªß");
-    }
     
     private void OnClickServe()
     {
-        Debug.Log(GetScore(burgerList[curBurgerIdx]));
+        StartCoroutine(LogOn($"{GetScore(burgerList[curBurgerIdx])}"));
         for(int i = 0; i<orderList.Length;i++)
         {
             if(orderList[i].txtQuest.text == burgerList[curBurgerIdx].Name)
@@ -247,7 +213,7 @@ public class MakeManager : MonoBehaviour
     {
         
         RaycastHit hit;
-        if(leftController.TryGetCurrent3DRaycastHit(out hit))
+        if(leftController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
             if (hit.collider.tag == "Untagged")
                 return;
@@ -258,7 +224,7 @@ public class MakeManager : MonoBehaviour
     public void ChooseIngredientsRight()
     {
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit))
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
             if (hit.collider.tag == "Untagged")
                 return;
@@ -266,9 +232,12 @@ public class MakeManager : MonoBehaviour
         }
     }
 
-    public void SetIngredients()
+    public IEnumerator LogOn(string info)
     {
-
+        log.gameObject.SetActive(true);
+        txtLog.text = info;
+        yield return new WaitForSecondsRealtime(2f);
+        log.gameObject.SetActive(false);
     }
     
 }
