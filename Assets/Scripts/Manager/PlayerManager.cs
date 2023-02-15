@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     #region Singletone
-    private static IngredientManager instance;
+    private static PlayerManager instance;
 
-    public static IngredientManager GetInstance()
+    public static PlayerManager GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             GameObject go = new GameObject("@PlayerManager");
-            instance = go.AddComponent<IngredientManager>();
+            instance = go.AddComponent<PlayerManager>();
 
             DontDestroyOnLoad(go);
         }
