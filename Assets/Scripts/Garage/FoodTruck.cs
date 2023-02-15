@@ -5,13 +5,19 @@ using UnityEngine;
 public class FoodTruck : MonoBehaviour
 {
     public List<TruckColor> truckColors;
-    public void ColorChange()
+ 
+    public void Awake()
+    {
+        ColorCheck();
+    }
+
+    public void ColorCheck()
     {
         truckColors = new List<TruckColor>();
 
-        truckColors.Add(new TruckColor("Red", false, false));
-        truckColors.Add(new TruckColor("Black", false, false));
-        truckColors.Add(new TruckColor("Yellow", false, false));
+        truckColors.Add(new TruckColor("Red",0, false, false, false, false));
+        truckColors.Add(new TruckColor("Black",0, false, false, false, false));
+        truckColors.Add(new TruckColor("Yellow",0, false, false, false, false));
     }
 }
 
@@ -22,42 +28,48 @@ abstract class Truck
     public void BuyRedColor()
     {
         Debug.Log("레드@@");
-
-        foodTruck.truckColors[0].buycolor = true;
+        // if(money > 10000 && )
+        // { money =- 10000
+        foodTruck.truckColors[0].kimTruckBuycolor = true;
+        // }
     }
 
     public void BuyBlackColor()
     {
         Debug.Log("블랙@@");
-
-        foodTruck.truckColors[1].buycolor = true;
+        // if(money > 10000)
+        // { money =- 10000
+        foodTruck.truckColors[1].kimTruckBuycolor = true;
+        // }
     }
 
     public void BuyYellowColor()
     {
         Debug.Log("옐로우@@");
-
-        foodTruck.truckColors[2].buycolor = true;
+        // if(money > 10000)
+        // { money =- 10000
+        foodTruck.truckColors[2].kimTruckBuycolor = true;
+        // }
     }
     public void ChangeColorRed()
     {
         Debug.Log("레드@@");
 
-        foodTruck.truckColors[0].color = true;
+        
     }
 
     public void ChangeColorBlack()
     {
         Debug.Log("블랙@@");
 
-        foodTruck.truckColors[1].color = true;
+        
     }
 
     public void ChangeColorYellow()
     {
         Debug.Log("옐로우@@");
 
-        foodTruck.truckColors[2].color = true;
+        
     }
 }
 
