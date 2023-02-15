@@ -20,14 +20,14 @@ public class ConsumerBase2
         playerManager = PlayerManager.GetInstance();
     }
 
-    public virtual void Order()
+    public virtual List<string> Order()
     {
-        
+        return orderPizzaTest;
     }
 
-    public virtual void Pay()
+    public virtual float Pay()
     {
-
+        return pay;
     }
 
     public virtual void GiveTip()
@@ -45,7 +45,7 @@ public class ConsumerSingle2 : ConsumerBase2
         this.giveTip = giveTip;
         this.tip = tip;
     }
-    public override void Order()
+    public override List<string> Order()
     {
         Init();
         Debug.Log("ConsumerSingle 주문");
@@ -61,13 +61,17 @@ public class ConsumerSingle2 : ConsumerBase2
         Debug.Log($"{orderPizzaName} 1판 주세요");
 
         this.pay = pizzaManager.GetPizzaList(rand).price;
+
+        return orderPizzaTest;
     }
 
-    public override void Pay()
+    public override float Pay()
     {
         Init();
         Debug.Log($"${pay} 결제");
         playerManager.player.money += pay;
+
+        return pay;
     }
 
     public override void GiveTip()
@@ -88,7 +92,7 @@ public class ConsumerDouble2 : ConsumerBase2
         this.giveTip = giveTip;
         this.tip = tip;
     }
-    public override void Order()
+    public override List<string> Order()
     {
         Init();
         Debug.Log("ConsumerDouble 주문");
@@ -128,13 +132,17 @@ public class ConsumerDouble2 : ConsumerBase2
             Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요.");
             this.pay = orderPizzaPrice[0] * 2;
         }
+
+        return orderPizzaTest;
     }
 
-    public override void Pay()
+    public override float Pay()
     {
         Init();
         Debug.Log($"${pay} 결제");
         playerManager.player.money += pay;
+
+        return pay;
     }
 
     public override void GiveTip()
@@ -155,10 +163,12 @@ public class ConsumerCustom : ConsumerBase2
         this.satisfaction = satisfaction;
         this.giveTip = giveTip;
     }
-    public override void Order()
+    public override List<string> Order()
     {
         Init();
         Debug.Log("ConsumerCustom 주문");
+
+        return orderPizzaTest;
     }
 }
 
