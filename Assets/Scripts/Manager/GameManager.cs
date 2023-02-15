@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Update()
+    public void Save()
     {
-        
+        DataManager.instance.SaveData();
     }
 }
