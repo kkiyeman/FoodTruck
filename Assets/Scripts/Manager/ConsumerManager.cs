@@ -21,34 +21,38 @@ public class ConsumerManager : MonoBehaviour
 
     #endregion
 
-
-
     public ConsumerBase2[] consumerDatas = new ConsumerBase2[]
     {
         new ConsumerSingle2(0, false, 1),
         new ConsumerDouble2(0, false, 1),
     };
 
-    public object GetRandomConsumer()
-    {
-        int rand = Random.Range(0, consumerDatas.Length);
-        return consumerDatas[rand];
-    }
-
     public ConsumerBase2 consumerData;
 
     void Start()
     {
+        //int rand = Random.Range(0, consumerDatas.Length);
+        //consumerData = consumerDatas[rand];
+        //consumerData.Order();
+        //consumerData.Pay();
+    }
+    public ConsumerBase2 GetRandomConsumer()
+    {
         int rand = Random.Range(0, consumerDatas.Length);
         consumerData = consumerDatas[rand];
+
+        return consumerData;
+    }
+
+    public void Order()
+    {
+        consumerData = GetRandomConsumer();
         consumerData.Order();
-        consumerData.Pay();
     }
 
     public void Pay()
     {
-        
-    }
 
+    }
 
 }

@@ -30,7 +30,7 @@ public class PlayerPrefsTest : MonoBehaviour
     }
     public void SetData()
     {
-        player1 = new Player("aaa", 0, 500, 1);
+        player1 = new Player("aaa", 0, 500);
         testData1 = new TestData(0, "Å×½ºÆ®", 1.2f);
     }
 

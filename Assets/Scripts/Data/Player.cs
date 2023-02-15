@@ -8,15 +8,13 @@ public class Player
     public int repute;
     public float money;
     //public List<Ingredient> inventory;
-    public int customTruck;
     //장사일지도 추가되어야함..
 
-    public Player(string name, int repute, float money, int customTruck)
+    public Player(string name, int repute, float money)
     {
         this.name = name;
         this.repute = repute;
         this.money = money;
         //this.inventory = inventory;
-        this.customTruck = customTruck;
     }
 }

@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SetData()
     {
-        player = new Player("Player1", 0, 500, 1);
+        player = new Player("Player1", 0, 500);
     }
 
     public void SaveData()
