@@ -37,17 +37,19 @@ public class IngredientManager : MonoBehaviour
         toppingList = new List<Ingredient>();
 
         //기본재료 리스트             (이름, 가격, 상점수량, 인벤수량, 세일여부)
-        baseIngredientList.Add(new Ingredient("도우", 1, 20, 0, false));
-        baseIngredientList.Add(new Ingredient("소스", 1, 20, 0, false));
-        baseIngredientList.Add(new Ingredient("치즈", 1, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("도우", 4, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("소스", 5, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("치즈", 6, 20, 0, false));
+        baseIngredientList.Add(new Ingredient("콘", 3, 20, 0, false));
 
         //토핑재료 리스트             (이름, 가격, 상점수량, 인벤수량, 세일여부)
-        toppingList.Add(new Ingredient("페퍼로니", 1, 10, 0, false));
-        toppingList.Add(new Ingredient("베이컨", 1, 10, 0, false));
-        toppingList.Add(new Ingredient("포테이토", 1, 5, 0, false));
-        toppingList.Add(new Ingredient("파인애플", 1, 5, 0, false));
-        toppingList.Add(new Ingredient("올리브", 1, 5, 0, false));
-        toppingList.Add(new Ingredient("버섯", 1, 5, 0, false));
+        toppingList.Add(new Ingredient("페퍼로니", 0.6f, 10, 0, false));
+        toppingList.Add(new Ingredient("베이컨", 0.8f, 10, 0, false));
+        toppingList.Add(new Ingredient("포테이토", 0.2f, 10, 0, false));
+        toppingList.Add(new Ingredient("파인애플", 0.4f, 10, 0, false));
+        toppingList.Add(new Ingredient("올리브", 0.4f, 10, 0, false));
+        toppingList.Add(new Ingredient("버섯", 0.4f, 10, 0, false));
+        toppingList.Add(new Ingredient("피망", 0.4f, 10, 0, false));
     }
 
     //기본재료

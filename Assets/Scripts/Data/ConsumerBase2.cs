@@ -112,19 +112,15 @@ public class ConsumerDouble2 : ConsumerBase2
 //3판 주문 손님
 public class ConsumerTriple2 : ConsumerBase2
 {
-    //public ConsumerTriple(int orderIdx, int pay, int satisfaction, bool giveTip)
-    //{
-    //    this.orderIdx = orderIdx;
-    //    this.pay = pay;
-    //    this.satisfaction = satisfaction;
-    //    this.giveTip = giveTip;
-    //}
-    //public override void Order()
-    //{
-    //    Init();
-    //    Debug.Log("ConsumerSingle �ֹ�");
-    //    string orderedPizza = pizzaManager.GetPizzaList(orderIdx).pizzaName;
-    //    Debug.Log(orderedPizza);
-    //}
+    public ConsumerTriple2(int satisfaction, bool giveTip)
+    {
+        this.satisfaction = satisfaction;
+        this.giveTip = giveTip;
+    }
+    public override void Order()
+    {
+        Init();
+        Debug.Log("ConsumerSingle 주문");
+    }
 }
 

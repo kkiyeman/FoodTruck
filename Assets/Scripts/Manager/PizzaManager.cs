@@ -40,10 +40,10 @@ public class PizzaManager : MonoBehaviour
 
         //                  ���� (�̸� ,  ���� ,    ������)
 
-        pizzaList.Add(new Pizza("페퍼로니", 5.9f, new string[] { "����", "�ҽ�", "ġ��", "���۷δ�" }));
-        pizzaList.Add(new Pizza("베이컨포테이토", 6.9f, new string[] { "����", "�ҽ�", "ġ��", "������", "��������" }));
-        pizzaList.Add(new Pizza("하와이안", 6.9f, new string[] { "����", "�ҽ�", "ġ��", "������", "���ξ���" }));
-        pizzaList.Add(new Pizza("99에비뉴", 7.9f, new string[] { "����", "�ҽ�", "ġ��", "�ø���", "����", "���۷δ�" }));
+        pizzaList.Add(new Pizza("Pepperoni", 15, new string[] { "도우", "소스", "치즈", "페퍼로니" }));
+        pizzaList.Add(new Pizza("Bacon Potato", 17, new string[] { "도우", "소스", "치즈", "베이컨", "포테이토" }));
+        pizzaList.Add(new Pizza("Hawaiian", 18, new string[] { "도우", "소스", "치즈", "베이컨", "파인애플" }));
+        pizzaList.Add(new Pizza("99Avenue", 20, new string[] { "도우", "소스", "치즈", "버섯","피망", "페퍼로니" }));
 
         pizzaCnt = pizzaList.Count;
     }
@@ -53,7 +53,7 @@ public class PizzaManager : MonoBehaviour
         return pizzaList[pizzaListIdx];
     }
     
-    //������ �� ������ Ȯ�ο�
+    //확인용
     public void Recipecheck(int i)
     {
         //for (int i = 0; i < pizzaList.Count; i++)
@@ -62,42 +62,4 @@ public class PizzaManager : MonoBehaviour
         //}
         Debug.Log(pizzaList[i].recipe.Length);
     }
-
-    //public void GetRandomPizza(int PizzaCnt)
-    //{
-    //    int rand;
-
-    //    for (int i = 0; i < PizzaCnt; i++)
-    //    {
-    //        rand = Random.Range(0, 3);
-    //        string orderPizzaName = pizzaList[rand].pizzaName;
-    //        Debug.Log(orderPizzaName);
-    //    }
-    //}
-    
-
-//랜덤피자 배열로 전달
-    // public Pizza[] GetRandomPizza(int PizzaCnt)
-    // {
-    //     int rand;
-    //     int pizzaArrayCnt = 0;
-    //     Pizza[] pizzaArray = new Pizza[PizzaCnt];
-    //     Pizza pizza;
-
-    //     for (int i = 0; i < PizzaCnt; i++)
-    //     {
-    //         rand = Random.Range(0, 4);
-    //         pizzaArray[i] = pizzaList[rand];
-    //         pizzaArrayCnt++;
-    //     }
-
-    //     pizzaArray = pizzaArray.OrderBy(data => pizzaList.IndexOf(data)).ToArray();
-
-    //     for (int i = 0; i < pizzaArray.Length; i++)
-    //     {
-    //         Debug.Log($"{pizzaArray[i].pizzaName} {pizzaArrayCnt}판 주세요.");
-    //     }
-
-    //     return pizzaArray;
-    // }
 }
