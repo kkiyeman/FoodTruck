@@ -100,4 +100,10 @@ public class DataManager : MonoBehaviour
         // 쭈끄르 게임에서 쓰이는 불러오기 기능과 같다고 생각하면 된다
         // 쭈끄르 게임 - 마녀의 집
     }
+
+    public void DataClear()
+    {
+        nowSlot = -1;
+        nowPlayer = new PlayerData();
+    }
 }
