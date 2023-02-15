@@ -23,6 +23,8 @@ public class MakeManager : MonoBehaviour
     public int curBurgerIdx;
     [SerializeField] XRRayInteractor leftController;
     [SerializeField] XRRayInteractor rightController;
+    [SerializeField] XRBaseController leftHand;
+    [SerializeField] XRBaseController rightHand;
     [SerializeField] Image log;
     [SerializeField] Text txtLog;
 
@@ -43,7 +45,7 @@ public class MakeManager : MonoBehaviour
     {
         InitBurgerData();
         InitIngredientsData();
-        SetButton();
+       // SetButton();
     }
 
     private void InitIngredientsData()
@@ -209,17 +211,6 @@ public class MakeManager : MonoBehaviour
 
     }
 
-    public void ChooseIngredientsLeft()
-    {
-        
-        RaycastHit hit;
-        if(leftController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
-        {
-            if (hit.collider.tag == "Untagged")
-                return;
-            SpawnIngredients(hit.collider.tag);
-        }
-    }
     
     public void ChooseIngredientsRight()
     {
@@ -230,6 +221,14 @@ public class MakeManager : MonoBehaviour
                 return;
             SpawnIngredients(hit.collider.tag);
         }
+        Animator handAnim = rightHand.model.GetComponent<Animator>();
+        handAnim.SetBool("Hold", true);
+    }
+
+    public void LeftHandClick()
+    {
+        Animator handAnim = leftHand.model.GetComponent<Animator>();
+        handAnim.SetTrigger("Click");
     }
 
     public IEnumerator LogOn(string info)
@@ -239,5 +238,6 @@ public class MakeManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(2f);
         log.gameObject.SetActive(false);
     }
+
     
 }
