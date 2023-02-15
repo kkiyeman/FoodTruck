@@ -13,6 +13,9 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     Vector3 defaultScale;
 
+    public CanvasGroup mainGroup;
+    public CanvasGroup optionGroup;
+
     private void Start()
     {
         defaultScale = buttonScale.localScale;
@@ -25,20 +28,36 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             // 새게임
             case BtnType.NewGame:
-                Debug.Log("NewGame");
+                SceneLoader.LoadSceneHandle("Garage", 0);
                 break;
 
             // 불러오기
             case BtnType.Load:
-                Debug.Log("Load");
+                SceneLoader.LoadSceneHandle("Garage", 1);
                 break;
 
             // 나가기
             case BtnType.Exit:
+                Application.Quit();
                 Debug.Log("Exit");
                 break;
         }
     }
+
+    public void CanvasGroupOn(CanvasGroup cg)
+    {
+        cg.alpha = 1;
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
+    }
+
+    public void CanvasGroupOff(CanvasGroup cg)
+    {
+        cg.alpha = 0;
+        cg.interactable = false;
+        cg.blocksRaycasts = false;
+    }
+
 
     // IPointerEnterHandler를 추가하려면 이것을 써야한다.
     public void OnPointerEnter(PointerEventData eventData)
