@@ -108,19 +108,6 @@ public class ConsumerDouble : ConsumerBase
 //3판 주문 손님
 public class ConsumerTriple : ConsumerBase
 {
-    //public ConsumerTriple(int orderIdx, int pay, int satisfaction, bool giveTip)
-    //{
-    //    this.orderIdx = orderIdx;
-    //    this.pay = pay;
-    //    this.satisfaction = satisfaction;
-    //    this.giveTip = giveTip;
-    //}
-    //public override void Order()
-    //{
-    //    Init();
-    //    Debug.Log("ConsumerSingle �ֹ�");
-    //    string orderedPizza = pizzaManager.GetPizzaList(orderIdx).pizzaName;
-    //    Debug.Log(orderedPizza);
-    //}
+
 }
 

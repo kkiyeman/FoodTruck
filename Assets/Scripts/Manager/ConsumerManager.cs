@@ -39,14 +39,16 @@ public class ConsumerManager : MonoBehaviour
 
     void Start()
     {
-        //int rand = Random.Range(0, consumerDatas.Length);
-        consumerData = consumerDatas[1];
+        int rand = Random.Range(0, consumerDatas.Length);
+        consumerData = consumerDatas[rand];
         consumerData.Order();
+        consumerData.Pay();
     }
 
-    void Update()
+    public void Pay()
     {
         
     }
+
 
 }
