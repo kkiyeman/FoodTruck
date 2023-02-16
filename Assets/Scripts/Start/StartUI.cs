@@ -15,8 +15,9 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     // 캔버스 그룹을 인식하게 해준다
     // 버튼을 누르면 캔버스가 오픈되거나 클로즈 되게 만든다
-    public CanvasGroup mainGroup;
-    public CanvasGroup optionGroup;
+    public CanvasGroup nowGroup;
+    public CanvasGroup nextGroup;
+
 
     private void Start()
     {
@@ -30,48 +31,69 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             // 새게임
             case BtnType.NewGame:
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("NewGame");
                 break;
 
             // 계정 생성 체크 버튼
             case BtnType.Check:
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
                 Debug.Log("CreatCheck");
                 break;
 
-            // 계정 생성 맞습니다 버튼
+            // 계정 생성 확인 버튼
             case BtnType.NameCheckYes:
-                //SceneLoader.LoadSceneHandle
+                SceneLoader.LoadSceneHandle("Play", 0);
                 Debug.Log("Yes");
                 break;
 
-            // 계정 생성 아닙니다 버튼
+            // 계정 생성 취소 버튼
             case BtnType.NameCheckNo:
-
-                Debug.Log("No");
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("Cancel");
                 break;
 
             // 불러오기
             case BtnType.Load:
-
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("Load");
                 break;
 
             // 불러오기 파일 체크
-            case BtnType.FileCheck:
+            case BtnType.FileSlot:
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("LoadCheck");
+                break;
 
+            // 불러오기 파일 체크
+            case BtnType.Back:
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("Back");
                 break;
 
             // 이 저장 파일을 불러올 것이다
             case BtnType.FileCheckYes:
-
+                SceneLoader.LoadSceneHandle("Play", 1); 
+                Debug.Log("Yes");
                 break;
 
             // 이 저장 파일을 불러오지 않는다
             case BtnType.FileCheckNo:
-
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("Cancel");
                 break;
 
             // 나가기
             case BtnType.Exit:
-
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
                 Debug.Log("Exit");
                 break;
 
@@ -83,7 +105,8 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // 게임 종료 No 버튼
             case BtnType.GameExitNo:
-
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
                 Debug.Log("I'm play go now");
                 break;
 
@@ -97,6 +120,8 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         cg.alpha = 1;
         cg.interactable = true;
         cg.blocksRaycasts = true;
+
+
     }
 
     // 캔버스가 꺼지는 기능
@@ -105,6 +130,7 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         cg.alpha = 0;
         cg.interactable = false;
         cg.blocksRaycasts = false;
+
     }
 
 
