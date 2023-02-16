@@ -28,7 +28,7 @@ public class ConsumerBase
     }
 }
 
-//1�� �ֹ� �մ�
+//1판 주문 손님
 public class ConsumerSingle : ConsumerBase
 {
     public ConsumerSingle(int satisfaction, bool giveTip, int tip)
@@ -57,14 +57,21 @@ public class ConsumerSingle : ConsumerBase
 
     public override void GiveTip()
     {
-        if(giveTip == true)
+        int rand = Random.Range(0, 10);
+        if(rand < 3)
         {
-            playerManager.player.money += tip;
+            giveTip = true;
+            if (giveTip == true)
+            {
+                playerManager.player.money += tip;
+            }
+            else
+                return;
         }
     }
 }
 
-//2�� �ֹ� �մ�
+//2판 주문 손님
 public class ConsumerDouble : ConsumerBase
 {
     public ConsumerDouble(int satisfaction, bool giveTip, int tip)

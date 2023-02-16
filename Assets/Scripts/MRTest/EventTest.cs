@@ -1,19 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventTest : MonoBehaviour
 {
-    public ConsumerManager consumerManager;
-    public ConsumerBase2 consumerData;
+    ConsumerManager consumerManager;
+    ConsumerBase2 consumerData;
+    public Text txtOrder;
 
     void Start()
     {
         consumerManager = ConsumerManager.GetInstance();
         consumerData = consumerManager.GetRandomConsumer();
 
-        consumerData.Order();
-        consumerData.Pay();
-    }
+        //consumerData.Order();
+        //consumerData.Pay();
 
+        txtOrder.text = $"{consumerData.Order()}";
+    }
 }

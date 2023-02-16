@@ -6,6 +6,9 @@ public class ConsumerBase2
 {
     public List<string> orderPizzaTest;
     public List<float> orderPizzaPrice;
+    public string order;
+    public string orderPizzaName;
+    public int orderPizzaCnt = 1;
     public float pay;
     public int satisfaction;
     public bool giveTip;
@@ -20,9 +23,9 @@ public class ConsumerBase2
         playerManager = PlayerManager.GetInstance();
     }
 
-    public virtual List<string> Order()
+    public virtual string Order()
     {
-        return orderPizzaTest;
+        return order;
     }
 
     public virtual float Pay()
@@ -45,26 +48,27 @@ public class ConsumerSingle2 : ConsumerBase2
         this.giveTip = giveTip;
         this.tip = tip;
     }
-    public override List<string> Order()
+    //주문
+    public override string Order()
     {
         Init();
         Debug.Log("ConsumerSingle 주문");
 
-        string orderPizzaName;
         this.orderPizzaTest = new List<string>();
-        int rand = Random.Range(0, 4);
 
-        orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
-        
+        int rand = Random.Range(0, 4);
+        this.orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+
         orderPizzaTest.Add(orderPizzaName);
         
-        Debug.Log($"{orderPizzaName} 1판 주세요");
+        Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요");
 
+        this.order = $"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요";
         this.pay = pizzaManager.GetPizzaList(rand).price;
 
-        return orderPizzaTest;
+        return order;
     }
-
+    //결제
     public override float Pay()
     {
         Init();
@@ -73,12 +77,19 @@ public class ConsumerSingle2 : ConsumerBase2
 
         return pay;
     }
-
+    //팁
     public override void GiveTip()
     {
-        if(giveTip == true)
+        int rand = Random.Range(0, 10);
+        if (rand < 4)
         {
-            playerManager.player.money += tip;
+            giveTip = true;
+            if (giveTip == true)
+            {
+                playerManager.player.money += tip;
+            }
+            else
+                return;
         }
     }
 }
@@ -92,14 +103,14 @@ public class ConsumerDouble2 : ConsumerBase2
         this.giveTip = giveTip;
         this.tip = tip;
     }
-    public override List<string> Order()
+    //주문
+    public override string Order()
     {
         Init();
         Debug.Log("ConsumerDouble 주문");
 
         this.orderPizzaTest = new List<string>();
         this.orderPizzaPrice = new List<float>();
-        int orderPizzaCnt = 1;
 
         for(int i = 0; i < 2; i++)
         {
@@ -125,17 +136,19 @@ public class ConsumerDouble2 : ConsumerBase2
         if(orderPizzaTest.Count > 1)
         {
             Debug.Log($"{orderPizzaTest[0]} 1판, {orderPizzaTest[1]} 1판 주세요.");
+            this.order = $"{orderPizzaTest[0]} 1판, \n{orderPizzaTest[1]} 1판 주세요.";
             this.pay = orderPizzaPrice[0] + orderPizzaPrice[1];
         }
         else
         {
             Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요.");
+            this.order = $"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요.";
             this.pay = orderPizzaPrice[0] * 2;
         }
 
-        return orderPizzaTest;
+        return order;
     }
-
+    //결제
     public override float Pay()
     {
         Init();
@@ -144,12 +157,19 @@ public class ConsumerDouble2 : ConsumerBase2
 
         return pay;
     }
-
+    //팁
     public override void GiveTip()
     {
-        if (giveTip == true)
+        int rand = Random.Range(0, 10);
+        if (rand < 6)
         {
-            playerManager.player.money += tip;
+            giveTip = true;
+            if (giveTip == true)
+            {
+                playerManager.player.money += tip;
+            }
+            else
+                return;
         }
     }
 }
@@ -163,12 +183,12 @@ public class ConsumerCustom : ConsumerBase2
         this.satisfaction = satisfaction;
         this.giveTip = giveTip;
     }
-    public override List<string> Order()
+    public override string Order()
     {
         Init();
         Debug.Log("ConsumerCustom 주문");
 
-        return orderPizzaTest;
+        return order;
     }
 }
 
