@@ -131,8 +131,11 @@ public class ConsumerDouble2 : ConsumerBase2
 
             if(orderPizzaTest.Contains(orderPizzaName))
             {
-                orderPizzaCnt++;
                 orderPizzaPrice.Add(pizzaManager.GetPizzaList(rand).price);
+                if (orderPizzaCnt < 2)
+                {
+                    orderPizzaCnt++;
+                }
             }
             else
             {

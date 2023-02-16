@@ -13,8 +13,12 @@ public class EventTest : MonoBehaviour
     //UIManager uiManager;
     //public Text txtOrder;
 
-
     void Start()
+    {
+
+    }
+
+    public void Order()
     {
         ConsumerManager consumerManager = ConsumerManager.GetInstance();
         ConsumerBase2 consumerData = consumerManager.GetRandomConsumer();
