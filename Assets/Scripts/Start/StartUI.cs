@@ -39,7 +39,7 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // 계정 생성 맞습니다 버튼
             case BtnType.NameCheckYes:
-                SceneLoader.LoadSceneHandle("",)
+                //SceneLoader.LoadSceneHandle
                 Debug.Log("Yes");
                 break;
 

@@ -19,6 +19,7 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadScene());
     }
 
+    // 씬을 넘어가게 하는 작동은 NameCheckYes, FileCheckYes를 할때만 사용해야겠다
     public static void LoadSceneHandle(string _name, int _loadType)
     {
         loadScene = _name;
