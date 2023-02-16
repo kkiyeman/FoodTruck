@@ -13,6 +13,8 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     Vector3 defaultScale;
 
+    // 캔버스 그룹을 인식하게 해준다
+    // 버튼을 누르면 캔버스가 오픈되거나 클로즈 되게 만든다
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
 
@@ -28,22 +30,68 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             // 새게임
             case BtnType.NewGame:
-                SceneLoader.LoadSceneHandle("Garage", 0);
+                break;
+
+            // 계정 생성 체크 버튼
+            case BtnType.Check:
+                Debug.Log("CreatCheck");
+                break;
+
+            // 계정 생성 맞습니다 버튼
+            case BtnType.NameCheckYes:
+                SceneLoader.LoadSceneHandle("",)
+                Debug.Log("Yes");
+                break;
+
+            // 계정 생성 아닙니다 버튼
+            case BtnType.NameCheckNo:
+
+                Debug.Log("No");
                 break;
 
             // 불러오기
             case BtnType.Load:
-                SceneLoader.LoadSceneHandle("Garage", 1);
+
+                break;
+
+            // 불러오기 파일 체크
+            case BtnType.FileCheck:
+
+                break;
+
+            // 이 저장 파일을 불러올 것이다
+            case BtnType.FileCheckYes:
+
+                break;
+
+            // 이 저장 파일을 불러오지 않는다
+            case BtnType.FileCheckNo:
+
                 break;
 
             // 나가기
             case BtnType.Exit:
-                Application.Quit();
+
                 Debug.Log("Exit");
                 break;
+
+            // 게임 종료 Yes 버튼
+            case BtnType.GameExitYes:
+                Application.Quit();
+                Debug.Log("GameSleep");
+                break;
+
+            // 게임 종료 No 버튼
+            case BtnType.GameExitNo:
+
+                Debug.Log("I'm play go now");
+                break;
+
+
         }
     }
 
+    // 캔버스가 켜지는 기능
     public void CanvasGroupOn(CanvasGroup cg)
     {
         cg.alpha = 1;
@@ -51,6 +99,7 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         cg.blocksRaycasts = true;
     }
 
+    // 캔버스가 꺼지는 기능
     public void CanvasGroupOff(CanvasGroup cg)
     {
         cg.alpha = 0;

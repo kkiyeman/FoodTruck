@@ -6,8 +6,16 @@ using UnityEngine;
 public enum BtnType
 {
     NewGame,
+    Check,
+    NameCheckYes,
+    NameCheckNo,
     Load,
-    Exit
+    FileCheck,
+    FileCheckYes,
+    FileCheckNo,
+    Exit,
+    GameExitYes,
+    GameExitNo
 }
 public class StartManager : MonoBehaviour
 {

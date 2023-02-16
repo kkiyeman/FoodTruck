@@ -66,17 +66,17 @@ public class SceneLoader : MonoBehaviour
                 // Mathf.MoveTowards를 했다는 것은 현재 위치에서 목표 위치로 이동시킬 때 사용한다
                 progressbar.value = Mathf.MoveTowards(progressbar.value, 0.9f, Time.deltaTime);
             }
-
+            
             else if (operation.progress >= 0.9f)
             {
                 progressbar.value = Mathf.MoveTowards(progressbar.value, 1f, Time.deltaTime);
             }
-
+            
             if (progressbar.value >= 1f)
             {
                 loadtext.text = "Press SpaceBar";
             }
-
+            
             // 어떻게 하면 스페이스키 대신 컨트롤러의 키로 작동하도록 할 수 있을까?
             if (Input.GetKeyDown(KeyCode.Space) && progressbar.value >= 1f && operation.progress >= 0.9f)
             {
