@@ -44,10 +44,12 @@ public class ConsumerManager : MonoBehaviour
         return consumerData;
     }
 
-    public void Order()
+    public ConsumerBase2 Order()
     {
         consumerData = GetRandomConsumer();
         consumerData.Order();
+
+        return consumerData;
     }
 
     public void Pay()

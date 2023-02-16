@@ -52,6 +52,20 @@ public class UIManager : MonoBehaviour
             uiList[uiName].SetActive(false);
     }
 
+    public GameObject SetUI(string uiName)
+    {
+        GameObject go = uiList[uiName];
+
+        //if (uiList.ContainsKey(uiName) == false)
+        //{
+        //    OpenUI(uiName);
+        //}
+        //else
+        //    return go;
+
+        return go;
+    }
+
     public void ClearList()
     {
         uiList.Clear();
