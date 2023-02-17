@@ -43,6 +43,7 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isMaking = true;
         InitBurgerData();
         InitIngredientsData();
        // SetButton();
@@ -214,12 +215,11 @@ public class MakeManager : MonoBehaviour
     
     public void ChooseIngredientsRight()
     {
+        var curPizza = makingpizza;
         RaycastHit hit;
         if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
-            if (hit.collider.tag == "Untagged")
-                return;
-            SpawnIngredients(hit.collider.tag);
+            curPizza.AddIngredient(hit.collider.tag);
         }
         Animator handAnim = rightHand.model.GetComponent<Animator>();
         handAnim.SetBool("Hold", true);

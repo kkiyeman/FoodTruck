@@ -17,6 +17,7 @@ public class MakingPizza : MonoBehaviour
     {
         for(int i = 0; i<Ingredients.Count; i++)
         {
+            Debug.Log(Ingredients[i].name);
             if (Ingredients[i].name == name)
                 Ingredients[i].SetActive(true);
         }
