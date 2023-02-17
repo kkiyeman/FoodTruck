@@ -22,7 +22,6 @@ public class PlayerData
     public string name;
     public int repute;
     public int money;
-    public int customTruck;
 }
 
 public class DataManager : MonoBehaviour
@@ -43,7 +42,7 @@ public class DataManager : MonoBehaviour
     public int nowSlot;
 
     // 기본적이 싱글톤 설정이다
-    private void Awake()
+    protected void Awake()
     {
         #region 싱글톤
         if (instance == null)
@@ -65,7 +64,17 @@ public class DataManager : MonoBehaviour
         // 경로 뒤에 /를 넣어주어야 오류가 없이 잘 된다
         // /에 save를 넣어서 Select 스크립트의 File.Exists();의 경로를 정해준다
         path = Application.persistentDataPath + "/save";
+
+        //NowPlayer();
     }
+
+    //public void NowPlayer(string name, int repute, int money)
+    //{
+        //public string name;
+        //public int repute;
+        //public int money;
+    //}
+
 
     void Start()
     {
@@ -97,8 +106,8 @@ public class DataManager : MonoBehaviour
         nowPlayer = JsonUtility.FromJson<PlayerData>(data); // 불러온 데이터가 nowPlayer에 덮어씌어지게 된다
 
         // 슬롯에 따라서 저장되는 이름을 바꿔준다면 각각 슬롯마다 다른 이름으로 저장되고 각각 다르게 저장되고 각각 다르게 불러올 수 있는 것이다
-        // 쭈끄르 게임에서 쓰이는 불러오기 기능과 같다고 생각하면 된다
-        // 쭈끄르 게임 - 마녀의 집
+        // 스팀 게임에서 쓰이는 불러오기 기능과 같다고 생각하면 된다
+        // 스팀 게임 - 스타듀벨리
     }
 
     public void DataClear()
