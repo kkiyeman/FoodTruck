@@ -37,7 +37,7 @@ public class Select : MonoBehaviour
                 savefile[i] = true;
                 DataManager.instance.nowSlot = i;
                 DataManager.instance.LoadData();
-                slotText[i].text = DataManager.instance.nowPlayer.name;
+                //slotText[i].text = DataManager.instance.nowPlayer.name;
             }
             else
             {

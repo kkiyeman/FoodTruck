@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    //이 스크립트는 다중상속을 받고 있다
+
     // OnBtnClick과 연결되는 명사
     public BtnType currentType;
 
@@ -45,7 +47,7 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // 계정 생성 확인 버튼
             case BtnType.NameCheckYes:
-                SceneLoader.LoadSceneHandle("Play", 0);
+                //SceneLoader.LoadSceneHandle("Play", 0);
                 Debug.Log("Yes");
                 break;
 
@@ -79,7 +81,7 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // 이 저장 파일을 불러올 것이다
             case BtnType.FileCheckYes:
-                SceneLoader.LoadSceneHandle("Play", 1); 
+                //SceneLoader.LoadSceneHandle("Play", 1); 
                 Debug.Log("Yes");
                 break;
 
