@@ -27,7 +27,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] XRBaseController rightHand;
     [SerializeField] Image log;
     [SerializeField] Text txtLog;
-
+    [SerializeField] MakingPizza makingpizza;
     
 
     public List<Hamburger> burgerList = new List<Hamburger>();
