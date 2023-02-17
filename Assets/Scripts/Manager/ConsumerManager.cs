@@ -31,10 +31,7 @@ public class ConsumerManager : MonoBehaviour
 
     void Start()
     {
-        //int rand = Random.Range(0, consumerDatas.Length);
-        //consumerData = consumerDatas[rand];
-        //consumerData.Order();
-        //consumerData.Pay();
+
     }
     public ConsumerBase2 GetRandomConsumer()
     {

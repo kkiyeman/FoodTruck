@@ -20,16 +20,14 @@ public class EventTest : MonoBehaviour
 
     public void Order()
     {
-        ConsumerManager consumerManager = ConsumerManager.GetInstance();
-        ConsumerBase2 consumerData = consumerManager.GetRandomConsumer();
+        ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
 
         List<string> orderPizza = consumerData.Order();
         int orderPizzaCnt = consumerData.OrderPizzaCnt();
 
-        UIManager uiManager = UIManager.GetInstance();
-        uiManager.OpenUI("uiOrder");
+        UIManager.GetInstance().OpenUI("uiOrder");
 
-        GameObject uiOrder = uiManager.SetUI("uiOrder");
+        GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
         Text txtOrder = uiOrder.GetComponentInChildren<Text>();
 
         if (orderPizza.Count > 1)
