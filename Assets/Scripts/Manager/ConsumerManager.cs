@@ -9,7 +9,7 @@ public class ConsumerManager : MonoBehaviour
 
     public static ConsumerManager GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             GameObject go = new GameObject("@ConsumerManager");
             instance = go.AddComponent<ConsumerManager>();
@@ -26,8 +26,8 @@ public class ConsumerManager : MonoBehaviour
         new ConsumerSingle2(0, false, 1),
         new ConsumerDouble2(0, false, 1),
     };
-
     public ConsumerBase2 consumerData;
+    
 
     void Start()
     {
@@ -37,6 +37,7 @@ public class ConsumerManager : MonoBehaviour
     {
         int rand = Random.Range(0, consumerDatas.Length);
         consumerData = consumerDatas[rand];
+        GameObject go = ObjectManager.GetInstance().CreateConsumer();
 
         return consumerData;
     }

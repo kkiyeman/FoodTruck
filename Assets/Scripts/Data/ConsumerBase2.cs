@@ -59,16 +59,16 @@ public class ConsumerSingle2 : ConsumerBase2
         Init();
         Debug.Log("ConsumerSingle 주문");
 
-        this.orderPizzaTest = new List<string>();
+        orderPizzaTest = new List<string>();
 
         int rand = Random.Range(0, 4);
-        this.orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+        orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
 
         orderPizzaTest.Add(orderPizzaName);
         
         Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요");
 
-        this.pay = pizzaManager.GetPizzaList(rand).price;
+        pay = pizzaManager.GetPizzaList(rand).price;
 
         return orderPizzaTest;
     }
@@ -117,8 +117,8 @@ public class ConsumerDouble2 : ConsumerBase2
         Init();
         Debug.Log("ConsumerDouble 주문");
 
-        this.orderPizzaTest = new List<string>();
-        this.orderPizzaPrice = new List<float>();
+        orderPizzaTest = new List<string>();
+        orderPizzaPrice = new List<float>();
         orderPizzaCnt = 1;
 
         for(int i = 0; i < 2; i++)
@@ -147,12 +147,12 @@ public class ConsumerDouble2 : ConsumerBase2
         if(orderPizzaTest.Count > 1)
         {
             Debug.Log($"{orderPizzaTest[0]} 1판, {orderPizzaTest[1]} 1판 주세요.");
-            this.pay = orderPizzaPrice[0] + orderPizzaPrice[1];
+            pay = orderPizzaPrice[0] + orderPizzaPrice[1];
         }
         else
         {
             Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요.");
-            this.pay = orderPizzaPrice[0] * 2;
+            pay = orderPizzaPrice[0] * 2;
         }
 
         return orderPizzaTest;
