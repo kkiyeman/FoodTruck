@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ConsumerBase2
 {
-    public List<string> orderPizzaTest;
-    public List<float> orderPizzaPrice;
+    public List<string> orderPizzaTest {get; set;}
+    public List<float> orderPizzaPrice {get; set;}
 
-    public string orderPizzaName;
-    public int orderPizzaCnt = 1;
-    public float pay;
-    public int satisfaction;
-    public bool giveTip;
-    public int tip;
+    public string orderPizzaName {get; set;}
+    public int orderPizzaCnt {get; set;}
+    public float pay {get; set;}
+    public int satisfaction {get; set;}
+    public bool giveTip {get; set;}
+    public int tip {get; set;}
 
     public PizzaManager pizzaManager;
     public PlayerManager playerManager;
@@ -52,6 +52,7 @@ public class ConsumerSingle2 : ConsumerBase2
         this.satisfaction = satisfaction;
         this.giveTip = giveTip;
         this.tip = tip;
+        this.orderPizzaCnt = 1;
     }
     //주문
     public override List<string> Order()
@@ -119,7 +120,7 @@ public class ConsumerDouble2 : ConsumerBase2
 
         orderPizzaTest = new List<string>();
         orderPizzaPrice = new List<float>();
-        orderPizzaCnt = 1;
+        //orderPizzaCnt = 1;
 
         for(int i = 0; i < 2; i++)
         {
