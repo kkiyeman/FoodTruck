@@ -28,6 +28,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Image log;
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
+    Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
     
 
     public List<Hamburger> burgerList = new List<Hamburger>();
@@ -46,7 +47,23 @@ public class MakeManager : MonoBehaviour
         isMaking = true;
         InitBurgerData();
         InitIngredientsData();
-       // SetButton();
+        Invoke("InitHoldingIngredients", 1);
+        // SetButton();
+    }
+
+    private void InitHoldingIngredients()
+    {
+        var go = new GameObject();
+        go.name = "@HoldingPool";
+        var IngredeintsInfo = Resources.LoadAll<GameObject>("99Pizza/Holding");
+        for(int i = 0; i<IngredeintsInfo.Length; i++)
+        {
+            var ingGo = Instantiate(IngredeintsInfo[i], go.transform);
+            holdingIngredients.Add(ingGo.name, ingGo);
+            ingGo.SetActive(false);
+        }
+        go.transform.position = rightHand.model.transform.position;
+        go.transform.SetParent(rightHand.model.transform);
     }
 
     private void InitIngredientsData()
@@ -92,6 +109,11 @@ public class MakeManager : MonoBehaviour
             }
         }
 
+    }
+
+    private void HoldIngredient(string name)
+    {
+        holdingIngredients[$"Hold{name}(Clone)"].SetActive(true);
     }
 
     private void SetButton()
@@ -219,6 +241,7 @@ public class MakeManager : MonoBehaviour
         RaycastHit hit;
         if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
+            HoldIngredient(hit.collider.tag);
             curPizza.AddIngredient(hit.collider.tag);
         }
         Animator handAnim = rightHand.model.GetComponent<Animator>();
