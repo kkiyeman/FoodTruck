@@ -8,13 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class MakeManager : MonoBehaviour
 {
 
-    [SerializeField] Button btnUpperBread;
-    [SerializeField] Button btnLettuce;
-    [SerializeField] Button btnTomato;
-    [SerializeField] Button btnCheese;
-    [SerializeField] Button btnPatty;
-    [SerializeField] Button btnLowerBread;
-    [SerializeField] Button btnServe;
+   
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
@@ -23,8 +17,10 @@ public class MakeManager : MonoBehaviour
     public int curBurgerIdx;
     [SerializeField] XRRayInteractor leftController;
     [SerializeField] XRRayInteractor rightController;
-    [SerializeField] XRBaseController leftHand;
-    [SerializeField] XRBaseController rightHand;
+    [SerializeField] GameObject leftHand;
+    [SerializeField] Transform leftHandHoldPoint;
+    [SerializeField] GameObject rightHand;
+    [SerializeField] GameObject rightHandHoldPoint;
     [SerializeField] Image log;
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
@@ -47,7 +43,7 @@ public class MakeManager : MonoBehaviour
         isMaking = true;
         InitBurgerData();
         InitIngredientsData();
-        Invoke("InitHoldingIngredients", 1);
+        InitHoldingIngredients();
         // SetButton();
     }
 
@@ -55,15 +51,16 @@ public class MakeManager : MonoBehaviour
     {
         var go = new GameObject();
         go.name = "@HoldingPool";
+        go.transform.SetParent(rightHandHoldPoint.transform);
         var IngredeintsInfo = Resources.LoadAll<GameObject>("99Pizza/Holding");
         for(int i = 0; i<IngredeintsInfo.Length; i++)
         {
             var ingGo = Instantiate(IngredeintsInfo[i], go.transform);
+            ingGo.transform.position = rightHandHoldPoint.transform.position;
             holdingIngredients.Add(ingGo.name, ingGo);
             ingGo.SetActive(false);
         }
-        go.transform.position = rightHand.model.transform.position;
-        go.transform.SetParent(rightHand.model.transform);
+        
     }
 
     private void InitIngredientsData()
@@ -119,7 +116,6 @@ public class MakeManager : MonoBehaviour
     private void SetButton()
     {
         btnGameStart.onClick.AddListener(OnClickGameStart);
-        btnServe.onClick.AddListener(OnClickServe);
     }
 
     private void OnClickGameStart()
@@ -244,13 +240,13 @@ public class MakeManager : MonoBehaviour
             HoldIngredient(hit.collider.tag);
             curPizza.AddIngredient(hit.collider.tag);
         }
-        Animator handAnim = rightHand.model.GetComponent<Animator>();
+        Animator handAnim = rightHand.GetComponent<Animator>();
         handAnim.SetBool("Hold", true);
     }
 
     public void LeftHandClick()
     {
-        Animator handAnim = leftHand.model.GetComponent<Animator>();
+        Animator handAnim = leftHand.GetComponent<Animator>();
         handAnim.SetTrigger("Click");
     }
 

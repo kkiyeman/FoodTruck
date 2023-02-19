@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6969824671707465825
+--- !u!1 &3623040275110643449
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7778308303864517339}
-  - component: {fileID: 6655688741612412286}
-  - component: {fileID: 8915217325692496308}
-  - component: {fileID: 3035900145898889336}
-  - component: {fileID: 5543468833369012647}
+  - component: {fileID: 3321014976981823418}
+  - component: {fileID: 2519382641973722883}
+  - component: {fileID: 4521803883128170993}
   m_Layer: 0
-  m_Name: HoldDow
-  m_TagString: Dow
+  m_Name: Model
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7778308303864517339
+--- !u!4 &3321014976981823418
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6969824671707465825}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_GameObject: {fileID: 3623040275110643449}
+  m_LocalRotation: {x: -0.28516224, y: -0.5623859, z: -0.6026172, w: 0.4891391}
+  m_LocalPosition: {x: 0.02833021, y: -0.0027873823, z: 0.0017841924}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 7778308303864517339}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6655688741612412286
+  m_LocalEulerAnglesHint: {x: -73.092, y: -45.233, z: -67.548}
+--- !u!33 &2519382641973722883
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6969824671707465825}
+  m_GameObject: {fileID: 3623040275110643449}
   m_Mesh: {fileID: 8243724659680050095, guid: 710758d9010deab45bd91766bae5b639, type: 3}
---- !u!23 &8915217325692496308
+--- !u!23 &4521803883128170993
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6969824671707465825}
+  m_GameObject: {fileID: 3623040275110643449}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,19 +81,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3035900145898889336
-SphereCollider:
+--- !u!1 &6969824671707465825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7778308303864517339}
+  - component: {fileID: 5543468833369012647}
+  m_Layer: 0
+  m_Name: HoldDow
+  m_TagString: Dow
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7778308303864517339
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6969824671707465825}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.13183075
-  m_Center: {x: 0.013786279, y: -0.055875093, z: -0.0060290955}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3321014976981823418}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5543468833369012647
 MonoBehaviour:
   m_ObjectHideFlags: 0
