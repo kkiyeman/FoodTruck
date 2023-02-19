@@ -52,11 +52,13 @@ public class Shop : MonoBehaviour
 
     ShopDataChecker shopdataChecker = new ShopDataChecker();
     PlayerData playerData = new PlayerData();
-    Inventory inventory = new Inventory();
+
+    public GameObject inventory;
+
     /// //////////////////////////////////////////////////////////////////////////////////
 
     public List<ToppingsData> _ToppingsData = new List<ToppingsData>();
-    public List<BaseIngredientData> _BaseIngredientData = new List<BaseIngredientData>();
+    public List<ToppingsData> _BaseIngredientData = new List<ToppingsData>();
 
     //////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,7 +108,7 @@ public class Shop : MonoBehaviour
         Sauce sauce = new Sauce();
         Cheese cheese = new Cheese();
         Corn corn = new Corn();
-
+    
         _BaseIngredientData.Add(dow);
         _BaseIngredientData.Add(sauce);
         _BaseIngredientData.Add(cheese);
@@ -257,6 +259,7 @@ public class Shop : MonoBehaviour
     public void InventoryOpen()   // 인벤토리 오픈
     {
         inventoryS.SetActive(true);
+        inventoryS.GetComponent<Inventory>().InvenStartUISetUp();
     }
 
     public void IngredientBtnOnClick()   // 재료 개인버튼 클릭
@@ -314,7 +317,7 @@ public class Shop : MonoBehaviour
             _ToppingsData[ingredientsNum].ShopAmount -= buyAmount;
             _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
             BuyToppingCountReset();
-            //inventory.BuyInvenToppingCountReset(ingredientsNum);
+            inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
         }
         else if (shopdataChecker.CheckNum == 1)
         {
@@ -322,7 +325,7 @@ public class Shop : MonoBehaviour
             _BaseIngredientData[ingredientsNum].ShopAmount -= buyAmount;
             _BaseIngredientData[ingredientsNum].InvenAmount += buyAmount;
             BuyBaseCountReset();
-            //inventory.BuyInvenBaseCountReset(ingredientsNum);
+            inventory.GetComponent<Inventory>().BuyInvenBaseCountReset(ingredientsNum);
         }
         // else if (playerData.money < buyprice)
         //     Debug.Log("돈이 부족합니다.");
