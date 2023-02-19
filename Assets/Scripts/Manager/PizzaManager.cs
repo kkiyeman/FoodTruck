@@ -33,7 +33,7 @@ public class PizzaManager : MonoBehaviour
         //Debug.Log($"�޴� : {pizzaList[3].pizzaName}, ���� : {pizzaList[3].price}, ������ : {pizzaList[3].recipe}");
         //Recipecheck();
     }
-
+    
     public void SetPizzaList()
     {
         pizzaList = new List<Pizza>();
@@ -53,13 +53,4 @@ public class PizzaManager : MonoBehaviour
         return pizzaList[pizzaListIdx];
     }
     
-    //확인용
-    public void Recipecheck(int i)
-    {
-        //for (int i = 0; i < pizzaList.Count; i++)
-        //{
-        //    Debug.Log(pizzaList[i].recipe.Length);
-        //}
-        Debug.Log(pizzaList[i].recipe.Length);
-    }
 }

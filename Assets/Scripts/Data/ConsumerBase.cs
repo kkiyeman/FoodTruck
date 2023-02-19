@@ -31,11 +31,11 @@ public class ConsumerBase
 //1판 주문 손님
 public class ConsumerSingle : ConsumerBase
 {
-    public ConsumerSingle(int satisfaction, bool giveTip, int tip)
+    public ConsumerSingle(int _satisfaction, bool _giveTip, int _tip)
     {
-        this.satisfaction = satisfaction;
-        this.giveTip = giveTip;
-        this.tip = tip;
+        satisfaction = _satisfaction;
+        giveTip = _giveTip;
+        tip = _tip;
     }
     public override void Order()
     {
@@ -45,7 +45,7 @@ public class ConsumerSingle : ConsumerBase
         string orderPizzaName;
         int rand = Random.Range(0, 4);
 
-        orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+        orderPizzaName = pizzaManager.GetPizzaList(rand).Name;
 
         this.orderPizzaTest = new Dictionary<string, int>();
         
@@ -93,7 +93,7 @@ public class ConsumerDouble : ConsumerBase
             string orderPizzaName;
             int rand = Random.Range(0, 4);
 
-            orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+            orderPizzaName = pizzaManager.GetPizzaList(rand).Name;
 
             if(orderPizzaTest.ContainsKey(orderPizzaName))
             {

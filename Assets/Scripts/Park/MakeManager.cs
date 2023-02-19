@@ -34,6 +34,7 @@ public class MakeManager : MonoBehaviour
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
     bool isMaking;
+    bool ingredientHolding;
     bool isStart;
 
     Vector3 defaultRotation = new Vector3(-90, 0, 0);
@@ -233,15 +234,28 @@ public class MakeManager : MonoBehaviour
     
     public void ChooseIngredientsRight()
     {
-        var curPizza = makingpizza;
+        ingredientHolding = true;
         RaycastHit hit;
         if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
             HoldIngredient(hit.collider.tag);
-            curPizza.AddIngredient(hit.collider.tag);
         }
         Animator handAnim = rightHand.GetComponent<Animator>();
         handAnim.SetBool("Hold", true);
+    }
+
+    public void AddIngredientToMakingPizza()
+    {
+        if(ingredientHolding)
+        {
+            RaycastHit hit;
+            if(rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
+            {
+
+            }
+            Animator handAnim = rightHand.GetComponent<Animator>();
+            handAnim.SetBool("Hold", false);
+        }
     }
 
     public void LeftHandClick()

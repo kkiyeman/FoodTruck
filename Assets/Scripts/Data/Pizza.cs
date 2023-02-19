@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Pizza
 {
-    public string pizzaName;
-    public float price;
-    public string[] recipe;
+    public string Name { get; set; }
+    public float Price { get; set; }
+    public string[] Recipe { get; set; }
 
     public Pizza(string pizzaName, float price, string[] recipe)
     {
-        this.pizzaName = pizzaName;
-        this.price = price;
-        this.recipe = recipe;
+        Name = pizzaName;
+        Price = price;
+        Recipe = recipe;
     }
 }

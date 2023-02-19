@@ -47,12 +47,12 @@ public class ConsumerBase2
 //1판 주문 손님
 public class ConsumerSingle2 : ConsumerBase2
 {
-    public ConsumerSingle2(int satisfaction, bool giveTip, int tip)
+    public ConsumerSingle2(int _satisfaction, bool _giveTip, int _tip)
     {
-        this.satisfaction = satisfaction;
-        this.giveTip = giveTip;
-        this.tip = tip;
-        this.orderPizzaCnt = 1;
+        satisfaction = _satisfaction;
+        giveTip = _giveTip;
+        tip = _tip;
+        orderPizzaCnt = 1;
     }
     //주문
     public override List<string> Order()
@@ -63,13 +63,13 @@ public class ConsumerSingle2 : ConsumerBase2
         orderPizzaTest = new List<string>();
 
         int rand = Random.Range(0, 4);
-        orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+        orderPizzaName = pizzaManager.GetPizzaList(rand).Name;
 
         orderPizzaTest.Add(orderPizzaName);
         
         Debug.Log($"{orderPizzaTest[0]} {orderPizzaCnt}판 주세요");
 
-        pay = pizzaManager.GetPizzaList(rand).price;
+        pay = pizzaManager.GetPizzaList(rand).Price;
 
         return orderPizzaTest;
     }
@@ -106,11 +106,11 @@ public class ConsumerSingle2 : ConsumerBase2
 //2판 주문 손님
 public class ConsumerDouble2 : ConsumerBase2
 {
-    public ConsumerDouble2(int satisfaction, bool giveTip, int tip)
+    public ConsumerDouble2(int _satisfaction, bool _giveTip, int _tip)
     {
-        this.satisfaction = satisfaction;
-        this.giveTip = giveTip;
-        this.tip = tip;
+        satisfaction = satisfaction;
+        giveTip = _giveTip;
+        tip = _tip;
     }
     //주문
     public override List<string> Order()
@@ -128,11 +128,11 @@ public class ConsumerDouble2 : ConsumerBase2
             
             int rand = Random.Range(0, 4);
 
-            orderPizzaName = pizzaManager.GetPizzaList(rand).pizzaName;
+            orderPizzaName = pizzaManager.GetPizzaList(rand).Name;
 
             if(orderPizzaTest.Contains(orderPizzaName))
             {
-                orderPizzaPrice.Add(pizzaManager.GetPizzaList(rand).price);
+                orderPizzaPrice.Add(pizzaManager.GetPizzaList(rand).Price);
                 if (orderPizzaCnt < 2)
                 {
                     orderPizzaCnt++;
@@ -141,7 +141,7 @@ public class ConsumerDouble2 : ConsumerBase2
             else
             {
                 orderPizzaTest.Add(orderPizzaName);
-                orderPizzaPrice.Add(pizzaManager.GetPizzaList(rand).price);
+                orderPizzaPrice.Add(pizzaManager.GetPizzaList(rand).Price);
             }
         }
 
