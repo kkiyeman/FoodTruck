@@ -134,7 +134,7 @@ public class Pepper : ToppingsData
 }
 
 
-public class Dow : BaseIngredientData
+public class Dow : ToppingsData
 {
     public Dow()
     {
@@ -149,7 +149,7 @@ public class Dow : BaseIngredientData
     }
 }
 
-public class Sauce : BaseIngredientData
+public class Sauce : ToppingsData
 {
     public Sauce()
     {
@@ -164,7 +164,7 @@ public class Sauce : BaseIngredientData
     }
 }
 
-public class Cheese : BaseIngredientData
+public class Cheese : ToppingsData
 {
     public Cheese()
     {
@@ -179,7 +179,7 @@ public class Cheese : BaseIngredientData
     }
 }
 
-public class Corn : BaseIngredientData
+public class Corn : ToppingsData
 {
     public Corn()
     {
