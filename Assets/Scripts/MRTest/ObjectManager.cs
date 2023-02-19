@@ -20,16 +20,37 @@ public class ObjectManager : MonoBehaviour
         return instance;
     }
     #endregion
+    GameObject[] consumerAvatars;
+    
+    // public GameObject CreateConsumer()      //안씀
+    // {
+    //     int rand = Random.Range(1, 5);
+    //     Debug.Log($"{rand}");
+    //     string avatarName = $"Avatar{rand}";
+    //     Object consumerObj = Resources.Load("Models/Avatar/"+avatarName);
+    //     GameObject consumerAvatar = (GameObject)Instantiate(consumerObj);
 
-    public GameObject CreateConsumer()
+    //     return consumerAvatar;
+    // }
+
+    public void CreateConsumerAvatars()     //손님아바타 배열 생성
     {
-        int rand = Random.Range(1, 5);
-        Debug.Log($"{rand}");
-        string avatarName = $"Avatar{rand}";
-        Object consumerObj = Resources.Load("Models/Avatar/"+avatarName);
-        GameObject consumerAvatar = (GameObject)Instantiate(consumerObj);
+        consumerAvatars = new GameObject[4];
 
-        return consumerAvatar;
+        for(int i = 0; i < 4; i++)
+        {
+            string avatarName = $"Avatar{i+1}";
+            Object consumerObj = Resources.Load("Models/Avatar/"+avatarName);
+            GameObject consumerAvatar = (GameObject)Instantiate(consumerObj);
+            consumerAvatar.gameObject.SetActive(false);
+
+            consumerAvatars[i] = consumerAvatar;
+        }
     }
 
+    public GameObject[] GetConsumerAvarears()   //생성한 손님아바타 배열 내보내기
+    {
+        CreateConsumerAvatars();
+        return consumerAvatars;
+    }
 }

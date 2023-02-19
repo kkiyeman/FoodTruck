@@ -12,6 +12,7 @@ public class EventTest : MonoBehaviour
 
     //UIManager uiManager;
     //public Text txtOrder;
+    private int curOrder = 0;
 
     void Start()
     {
@@ -20,21 +21,35 @@ public class EventTest : MonoBehaviour
 
     public void Order()
     {
-        ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
-
-        List<string> orderPizza = consumerData.Order();
-        int orderPizzaCnt = consumerData.OrderPizzaCnt();
-
-        UIManager.GetInstance().OpenUI("uiOrder");
-
-        GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
-        Text txtOrder = uiOrder.GetComponentInChildren<Text>();
-
-        if (orderPizza.Count > 1)
+        if(curOrder < 2)
         {
-            txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}∆«, \n{orderPizza[1]} {orderPizzaCnt}∆«";
+            ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
+
+            List<string> orderPizza = consumerData.Order();
+            int orderPizzaCnt = consumerData.OrderPizzaCnt();
+
+            UIManager.GetInstance().OpenUI("uiOrder");
+
+            GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
+            Text txtOrder = uiOrder.GetComponentInChildren<Text>();
+
+            if (orderPizza.Count > 1)
+            {
+                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}Ìåê, \n{orderPizza[1]} {orderPizzaCnt}Ìåê";
+            }
+            else
+                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}Ìåê";
+            
+            curOrder++;
         }
         else
-            txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}∆«";
+            Debug.Log("Ï£ºÎ¨∏Î∂àÍ∞Ä");
+    }
+
+    //ÌîºÏûê Ï†úÍ≥µ
+    public void ServePizza()
+    {
+        ObjectPoolManager.GetInstance().ReturnToConsumerPool();
+        curOrder--;
     }
 }

@@ -189,7 +189,7 @@ public class ConsumerDouble2 : ConsumerBase2
     }
 }
 
-//3판 주문 손님
+//커스텀 주문 손님   ---  구현 x
 public class ConsumerCustom : ConsumerBase2
 {
     public ConsumerCustom(int satisfaction, bool giveTip, int tip)
