@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class MakeManager : MonoBehaviour
 {
 
-   
+    [SerializeField] Button btnReadyBake;
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
@@ -25,24 +25,31 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
     [SerializeField] GameObject makingZone;
+    [SerializeField] GameObject[] bakedPizzas;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
-    Dictionary<string, BaseIngredientData> AddedIngredients = new Dictionary<string, BaseIngredientData>();
-
+    Dictionary<string, GameObject> bakedPizza = new Dictionary<string, GameObject>();
+    List<ToppingsData> AddedIngredients = new List<ToppingsData>();
+    ConsumerManager consumermanager;
+    IngredientManager ingredientmanager;
   
     public List<string> progress = new List<string>();
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
+
+    string holdingIng = "";
     bool isMaking;
     bool ingredientHolding;
     bool isStart;
 
-    Vector3 defaultRotation = new Vector3(-90, 0, 0);
+    
     // Start is called before the first frame update
     void Start()
     {
+        consumermanager = ConsumerManager.GetInstance();
+        ingredientmanager = IngredientManager.GetInstance();
         isMaking = true;
         InitHoldingIngredients();
-        // SetButton();
+        SetButton();
     }
 
     private void InitHoldingIngredients()
@@ -61,8 +68,9 @@ public class MakeManager : MonoBehaviour
         
     }
 
-    
-   
+
+
+
 
     public IEnumerator InitQuest()
     {
@@ -73,8 +81,7 @@ public class MakeManager : MonoBehaviour
             int ran = Random.Range(1, 11);
             if (ran > 3)
             {
-                if (curOrderCount < 1)
-                    SetOrder();
+
             }
         }
 
@@ -85,9 +92,14 @@ public class MakeManager : MonoBehaviour
         holdingIngredients[$"Hold{name}(Clone)"].SetActive(true);
     }
 
+    private void UnHoldIngredient(string name)
+    {
+        holdingIngredients[$"Hold{name}(Clone)"].SetActive(false);
+    }
+
     private void SetButton()
     {
-        btnGameStart.onClick.AddListener(OnClickGameStart);
+        btnReadyBake.onClick.AddListener(OnClickFinishMaking);
     }
 
     private void OnClickGameStart()
@@ -128,26 +140,6 @@ public class MakeManager : MonoBehaviour
             curBurgerIdx = _idx;
             isMaking = true;
         }
-    }
-    private void SetOrder()
-    {
-        //int ran = Random.Range(0, 4 );
-        //var curBurger = burgerList[ran];
-        //if (curOrderCount == 0)
-        //{
-        //    orderList[0].txtQuest.text = curBurger.Name;
-        //    orderList[0].gameObject.SetActive(true);
-        //    orderList[0].GetComponent<Button>().onClick.AddListener(() => {OnClickOrderList(ran);});
-        //    curOrderCount++;
-        //}
-        //else
-        //{   
-        //    orderList[1].txtQuest.text = curBurger.Name;
-        //    orderList[1].gameObject.SetActive(true);
-        //    orderList[1].GetComponent<Button>().onClick.AddListener(() => { OnClickOrderList(ran); });
-        //    curOrderCount++;
-        //}
-
     }
 
 
@@ -199,23 +191,56 @@ public class MakeManager : MonoBehaviour
         RaycastHit hit;
         if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
         {
+            if (hit.collider.tag == "MakingZone")
+                return;
             HoldIngredient(hit.collider.tag);
+            holdingIng = hit.collider.tag;
         }
         Animator handAnim = rightHand.GetComponent<Animator>();
         handAnim.SetBool("Hold", true);
     }
 
+ 
     public void AddIngredientToMakingPizza()
     {
+        var curpizza = makingpizza;
         if(ingredientHolding)
         {
             RaycastHit hit;
             if(rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
             {
-
+                if (hit.collider.tag != "MakingZone")
+                    return;
+                else
+                {
+                    var curAdd = ingredientmanager.ingredientsData[holdingIng];
+                    progress.Add(curAdd.Name);
+                    UnHoldIngredient(curAdd.Name);
+                    curpizza.AddIngredient(curAdd.Name);
+                }
+                ingredientHolding = false;
+                holdingIng = "";
             }
             Animator handAnim = rightHand.GetComponent<Animator>();
             handAnim.SetBool("Hold", false);
+        }
+    }
+
+    private void OnClickFinishMaking()
+    {
+        isMaking = false;
+        makingZone.SetActive(false);
+    }
+
+    public void BakePizza()
+    {
+        RaycastHit hit;
+        if(rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count>0 && !isMaking)
+        {
+            if(hit.collider.tag == "Oven")
+            {
+
+            }
         }
     }
 
