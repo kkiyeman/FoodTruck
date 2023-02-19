@@ -26,7 +26,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] MakingPizza makingpizza;
     [SerializeField] GameObject makingZone;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
-    
+    Dictionary<string, BaseIngredientData> AddedIngredients = new Dictionary<string, BaseIngredientData>();
 
   
     public List<string> progress = new List<string>();
@@ -152,47 +152,47 @@ public class MakeManager : MonoBehaviour
 
 
 
-    //private int GetScore(Hamburger hamburger)
-    //{
-    //    int fullScore = 100;
-    //    int recipe = hamburger.Recipe.Length;
-    //    if (progress.Count<= recipe)
-    //    {
-    //        int less = recipe - progress.Count;
-    //        bool exist = false;
-    //        int noIngredients = 0;
-    //        for (int i = 0; i < progress.Count; i++)
-    //        {
-    //            for(int j = 0; j<recipe;j++)
-    //            {
-    //                if (progress[i] == hamburger.Recipe[j])
-    //                    exist = true;       
-    //            }
-    //            if(!exist)
-    //            {
-    //                noIngredients++;
-    //                Debug.Log($"틀린 재료 {progress[i]}!!");
-    //            }
-    //            exist = false;
+    private int GetScore(Pizza pizza)
+    {
+        int fullScore = 100;
+        int recipe = pizza.Recipe.Length;
+        if (progress.Count <= recipe)
+        {
+            int less = recipe - progress.Count;
+            bool exist = false;
+            int noIngredients = 0;
+            for (int i = 0; i < progress.Count; i++)
+            {
+                for (int j = 0; j < recipe; j++)
+                {
+                    if (progress[i] == pizza.Recipe[j])
+                        exist = true;
+                }
+                if (!exist)
+                {
+                    noIngredients++;
+                    Debug.Log($"틀린 재료 {progress[i]}!!");
+                }
+                exist = false;
 
-    //        }
-    //        if (less > 0)
-    //            Debug.Log("재료가 부족합니다!");
-    //        int score = fullScore - (noIngredients * 10) - (less*10);
-    //        return score;
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("재료가 너무 많습니다!");
-    //        int overload = progress.Count - recipe;
-    //        int score = fullScore - (overload * 10);
-    //        return score;
-    //    }
+            }
+            if (less > 0)
+                Debug.Log("재료가 부족합니다!");
+            int score = fullScore - (noIngredients * 10) - (less * 10);
+            return score;
+        }
+        else
+        {
+            Debug.Log("재료가 너무 많습니다!");
+            int overload = progress.Count - recipe;
+            int score = fullScore - (overload * 10);
+            return score;
+        }
 
 
-    //}
+    }
 
-    
+
     public void ChooseIngredientsRight()
     {
         ingredientHolding = true;
@@ -235,7 +235,14 @@ public class MakeManager : MonoBehaviour
 
     public void MakeZoneHoverEnter()
     {
+        MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
+        meshRD.material = Resources.Load<Material>("Practice/Mat/HoveMat");
+    }
 
+    public void MakeZoneHoverExit()
+    {
+        MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
+        meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
     }
     
 }

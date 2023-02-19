@@ -29,16 +29,11 @@ public class PizzaManager : MonoBehaviour
     private void Awake()
     {
         SetPizzaList();
-        //Debug.Log(pizzaList.Count);
-        //Debug.Log($"�޴� : {pizzaList[3].pizzaName}, ���� : {pizzaList[3].price}, ������ : {pizzaList[3].recipe}");
-        //Recipecheck();
     }
     
     public void SetPizzaList()
     {
         pizzaList = new List<Pizza>();
-
-        //                  ���� (�̸� ,  ���� ,    ������)
 
         pizzaList.Add(new Pizza("Pepperoni", 15, new string[] { "도우", "소스", "치즈", "페퍼로니" }));
         pizzaList.Add(new Pizza("Bacon Potato", 17, new string[] { "도우", "소스", "치즈", "베이컨", "포테이토" }));
