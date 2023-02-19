@@ -6,7 +6,8 @@ public abstract class ToppingsData
 {
     public string Name { get; protected set; }
     public float Price { get; set; }
-    public int Amount { get; set; }
+    public int ShopAmount { get; set; }
+    public int InvenAmount { get; set; }
     public int CheckNum { get; set; }
     public abstract void SetInfo();
 }
@@ -23,205 +24,111 @@ public class ShopDataChecker : ToppingsData
     }
 }
 
-public class ShopPepperoni : ToppingsData
+public class Pepperoni : ToppingsData
 {
-    public ShopPepperoni()
+    public Pepperoni()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "페퍼로니";
+        Name = "Pepperoni";
         Price = 0.6f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
-public class ShopBacon : ToppingsData
+public class Bacon : ToppingsData
 {
-    public ShopBacon()
+    public Bacon()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "베이컨";
+        Name = "Bacon";
         Price = 0.8f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
-public class ShopPotato : ToppingsData
+public class Potato : ToppingsData
 {
-    public ShopPotato()
+    public Potato()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "포테이토";
+        Name = "Potato";
         Price = 0.2f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
 
-public class ShopPineapple : ToppingsData
+public class Pineapple : ToppingsData
 {
-    public ShopPineapple()
+    public Pineapple()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "파인애플";
+        Name = "Pineapple";
         Price = 0.4f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
 
-public class ShopOlive : ToppingsData
+public class Olive : ToppingsData
 {
-    public ShopOlive()
+    public Olive()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "올리브";
+        Name = "Olive";
         Price = 0.4f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
 
-public class ShopMushroom : ToppingsData
+public class Mushroom : ToppingsData
 {
-    public ShopMushroom()
+    public Mushroom()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "버섯";
+        Name = "Mushroom";
         Price = 0.4f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
 
-public class ShopPepper : ToppingsData
+public class Pepper : ToppingsData
 {
-    public ShopPepper()
+    public Pepper()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "피망";
+        Name = "Pepper";
         Price = 0.4f;
-        Amount = 10;
-    }
-}
-
-
-//////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////
-
-
-
-public class InvenPepperoni : ToppingsData
-{
-    public InvenPepperoni()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "페퍼로니";
-        Amount = 0;
-    }
-}
-
-public class InvenBacon : ToppingsData
-{
-    public InvenBacon()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "베이컨";
-        Amount = 0;
-    }
-}
-
-public class InvenPotato : ToppingsData
-{
-    public InvenPotato()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "포테이토";
-        Amount = 0;
-    }
-}
-
-
-public class InvenPineapple : ToppingsData
-{
-    public InvenPineapple()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "파인애플";
-        Amount = 0;
-    }
-}
-
-
-public class InvenOlive : ToppingsData
-{
-    public InvenOlive()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "올리브";
-        Amount = 0;
-    }
-}
-
-
-public class InvenMushroom : ToppingsData
-{
-    public InvenMushroom()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "버섯";
-        Amount = 0;
-    }
-}
-
-
-public class InvenPepper : ToppingsData
-{
-    public InvenPepper()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "피망";
-        Amount = 0;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }

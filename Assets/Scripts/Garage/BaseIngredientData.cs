@@ -5,121 +5,69 @@ using UnityEngine;
 public abstract class BaseIngredientData
 {
     public string Name { get; protected set; }
-    public float Price { get; protected set; }
-    public int Amount { get; protected set; }
+    public float Price { get;  set; }
+    public int ShopAmount { get;  set; }
+    public int InvenAmount { get; set; }
     public abstract void SetInfo();
 }
 
-public class ShopDough : BaseIngredientData
+public class Dow : BaseIngredientData
 {
-    public ShopDough()
+    public Dow()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "도우";
+        Name = "Dow";
         Price = 4.0f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
-public class ShopSauce : BaseIngredientData
+public class Sauce : BaseIngredientData
 {
-    public ShopSauce()
+    public Sauce()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "소스";
+        Name = "Sauce";
         Price = 5.0f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
-public class ShopCheeses : BaseIngredientData
+public class Cheese : BaseIngredientData
 {
-    public ShopCheeses()
+    public Cheese()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "치즈";
+        Name = "Cheese";
         Price = 6.0f;
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 
-public class ShopCorn : BaseIngredientData
+public class Corn : BaseIngredientData
 {
-    public ShopCorn()
+    public Corn()
     {
         SetInfo();
     }
     public override void SetInfo()
     {
-        Name = "콘";
+        Name = "Corn";
         Price = 3.0f;
-        Amount = 10;
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////
-
-
-public class InvenDough : BaseIngredientData
-{
-    public InvenDough()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "도우";
-        Amount = 10;
-    }
-}
-
-public class InvenSauce : BaseIngredientData
-{
-    public InvenSauce()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "소스";
-        Amount = 10;
-    }
-}
-
-public class InvenCheeses : BaseIngredientData
-{
-    public InvenCheeses()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "치즈";
-        Amount = 10;
-    }
-}
-
-public class InvenCorn : BaseIngredientData
-{
-    public InvenCorn()
-    {
-        SetInfo();
-    }
-    public override void SetInfo()
-    {
-        Name = "콘";
-        Amount = 10;
+        ShopAmount = 10;
+        InvenAmount = 0;
     }
 }
 

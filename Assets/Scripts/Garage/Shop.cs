@@ -6,10 +6,20 @@ using TMPro;
 
 public class Shop : MonoBehaviour
 {
-    public TMP_Text[] shopshopingredientsName;
+    public Button inventoryOpen;
+    public GameObject inventoryS;
+
+    public TMP_Text[] shopingredientsName;
     public Button[] shopingredientsBtns;
     public GameObject ingredientsBtn;
 
+    public TMP_Text[] shopingredientCounttxts;
+    public GameObject shopingredientCounttxtG;
+
+    public Image[] saleImage;
+    public GameObject saleImagesG;
+
+    public TMP_Text myMoney;   // 내 자산
 
     public Button shoptoppingBtn;
     public Button shopBaseBtn;
@@ -23,25 +33,39 @@ public class Shop : MonoBehaviour
     public Button cancle;
     public TMP_Text buyCount;
     public TMP_Text sumMoney;
-    private int buyAmount;
-    private float buyprice;
+
+
+    private float fPercent = 20.0f;
+    private float[] _shopToppingPrice;   // 토핑 가격
+    private float[] _shopBasePrice;   // 기본재료 가격
+    private int buyAmount;   // 구매 체크박스 개수
+    private float buyprice;   // 구매 체크박스 가격
 
     private int ingredientsNum;   // 클릭된 재료 저장
+    private int saleToppingNum;   // 세일 토핑 번호
+    private int saleBaseNum;   // 세일 기본재료 번호
 
 
+    // 구매 자산 부족 체크박스
     public GameObject shortageMoney;
     public Button nomoneyCancle;
 
+    ShopDataChecker shopdataChecker = new ShopDataChecker();
+    PlayerData playerData = new PlayerData();
+    Inventory inventory = new Inventory();
+    /// //////////////////////////////////////////////////////////////////////////////////
 
-    public List<ToppingsData> _shopToppingsData = new List<ToppingsData>();
-    public List<BaseIngredientData> _shopBaseIngredientData = new List<BaseIngredientData>();
+    public List<ToppingsData> _ToppingsData = new List<ToppingsData>();
+    public List<BaseIngredientData> _BaseIngredientData = new List<BaseIngredientData>();
 
+    //////////////////////////////////////////////////////////////////////////////////////
 
     public void Awake()
     {
-        ShopToppingsDataList();
-        ShopBaseIngredientList();
-        ShopStartBtnsSetUp();
+        ToppingsDataList();
+        BaseIngredientList();
+        ShopIngredientsSetUp();
+        ShopStartUISetUp();
     }
 
     public void Start()
@@ -49,73 +73,108 @@ public class Shop : MonoBehaviour
         ShopBtnOnclick();
         IngredientBtnOnClick();
         BuyCheckBoxOnClick();
-        
     }
-
 
     #region shoptoppingList
 
-    public void ShopToppingsDataList()   // 토핑 리스트
+    public void ToppingsDataList()   // 토핑 리스트
     {
-        ShopPepperoni shoppepperoni = new ShopPepperoni();
-        ShopBacon shopbacon = new ShopBacon();
-        ShopPotato shoppotato = new ShopPotato();
-        ShopPineapple shoppineapple = new ShopPineapple();
-        ShopOlive shopolive = new ShopOlive();
-        ShopMushroom shopmushroom = new ShopMushroom();
-        ShopPepper shoppepper = new ShopPepper();
+        Pepperoni pepperoni = new Pepperoni();
+        Bacon bacon = new Bacon();
+        Potato potato = new Potato();
+        Pineapple pineapple = new Pineapple();
+        Olive olive = new Olive();
+        Mushroom mushroom = new Mushroom();
+        Pepper pepper = new Pepper();
 
-        _shopToppingsData.Add(shoppepperoni);
-        _shopToppingsData.Add(shopbacon);
-        _shopToppingsData.Add(shoppotato);
-        _shopToppingsData.Add(shoppineapple);
-        _shopToppingsData.Add(shopolive);
-        _shopToppingsData.Add(shopmushroom);
-        _shopToppingsData.Add(shoppepper);
+        _ToppingsData.Add(pepperoni);
+        _ToppingsData.Add(bacon);
+        _ToppingsData.Add(potato);
+        _ToppingsData.Add(pineapple);
+        _ToppingsData.Add(olive);
+        _ToppingsData.Add(mushroom);
+        _ToppingsData.Add(pepper);
     }
 
     #endregion
-
 
     #region shopBaseIngredientList
 
-    public void ShopBaseIngredientList()   // 베이스 재료 리스트
+    public void BaseIngredientList()   // 베이스 재료 리스트
     {
-        ShopDough shopdough = new ShopDough();
-        ShopSauce shopsauce = new ShopSauce();
-        ShopCheeses shopcheeses = new ShopCheeses();
-        ShopCorn shopcorn = new ShopCorn();
+        Dow dow = new Dow();
+        Sauce sauce = new Sauce();
+        Cheese cheese = new Cheese();
+        Corn corn = new Corn();
 
-        _shopBaseIngredientData.Add(shopdough);
-        _shopBaseIngredientData.Add(shopsauce);
-        _shopBaseIngredientData.Add(shopcheeses);
-        _shopBaseIngredientData.Add(shopcorn);
+        _BaseIngredientData.Add(dow);
+        _BaseIngredientData.Add(sauce);
+        _BaseIngredientData.Add(cheese);
+        _BaseIngredientData.Add(corn);
     }
 
     #endregion
 
 
-    public void ShopStartBtnsSetUp()  // 시작 세팅
+
+    public void ShopIngredientsSetUp()   // 시작전 기본값 세팅
     {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
+        saleToppingNum = Random.Range(0, _ToppingsData.Count);
+        saleBaseNum = Random.Range(0, _BaseIngredientData.Count);
+        _shopToppingPrice = new float[_ToppingsData.Count];
+        _shopBasePrice = new float[_BaseIngredientData.Count];
 
-        shopingredientsBtns = new Button[_shopToppingsData.Count];
-        shopshopingredientsName = new TMP_Text[_shopToppingsData.Count];
+        for (int i = 0; i < _ToppingsData.Count; i++)
+        {
+            _ToppingsData[i].ShopAmount = Random.Range(6, 10);
+            _shopToppingPrice[i] = _ToppingsData[i].Price;
+        }
 
-        
+        for (int i = 0; i < _BaseIngredientData.Count; i++)
+        {
+            _BaseIngredientData[i].ShopAmount = Random.Range(11, 15);
+            _shopBasePrice[i] = _BaseIngredientData[i].Price;
+        }
 
-        for (int i = 0; i < _shopToppingsData.Count; i++)
+        _shopToppingPrice[saleToppingNum] *= (1 - fPercent / 100);
+        _shopBasePrice[saleBaseNum] *= (1 - fPercent / 100);
+        ShopMyMoneySetUp();
+    }
+
+    public void ShopStartUISetUp()  // 시작전 UI 세팅
+    {
+        shopingredientsBtns = new Button[ingredientsBtn.GetComponentsInChildren<Button>().Length];
+        shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
+        saleImage = new Image[saleImagesG.GetComponentsInChildren<Image>().Length];
+        shopingredientCounttxts = new TMP_Text[shopingredientCounttxtG.GetComponentsInChildren<TMP_Text>().Length];
+
+
+        for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
-            shopshopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            saleImage[i] = saleImagesG.GetComponentsInChildren<Image>()[i];
+            shopingredientCounttxts[i] = shopingredientCounttxtG.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
-        for (int k = 0; k < _shopToppingsData.Count; k++)
+        for (int k = 0; k < _ToppingsData.Count; k++)
         {
-            shopshopingredientsName[k].text = _shopToppingsData[k].Name;
+            shopingredientsName[k].text = _ToppingsData[k].Name;
+            shopingredientCounttxts[k].text = _ToppingsData[k].ShopAmount.ToString();
+            shopingredientsBtns[k].GetComponent<Button>().interactable = true;
         }
+
+        for (int i = 0; i < 8; i++)
+        {
+            saleImage[i].gameObject.SetActive(false);
+        }
+
+        saleImage[saleToppingNum].gameObject.SetActive(true);
 
         shopdataChecker.CheckNum = 0;
+
+        // Debug.Log(inventory.me);
     }
 
 
@@ -123,79 +182,88 @@ public class Shop : MonoBehaviour
 
     public void ShopToppingBtnsSetUp()  // 토핑버튼 클릭 세팅
     {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
+        //shopingredientsBtns = new Button[ingredientsBtn.GetComponentsInChildren<Button>().Length];
+        //shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
 
-        shopingredientsBtns = new Button[_shopToppingsData.Count];
-        shopshopingredientsName = new TMP_Text[_shopToppingsData.Count];
-
-        
-
-        for (int  i = 0; i < _shopToppingsData.Count; i++)
+        for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
-            shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
-            shopshopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            //shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
+            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
-
-        for (int k = 0; k < _shopToppingsData.Count; k++)
+        for (int k = 0; k < _ToppingsData.Count; k++)
         {
-            shopshopingredientsName[k].text = _shopToppingsData[k].Name;
+            shopingredientsName[k].text = _ToppingsData[k].Name;
+            shopingredientCounttxts[k].text = _ToppingsData[k].ShopAmount.ToString();
+            shopingredientsBtns[k].GetComponent<Button>().interactable = true;
         }
+
+        saleImage[saleBaseNum].gameObject.SetActive(false);
+        saleImage[saleToppingNum].gameObject.SetActive(true);
 
         shopdataChecker.CheckNum = 0;
+
     }
 
     ///////////////////////////////////////////////////////////
 
     public void ShopBaseIngredientBtnsSetUp()  // 베이스재료 클릭 세팅
     {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
+        //shopingredientsBtns = new Button[ingredientsBtn.GetComponentsInChildren<Button>().Length];
+        //shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
 
-        shopingredientsBtns = new Button[_shopBaseIngredientData.Count];
-        shopshopingredientsName = new TMP_Text[_shopToppingsData.Count];
-
-
-        for (int i = 0; i < _shopToppingsData.Count; i++)
+        for (int i = 0; i < _ToppingsData.Count; i++)
         {
-            shopshopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientCounttxts[i].text = "";
+            shopingredientsName[i].text = "";
         }
 
-        for (int k = 0; k < _shopToppingsData.Count; k++)
+        for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
-            shopshopingredientsName[k].text = "";
+            //shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
+            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
-        for (int i = 0; i < _shopBaseIngredientData.Count; i++)
+
+        for (int k = 0; k < _BaseIngredientData.Count; k++)
         {
-            shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
-            shopshopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsName[k].text = _BaseIngredientData[k].Name;
+            shopingredientCounttxts[k].text = _BaseIngredientData[k].ShopAmount.ToString();
+            shopingredientsBtns[k].GetComponent<Button>().interactable = true;
         }
 
-        for (int k = 0; k < _shopBaseIngredientData.Count; k++)
-        {
-            shopshopingredientsName[k].text = _shopBaseIngredientData[k].Name;
-        }
+
+        saleImage[saleToppingNum].gameObject.SetActive(false);
+        saleImage[saleBaseNum].gameObject.SetActive(true);
 
         shopdataChecker.CheckNum = 1;
     }
 
     ///////////////////////////////////////////////////////////
 
-    public void ShopBtnOnclick()
+    public void ShopBtnOnclick()   // 버튼클릭 모음
     {
         shoptoppingBtn.onClick.AddListener(ShopToppingBtnsSetUp);
         shopBaseBtn.onClick.AddListener(ShopBaseIngredientBtnsSetUp);
+        inventoryOpen.onClick.AddListener(InventoryOpen);
     }
 
     ///////////////////////////////////////////////////////////
 
-    public void IngredientBtnOnClick()
-    {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
 
+    public void InventoryOpen()   // 인벤토리 오픈
+    {
+        inventoryS.SetActive(true);
+    }
+
+    public void IngredientBtnOnClick()   // 재료 개인버튼 클릭
+    {
         if (shopdataChecker.CheckNum == 0)
         {
-            for (int i = 0; i < _shopToppingsData.Count; i++)
+            for (int i = 0; i < _ToppingsData.Count; i++)
             {
                 int idx = i;
                 shopingredientsBtns[i].onClick.AddListener(() =>
@@ -208,7 +276,7 @@ public class Shop : MonoBehaviour
 
         else if (shopdataChecker.CheckNum == 1)
         {
-            for (int i = 0; i < _shopBaseIngredientData.Count; i++)
+            for (int i = 0; i < _BaseIngredientData.Count; i++)
             {
                 int idx = i;
                 shopingredientsBtns[i].onClick.AddListener(() =>
@@ -222,38 +290,76 @@ public class Shop : MonoBehaviour
 
     ///////////////////////////////////////////////////////////
 
-    public void BuyCheckBoxSet(int idx)
+    public void BuyCheckBoxSet(int idx)  // 구매 체크박스 켜기
     {
         ingredientsNum = idx;
         buyCheckbox.SetActive(true);
     }
 
     ///////////////////////////////////////////////////////////
-    public void BuyCheckBoxHide()
+    public void BuyCheckBoxHide()  // 체크박스 닫힐때 세팅
     {
         buyAmount = 0;
-        buyprice = 0;
+        buyprice = 0.00f;
+        CheckBoxTxt();
         buyCheckbox.SetActive(false);
     }
 
     ///////////////////////////////////////////////////////////
-    public void BuyItem()
-    {
-        // if (돈이 금액보다 많다면)
-        // {
-        //     돈 -= buyprice
-        //     인벤토리 해당템 += buyAmount
-        // }
+    public void BuyItem()  // 아이템 구매시 적용
+    {       // playerData.money >= buyprice && 
+        if (shopdataChecker.CheckNum == 0)
+        {
+            // playerData.money -= buyprice;
+            _ToppingsData[ingredientsNum].ShopAmount -= buyAmount;
+            _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
+            BuyToppingCountReset();
+            //inventory.BuyInvenToppingCountReset(ingredientsNum);
+        }
+        else if (shopdataChecker.CheckNum == 1)
+        {
+            // playerData.money -= buyprice;
+            _BaseIngredientData[ingredientsNum].ShopAmount -= buyAmount;
+            _BaseIngredientData[ingredientsNum].InvenAmount += buyAmount;
+            BuyBaseCountReset();
+            //inventory.BuyInvenBaseCountReset(ingredientsNum);
+        }
+        // else if (playerData.money < buyprice)
+        //     Debug.Log("돈이 부족합니다.");
 
-        // else if (돈이 금액보다 적다면) 
-        // {
-        //   
-        //   
-        // }
-
+        // ShopMyMoneySetUp();
+        // inventory.InvenMyMoneySetUp();
         buyAmount = 0;
         buyprice = 0;
+        CheckBoxTxt();
         buyCheckbox.SetActive(false);
+
+        Debug.Log(_ToppingsData[ingredientsNum].InvenAmount);
+        Debug.Log(_BaseIngredientData[ingredientsNum].InvenAmount);
+    }
+
+
+    public void BuyBaseCountReset()
+    {
+        for (int k = 0; k < _BaseIngredientData.Count; k++)
+        {
+            shopingredientCounttxts[k].text = _BaseIngredientData[k].ShopAmount.ToString();
+        }
+    }
+
+    public void BuyToppingCountReset()
+    {
+        for (int k = 0; k < _ToppingsData.Count; k++)
+        {
+            shopingredientCounttxts[k].text = _ToppingsData[k].ShopAmount.ToString();
+        }
+    }
+
+
+
+    public void ShopMyMoneySetUp()   // 보유자산
+    {
+        myMoney.text = playerData.money.ToString();
     }
 
     public void BuyCheckBoxOnClick()   // 구매 체크박스 온클릭 체크
@@ -264,43 +370,45 @@ public class Shop : MonoBehaviour
         buy.onClick.AddListener(BuyItem);
     }
 
-    public void CheckBoxTxt()
+    public void CheckBoxTxt()  // 구매 체크박스 텍스트
     {
         buyCount.text = buyAmount.ToString();
-        sumMoney.text = buyprice.ToString();
+        sumMoney.text = buyprice.ToString("F2");
     }
 
 
-    public void ShoppingBasketUp()   // 구매 갯수 가격 바구니
+    public void ShoppingBasketUp()   // 체크박스 구매 갯수 플러스 가격
     {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
+        if (shopdataChecker.CheckNum == 0 && _ToppingsData[ingredientsNum].ShopAmount > buyAmount)
+        {
+            buyprice += _shopToppingPrice[ingredientsNum];
+            buyAmount += 1;
+        }
+        else if (shopdataChecker.CheckNum == 1 && _BaseIngredientData[ingredientsNum].ShopAmount > buyAmount)
+        {
+            buyprice += _shopBasePrice[ingredientsNum];
+            buyAmount += 1;
+        }
 
-
-        buyAmount += 1;
-        if (shopdataChecker.CheckNum == 0)
-            buyprice += _shopToppingsData[ingredientsNum].Price;
-        else if (shopdataChecker.CheckNum == 1)
-            buyprice += _shopBaseIngredientData[ingredientsNum].Price;
+        else
+            Debug.Log("상품이 부족합니다.");
 
         CheckBoxTxt();
-        Debug.Log(buyAmount);
-        Debug.Log(buyprice);
     }
 
-
-    public void ShoppingBasketDown()
+    public void ShoppingBasketDown()   // 체크박스 구매 갯수 마이너스
     {
-        ShopDataChecker shopdataChecker = new ShopDataChecker();
-
-
-        buyAmount -= 1;
-        if (shopdataChecker.CheckNum == 0)
-            buyprice -= _shopToppingsData[ingredientsNum].Price;
-        else if (shopdataChecker.CheckNum == 1)
-            buyprice -= _shopBaseIngredientData[ingredientsNum].Price;
+        if (shopdataChecker.CheckNum == 0 && buyAmount > 0)
+        {
+            buyprice -= _shopToppingPrice[ingredientsNum];
+            buyAmount -= 1;
+        }
+        else if (shopdataChecker.CheckNum == 1 && buyAmount > 0)
+        {
+            buyprice -= _shopBasePrice[ingredientsNum];
+            buyAmount -= 1;
+        }
 
         CheckBoxTxt();
-        Debug.Log(buyAmount);
-        Debug.Log(buyprice);
     }
 }
