@@ -20,6 +20,9 @@ public class VRKeyboardBtn : MonoBehaviour
             OnClickVRKeyBoard(); 
         });
 
+        interactable.hoverEntered.AddListener((e) => { });
+        interactable.hoverExited.AddListener((e) => { });
+
         keyboard = GetComponentInParent<VRKeyboard>();
         btnText = GetComponentInChildren<TextMeshProUGUI>();
 
