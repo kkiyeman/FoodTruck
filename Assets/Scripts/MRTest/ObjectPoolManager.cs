@@ -62,23 +62,20 @@ public class ObjectPoolManager : MonoBehaviour
         else if(selectedNum.Count > 0)      //사용되고 있는 아바타 o
         {
             Debug.Log("2222");
-            if(selectedNum.Contains(rand))
+            if(selectedNum.Contains(rand))          
             {
                 Debug.Log($"{rand}번째 아바타 사용중");
                 while(selectedNum.Contains(rand) == true)
                 {
-                    rand = Random.Range(0,4);
+                    rand = Random.Range(0,4);           //랜덤 중복이면 다시
                 }
             }
-            else
-            {
-                selectedNum.Add(rand);
-                consumerAvatar = consumerPool[rand];
-                orderConsumer.Enqueue(consumerAvatar);
-                consumerAvatar.gameObject.SetActive(true);
-                consumerAvatar.gameObject.transform.SetParent(null);
-                return consumerAvatar;
-            }
+            selectedNum.Add(rand);
+            consumerAvatar = consumerPool[rand];
+            orderConsumer.Enqueue(consumerAvatar);
+            consumerAvatar.gameObject.SetActive(true);
+            consumerAvatar.gameObject.transform.SetParent(null);
+            return consumerAvatar;
         }
         return consumerAvatar;
     }
