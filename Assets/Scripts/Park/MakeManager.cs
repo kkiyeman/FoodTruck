@@ -32,6 +32,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] BakedPizza holdingBakedBizza;
     [SerializeField] GameObject HoldingPizza;
     [SerializeField] GameObject[] HPIngredients;
+    [SerializeField] Transform[] consumerPoints;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
     Dictionary<string, GameObject> bakedPizza = new Dictionary<string, GameObject>();
     List<ToppingsData> AddedIngredients = new List<ToppingsData>();
@@ -78,6 +79,12 @@ public class MakeManager : MonoBehaviour
 
     }
 
+    private Transform GetRanConsumerPoint()
+    {
+        int length = consumerPoints.Length;
+        int ran = Random.Range(0, length);
+        return consumerPoints[ran];
+    }
 
 
 
@@ -341,6 +348,7 @@ public class MakeManager : MonoBehaviour
         if (curOrder < 2)
         {
             ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
+            GameObject go = ObjectPoolManager.GetInstance().GetConsumerAvatar(GetRanConsumerPoint());
 
             List<string> orderPizza = consumerData.Order();
             int orderPizzaCnt = consumerData.OrderPizzaCnt();

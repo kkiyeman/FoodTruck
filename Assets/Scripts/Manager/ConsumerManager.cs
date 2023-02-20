@@ -35,7 +35,7 @@ public class ConsumerManager : MonoBehaviour
     }
     public ConsumerBase2 GetRandomConsumer()
     {
-        GameObject go = ObjectPoolManager.GetInstance().GetConsumerAvatar();
+        
         int rand = Random.Range(0, consumerDatas.Length);
         consumerData = consumerDatas[rand];
 
