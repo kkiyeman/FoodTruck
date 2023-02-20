@@ -25,7 +25,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
     [SerializeField] GameObject makingZone;
-    [SerializeField] GameObject[] bakedPizzas;
+    [SerializeField] BakedPizza bakingpizza;
     [SerializeField] GameObject HoldingPizza;
     [SerializeField] GameObject[] HPIngredients;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -219,6 +219,7 @@ public class MakeManager : MonoBehaviour
                     progress.Add(curAdd.Name);
                     UnHoldIngredient(curAdd.Name);
                     makingpizza.AddIngredient(curAdd.Name);
+                    bakingpizza.AddIngredient(curAdd.Name);
                     for(int i = 0; i<HPIngredients.Length; i++)
                     {
                         if (HPIngredients[i].name == curAdd.Name)
@@ -258,14 +259,19 @@ public class MakeManager : MonoBehaviour
         {
             if (hit.collider.tag == "Oven")
             {
-
+                for(int i = 0; i< HPIngredients.Length; i++)
+                {
+                    HPIngredients[i].SetActive(false);
+                }
+                HoldingPizza.SetActive(false);
+                Invoke("BakedPizzaOn", 3f);
             }
         }
     }
 
     private void BakedPizzaOn()
     {
-
+        bakingpizza.gameObject.SetActive(true);
     }
 
     public void LeftHandClick()
