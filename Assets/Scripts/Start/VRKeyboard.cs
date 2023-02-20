@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Keyboard : MonoBehaviour
+
+public class VRKeyboard : MonoBehaviour
 {
     public TMP_InputField inputField;
     public GameObject normalButtons;
@@ -45,4 +46,5 @@ public class Keyboard : MonoBehaviour
             caps = false;
         }
     }
+
 }
