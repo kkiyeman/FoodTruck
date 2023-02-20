@@ -15,7 +15,11 @@ public class VRKeyboardBtn : MonoBehaviour
     void Start()
     {
         interactable = GetComponent<XRSimpleInteractable>();
-        interactable.selectEntered.AddListener(delegate { keyboard.InsertChar(btnText.text); });
+        interactable.selectEntered.AddListener((e)=> {
+            Debug.Log("AddListener"); 
+            OnClickVRKeyBoard(); 
+        });
+
         keyboard = GetComponentInParent<VRKeyboard>();
         btnText = GetComponentInChildren<TextMeshProUGUI>();
 
@@ -33,6 +37,7 @@ public class VRKeyboardBtn : MonoBehaviour
 
     public void OnClickVRKeyBoard()
     {
+        Debug.Log("OnClickVRKeyBoard");
         keyboard.InsertChar(btnText.text);
     }
 }

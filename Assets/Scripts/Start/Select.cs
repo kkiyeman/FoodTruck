@@ -23,6 +23,8 @@ public class Select : MonoBehaviour
 
     void Start()
     {
+        return;
+
         // 슬롯별로 저장된 데이터가 존재한는지 판단
         // 우리가 저장했던 경로를 확인해 봐야겠다는 판단이 난다
         // File.Exists는 해당 파일의 경로가 존재하는지 아닌지 bool값으로 확인해준다
