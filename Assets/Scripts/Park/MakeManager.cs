@@ -31,7 +31,7 @@ public class MakeManager : MonoBehaviour
     List<ToppingsData> AddedIngredients = new List<ToppingsData>();
     ConsumerManager consumermanager;
     IngredientManager ingredientmanager;
-  
+
     public List<string> progress = new List<string>();
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
@@ -41,7 +41,7 @@ public class MakeManager : MonoBehaviour
     bool ingredientHolding;
     bool isStart;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,14 +58,14 @@ public class MakeManager : MonoBehaviour
         go.name = "@HoldingPool";
         go.transform.SetParent(rightHandHoldPoint.transform);
         var IngredeintsInfo = Resources.LoadAll<GameObject>("99Pizza/Holding");
-        for(int i = 0; i<IngredeintsInfo.Length; i++)
+        for (int i = 0; i < IngredeintsInfo.Length; i++)
         {
             var ingGo = Instantiate(IngredeintsInfo[i], go.transform);
             ingGo.transform.position = rightHandHoldPoint.transform.position;
             holdingIngredients.Add(ingGo.name, ingGo);
             ingGo.SetActive(false);
         }
-        
+
     }
 
 
@@ -108,7 +108,7 @@ public class MakeManager : MonoBehaviour
         StartCoroutine(InitQuest());
     }
 
-    
+
     private void OnClickServe()
     {
         //StartCoroutine(LogOn($"{GetScore(burgerList[curBurgerIdx])}"));
@@ -131,10 +131,10 @@ public class MakeManager : MonoBehaviour
         //progress.Clear();
 
     }
-    
+
     private void OnClickOrderList(int idx)
     {
-        if(!isMaking)
+        if (!isMaking)
         {
             int _idx = idx;
             curBurgerIdx = _idx;
@@ -200,14 +200,14 @@ public class MakeManager : MonoBehaviour
         handAnim.SetBool("Hold", true);
     }
 
- 
+
     public void AddIngredientToMakingPizza()
     {
         var curpizza = makingpizza;
-        if(ingredientHolding)
+        if (ingredientHolding)
         {
             RaycastHit hit;
-            if(rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
+            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
             {
                 if (hit.collider.tag != "MakingZone")
                     return;
@@ -235,9 +235,9 @@ public class MakeManager : MonoBehaviour
     public void BakePizza()
     {
         RaycastHit hit;
-        if(rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count>0 && !isMaking)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking)
         {
-            if(hit.collider.tag == "Oven")
+            if (hit.collider.tag == "Oven")
             {
 
             }
@@ -269,5 +269,5 @@ public class MakeManager : MonoBehaviour
         MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
         meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
     }
-    
+
 }

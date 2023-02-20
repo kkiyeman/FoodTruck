@@ -9,7 +9,7 @@ public class IngredientManager : MonoBehaviour
 
     public static IngredientManager GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             GameObject go = new GameObject("@IngredientManager");
             instance = go.AddComponent<IngredientManager>();
