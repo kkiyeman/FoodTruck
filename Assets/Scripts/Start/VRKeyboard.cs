@@ -8,12 +8,6 @@ public class VRKeyboard : MonoBehaviour
 {
     public TMP_InputField inputField;
     public GameObject normalButtons;
-    private bool caps;
-
-    void Start()
-    {
-        caps = false;
-    }
 
     public void InsertChar(string c)
     {
@@ -33,18 +27,5 @@ public class VRKeyboard : MonoBehaviour
         inputField.text += " ";
     }
 
-    public void CapsPressed()
-    {
-        if (!caps)
-        {
-            normalButtons.SetActive(false);
-            caps = true;
-        }
-        else
-        {
-            normalButtons.SetActive(true);
-            caps = false;
-        }
-    }
 
 }
