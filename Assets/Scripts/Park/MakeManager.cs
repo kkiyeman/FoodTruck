@@ -27,7 +27,9 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
     [SerializeField] GameObject makingZone;
+    [SerializeField] GameObject OvenZone;
     [SerializeField] BakedPizza bakingpizza;
+    [SerializeField] BakedPizza holdingBakedBizza;
     [SerializeField] GameObject HoldingPizza;
     [SerializeField] GameObject[] HPIngredients;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -197,14 +199,15 @@ public class MakeManager : MonoBehaviour
 
     public void ChooseIngredientsRight()
     {
-        ingredientHolding = true;
+        
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking && !ingredientHolding)
         {
             if (hit.collider.tag == "MakingZone")
                 return;
             HoldIngredient(hit.collider.tag);
             holdingIng = hit.collider.tag;
+            ingredientHolding = true;
         }
         Animator handAnim = rightHand.GetComponent<Animator>();
         handAnim.SetBool("Hold", true);
@@ -227,7 +230,8 @@ public class MakeManager : MonoBehaviour
                     UnHoldIngredient(curAdd.Name);
                     makingpizza.AddIngredient(curAdd.Name);
                     bakingpizza.AddIngredient(curAdd.Name);
-                    for(int i = 0; i<HPIngredients.Length; i++)
+                    holdingBakedBizza.AddIngredient(curAdd.Name);
+                    for (int i = 0; i<HPIngredients.Length; i++)
                     {
                         if (HPIngredients[i].name == curAdd.Name)
                             HPIngredients[i].SetActive(true);
@@ -259,6 +263,18 @@ public class MakeManager : MonoBehaviour
 
     }
 
+    public void HoldBakedPizza()
+    {
+        RaycastHit hit;
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking && !isHoldingPizza)
+        {
+            bakingpizza.FinishMaking();
+            holdingBakedBizza.gameObject.SetActive(true);
+            isHoldingPizza = true;
+        }
+         
+    }
+
     public void BakePizza()
     {
         RaycastHit hit;
@@ -271,6 +287,7 @@ public class MakeManager : MonoBehaviour
                     HPIngredients[i].SetActive(false);
                 }
                 HoldingPizza.SetActive(false);
+                isHoldingPizza = false;
                 Invoke("BakedPizzaOn", 3f);
             }
         }
@@ -304,6 +321,18 @@ public class MakeManager : MonoBehaviour
     public void MakeZoneHoverExit()
     {
         MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
+        meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
+    }
+
+    public void OvenHoverEnter()
+    {
+        MeshRenderer meshRD = OvenZone.GetComponent<MeshRenderer>();
+        meshRD.material = Resources.Load<Material>("Practice/Mat/HoveMat");
+    }
+
+    public void OvenHoverExit()
+    {
+        MeshRenderer meshRD = OvenZone.GetComponent<MeshRenderer>();
         meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
     }
 
