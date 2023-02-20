@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit;
 
 
 public class VRKeyboardBtn : MonoBehaviour
 {
     VRKeyboard keyboard;
     TextMeshProUGUI btnText;
+    XRSimpleInteractable interactable;
+    
 
     void Start()
     {
+        interactable = GetComponent<XRSimpleInteractable>();
+        interactable.selectEntered.AddListener(delegate { keyboard.InsertChar(btnText.text); });
         keyboard = GetComponentInParent<VRKeyboard>();
         btnText = GetComponentInChildren<TextMeshProUGUI>();
 
@@ -26,4 +31,8 @@ public class VRKeyboardBtn : MonoBehaviour
         btnText.text = gameObject.name;
     }
 
+    public void OnClickVRKeyBoard()
+    {
+        keyboard.InsertChar(btnText.text);
+    }
 }
