@@ -26,6 +26,8 @@ public class MakeManager : MonoBehaviour
     [SerializeField] MakingPizza makingpizza;
     [SerializeField] GameObject makingZone;
     [SerializeField] GameObject[] bakedPizzas;
+    [SerializeField] GameObject HoldingPizza;
+    [SerializeField] GameObject[] HPIngredients;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
     Dictionary<string, GameObject> bakedPizza = new Dictionary<string, GameObject>();
     List<ToppingsData> AddedIngredients = new List<ToppingsData>();
@@ -40,6 +42,7 @@ public class MakeManager : MonoBehaviour
     bool isMaking;
     bool ingredientHolding;
     bool isStart;
+    bool isHoldingPizza;
 
 
     // Start is called before the first frame update
@@ -203,7 +206,6 @@ public class MakeManager : MonoBehaviour
 
     public void AddIngredientToMakingPizza()
     {
-        var curpizza = makingpizza;
         if (ingredientHolding)
         {
             RaycastHit hit;
@@ -216,7 +218,12 @@ public class MakeManager : MonoBehaviour
                     var curAdd = ingredientmanager.ingredientsData[holdingIng];
                     progress.Add(curAdd.Name);
                     UnHoldIngredient(curAdd.Name);
-                    curpizza.AddIngredient(curAdd.Name);
+                    makingpizza.AddIngredient(curAdd.Name);
+                    for(int i = 0; i<HPIngredients.Length; i++)
+                    {
+                        if (HPIngredients[i].name == curAdd.Name)
+                            HPIngredients[i].SetActive(true);
+                    }
                 }
                 ingredientHolding = false;
                 holdingIng = "";
@@ -229,19 +236,36 @@ public class MakeManager : MonoBehaviour
     private void OnClickFinishMaking()
     {
         isMaking = false;
-        makingZone.SetActive(false);
+    }
+
+    public void HoldPizza()
+    {
+        
+        RaycastHit hit;
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking)
+        {
+            isHoldingPizza = true;
+            makingpizza.FinishMaking();
+            HoldingPizza.SetActive(true);
+        }
+
     }
 
     public void BakePizza()
     {
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking && isHoldingPizza)
         {
             if (hit.collider.tag == "Oven")
             {
 
             }
         }
+    }
+
+    private void BakedPizzaOn()
+    {
+
     }
 
     public void LeftHandClick()
