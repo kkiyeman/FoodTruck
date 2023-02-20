@@ -47,6 +47,7 @@ public class MakeManager : MonoBehaviour
     bool isHoldingPizza;
 
     private int curOrder = 0;
+    private string curOrderPizza;
 
 
     // Start is called before the first frame update
@@ -314,7 +315,7 @@ public class MakeManager : MonoBehaviour
 
             List<string> orderPizza = consumerData.Order();
             int orderPizzaCnt = consumerData.OrderPizzaCnt();
-
+           
             UIManager.GetInstance().OpenUI("uiOrder");
 
             GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
