@@ -15,12 +15,12 @@ public class ConsumerBase2
     public int tip {get; set;}
 
     public PizzaManager pizzaManager;
-    public PlayerManager playerManager;
+    //public PlayerManager playerManager;
 
     public void Init()
     {
         pizzaManager = PizzaManager.GetInstance();
-        playerManager = PlayerManager.GetInstance();
+        //playerManager = PlayerManager.GetInstance();
     }
 
     public virtual List<string> Order()
@@ -82,7 +82,7 @@ public class ConsumerSingle2 : ConsumerBase2
     {
         Init();
         Debug.Log($"${pay} 결제");
-        playerManager.player.money += pay;
+        //playerManager.player.money += pay;
 
         return pay;
     }
@@ -95,7 +95,7 @@ public class ConsumerSingle2 : ConsumerBase2
             giveTip = true;
             if (giveTip == true)
             {
-                playerManager.player.money += tip;
+                //playerManager.player.money += tip;
             }
             else
                 return;
@@ -168,7 +168,7 @@ public class ConsumerDouble2 : ConsumerBase2
     {
         Init();
         Debug.Log($"${pay} 결제");
-        playerManager.player.money += pay;
+        //playerManager.player.money += pay;
 
         return pay;
     }
@@ -181,7 +181,7 @@ public class ConsumerDouble2 : ConsumerBase2
             giveTip = true;
             if (giveTip == true)
             {
-                playerManager.player.money += tip;
+                //playerManager.player.money += tip;
             }
             else
                 return;

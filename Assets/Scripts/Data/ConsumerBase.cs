@@ -10,7 +10,7 @@ public class ConsumerBase
     public int tip;
 
     public PizzaManager pizzaManager;
-    public PlayerManager playerManager;
+    //public PlayerManager playerManager;
 
     public void Init()
     {
@@ -63,7 +63,7 @@ public class ConsumerSingle : ConsumerBase
             giveTip = true;
             if (giveTip == true)
             {
-                playerManager.player.money += tip;
+                //playerManager.player.money += tip;
             }
             else
                 return;

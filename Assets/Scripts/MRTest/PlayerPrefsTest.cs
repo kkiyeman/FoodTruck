@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerPrefsTest : MonoBehaviour
 {
-    public Player player1;
+    //public Player player1;
     public TestData testData1;
 
     public Text txtName;
@@ -30,7 +30,7 @@ public class PlayerPrefsTest : MonoBehaviour
     }
     public void SetData()
     {
-        player1 = new Player("aaa", 0, 500);
+        //player1 = new Player("aaa", 0, 500);
         testData1 = new TestData(0, "Å×½ºÆ®", 1.2f);
     }
 
