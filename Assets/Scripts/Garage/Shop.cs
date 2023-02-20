@@ -9,14 +9,14 @@ public class Shop : MonoBehaviour
     public Button inventoryOpen;
     public GameObject inventoryS;
 
-    public TMP_Text[] shopingredientsName;
-    public Button[] shopingredientsBtns;
+    private TMP_Text[] shopingredientsName;
+    private Button[] shopingredientsBtns;
     public GameObject ingredientsBtn;
 
-    public TMP_Text[] shopingredientCounttxts;
+    private TMP_Text[] shopingredientCounttxts;
     public GameObject shopingredientCounttxtG;
 
-    public Image[] saleImage;
+    private Image[] saleImage;
     public GameObject saleImagesG;
 
     public TMP_Text myMoney;   // 내 자산
@@ -184,13 +184,8 @@ public class Shop : MonoBehaviour
 
     public void ShopToppingBtnsSetUp()  // 토핑버튼 클릭 세팅
     {
-        //shopingredientsBtns = new Button[ingredientsBtn.GetComponentsInChildren<Button>().Length];
-        //shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
-
         for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
-            //shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
-            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
             shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
@@ -212,20 +207,14 @@ public class Shop : MonoBehaviour
 
     public void ShopBaseIngredientBtnsSetUp()  // 베이스재료 클릭 세팅
     {
-        //shopingredientsBtns = new Button[ingredientsBtn.GetComponentsInChildren<Button>().Length];
-        //shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
-
         for (int i = 0; i < _ToppingsData.Count; i++)
         {
-            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
             shopingredientCounttxts[i].text = "";
             shopingredientsName[i].text = "";
         }
 
         for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
-            //shopingredientsBtns[i] = ingredientsBtn.GetComponentsInChildren<Button>()[i];
-            //shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
             shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
