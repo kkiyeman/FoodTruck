@@ -9,6 +9,8 @@ public class MakeManager : MonoBehaviour
 {
 
     [SerializeField] Button btnReadyBake;
+    [SerializeField] Button btnOrder;
+    [SerializeField] Button btnServe;
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
@@ -43,6 +45,8 @@ public class MakeManager : MonoBehaviour
     bool ingredientHolding;
     bool isStart;
     bool isHoldingPizza;
+
+    private int curOrder = 0;
 
 
     // Start is called before the first frame update
@@ -103,6 +107,8 @@ public class MakeManager : MonoBehaviour
     private void SetButton()
     {
         btnReadyBake.onClick.AddListener(OnClickFinishMaking);
+        btnOrder.onClick.AddListener(Order);
+        btnServe.onClick.AddListener(ServePizza);
     }
 
     private void OnClickGameStart()
@@ -300,4 +306,37 @@ public class MakeManager : MonoBehaviour
         meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
     }
 
+    public void Order()
+    {
+        if (curOrder < 2)
+        {
+            ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
+
+            List<string> orderPizza = consumerData.Order();
+            int orderPizzaCnt = consumerData.OrderPizzaCnt();
+
+            UIManager.GetInstance().OpenUI("uiOrder");
+
+            GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
+            Text txtOrder = uiOrder.GetComponentInChildren<Text>();
+
+            if (orderPizza.Count > 1)
+            {
+                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}판, \n{orderPizza[1]} {orderPizzaCnt}판";
+            }
+            else
+                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}판";
+
+            curOrder++;
+        }
+        else
+            Debug.Log("주문불가");
+    }
+
+    //피자 제공
+    public void ServePizza()
+    {
+        ObjectPoolManager.GetInstance().ReturnToConsumerPool();
+        curOrder--;
+    }
 }

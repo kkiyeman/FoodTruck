@@ -35,10 +35,10 @@ public class PizzaManager : MonoBehaviour
     {
         pizzaList = new List<Pizza>();
 
-        pizzaList.Add(new Pizza("Pepperoni", 15, new string[] { "도우", "소스", "치즈", "페퍼로니" }));
-        pizzaList.Add(new Pizza("Bacon Potato", 17, new string[] { "도우", "소스", "치즈", "베이컨", "포테이토" }));
-        pizzaList.Add(new Pizza("Hawaiian", 18, new string[] { "도우", "소스", "치즈", "베이컨", "파인애플" }));
-        pizzaList.Add(new Pizza("99Avenue", 20, new string[] { "도우", "소스", "치즈", "버섯","피망", "페퍼로니" }));
+        pizzaList.Add(new Pizza("PepperoniPizza", 15, new string[] { "Dow", "Sauce", "Cheese", "Pepperoni" }));
+        pizzaList.Add(new Pizza("BaconPotatoPizza", 17, new string[] { "Dow", "Sauce", "Cheese", "Bacon", "Potato" }));
+        pizzaList.Add(new Pizza("HawaianPizza", 18, new string[] { "Dow", "Sauce", "Cheese", "Bacon", "Pineapple" }));
+        pizzaList.Add(new Pizza("99Avenue", 20, new string[] { "Dow", "Sauce", "Cheese", "Mushroom","Pepper", "Pepperoni" }));
 
         pizzaCnt = pizzaList.Count;
     }
