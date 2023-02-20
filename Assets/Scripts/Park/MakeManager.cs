@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
+using TMPro;
 
 
 public class MakeManager : MonoBehaviour
@@ -11,6 +12,10 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Button btnReadyBake;
     [SerializeField] Button btnOrder;
     [SerializeField] Button btnServe;
+    [SerializeField] Button btnStart;
+    [SerializeField] TMP_Text txtOrder1;
+    [SerializeField] TMP_Text txtOrder2;
+    [SerializeField] TMP_Text txtScore;
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
@@ -58,7 +63,6 @@ public class MakeManager : MonoBehaviour
     {
         consumermanager = ConsumerManager.GetInstance();
         ingredientmanager = IngredientManager.GetInstance();
-        isMaking = true;
         InitHoldingIngredients();
         SetButton();
     }
@@ -119,12 +123,13 @@ public class MakeManager : MonoBehaviour
         btnReadyBake.onClick.AddListener(OnClickFinishMaking);
         btnOrder.onClick.AddListener(Order);
         btnServe.onClick.AddListener(ServePizza);
+        btnStart.onClick.AddListener(OnClickGameStart);
     }
 
     private void OnClickGameStart()
     {
-        isStart = true;
-        StartCoroutine(InitQuest());
+        isMaking = true;
+        //StartCoroutine(InitQuest());
     }
 
 
@@ -356,14 +361,13 @@ public class MakeManager : MonoBehaviour
             UIManager.GetInstance().OpenUI("uiOrder");
 
             GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
-            Text txtOrder = uiOrder.GetComponentInChildren<Text>();
 
             if (orderPizza.Count > 1)
             {
-                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}ÆÇ, \n{orderPizza[1]} {orderPizzaCnt}ÆÇ";
+                txtOrder1.text = $"{orderPizza[0]} 1, \n{orderPizza[1]} 1";
             }
             else
-                txtOrder.text = $"{orderPizza[0]} {orderPizzaCnt}ÆÇ";
+                txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
 
             curOrder++;
         }
