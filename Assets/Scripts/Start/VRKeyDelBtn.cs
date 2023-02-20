@@ -4,15 +4,11 @@ using UnityEngine;
 using TMPro;
 
 
-public class VRKeyboard : MonoBehaviour
+public class VRKeyDelBtn : MonoBehaviour
 {
     public TMP_InputField inputField;
     public GameObject normalButtons;
 
-    public void InsertChar(string c)
-    {
-        inputField.text += c;
-    }
     public void DeleteChar()
     {
         if (inputField.text.Length > 0)
