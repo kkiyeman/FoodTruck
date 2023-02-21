@@ -39,6 +39,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject OpenPizzabox;
     [SerializeField] GameObject ClosePizzabox;
     [SerializeField] GameObject PizzaBatchim;
+    [SerializeField] GameObject Bell;
     Animator rightAnimator;
     Animator leftAnimator;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -77,7 +78,7 @@ public class MakeManager : MonoBehaviour
         consumermanager = ConsumerManager.GetInstance();
         ingredientmanager = IngredientManager.GetInstance();
         InitHoldingIngredients();
-        SetButton();
+        //SetButton();
         SetHoverGameObjects();
 
 
@@ -124,21 +125,37 @@ public class MakeManager : MonoBehaviour
 
 
 
-    public IEnumerator InitQuest()
+    public IEnumerator InitOrder()
     {
         while (isStart)
         {
+
             yield return wait5sec;
+            Order();
 
+            yield return wait5sec;
             int ran = Random.Range(1, 11);
-            if (ran > 3)
+            if (ran < 3)
             {
-
+                Order();
             }
         }
 
     }
 
+    public void StartDay()
+    {
+        Animator animator = Bell.GetComponent<Animator>();
+        animator.SetTrigger("Ring");
+        Invoke("BellRing", 1f);
+        isStart = true;
+        StartCoroutine(InitOrder());
+    }
+
+    private void BellRing()
+    {
+        soundPlayer.PlaySfx("BellRing");
+    }
     private void HoldIngredient(string name)
     {
         holdingIngredients[$"Hold{name}(Clone)"].SetActive(true);
@@ -413,10 +430,6 @@ public class MakeManager : MonoBehaviour
 
             List<string> orderPizza = consumerData.Order();
             int orderPizzaCnt = consumerData.OrderPizzaCnt();
-           
-            UIManager.GetInstance().OpenUI("uiOrder");
-
-            GameObject uiOrder = UIManager.GetInstance().SetUI("uiOrder");
 
             if (orderPizza.Count > 1)
             {

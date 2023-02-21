@@ -27,8 +27,8 @@ namespace Sunbox.Avatars {
             _inputVector.x = Mathf.Clamp(_inputVector.x, -1, 1);
             _inputVector.y = Mathf.Clamp(_inputVector.y, -1, 1);
 
-            _avatar.Animator.SetFloat("MoveX", _inputVector.x);
-            _avatar.Animator.SetFloat("MoveY", _inputVector.y);
+            //_avatar.Animator.SetFloat("MoveX", _inputVector.x);
+            //_avatar.Animator.SetFloat("MoveY", _inputVector.y);
         }
 
         public void Dance(){
