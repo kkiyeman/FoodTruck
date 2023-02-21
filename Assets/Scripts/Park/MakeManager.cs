@@ -20,8 +20,6 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Button btnGameStart;
     [SerializeField] Quest[] orderList;
     [SerializeField] GameObject makingPool;
-    public int curOrderCount = 0;
-    public int curBurgerIdx;
     [SerializeField] XRRayInteractor leftController;
     [SerializeField] XRRayInteractor rightController;
     [SerializeField] GameObject leftHand;
@@ -34,10 +32,13 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject makingZone;
     [SerializeField] GameObject OvenZone;
     [SerializeField] BakedPizza bakingpizza;
-    [SerializeField] BakedPizza holdingBakedBizza;
+    [SerializeField] BakedPizza holdingBakedPizza;
     [SerializeField] GameObject HoldingPizza;
     [SerializeField] GameObject[] HPIngredients;
     [SerializeField] Transform[] consumerPoints;
+    [SerializeField] GameObject OpenPizzabox;
+    [SerializeField] GameObject ClosePizzabox;
+    [SerializeField] GameObject PizzaBatchim;
     Animator rightAnimator;
     Animator leftAnimator;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -158,8 +159,12 @@ public class MakeManager : MonoBehaviour
 
     private void OnClickGameStart()
     {
-        isMaking = true;
-        isingredientAdding = true;
+        if(!isMaking && !isHoldingPizza && !isingredientAdding)
+        {
+            isMaking = true;
+            isingredientAdding = true;
+        }
+
         //StartCoroutine(InitQuest());
     }
 
@@ -189,12 +194,7 @@ public class MakeManager : MonoBehaviour
 
     private void OnClickOrderList(int idx)
     {
-        if (!isMaking)
-        {
-            int _idx = idx;
-            curBurgerIdx = _idx;
-            isMaking = true;
-        }
+
     }
 
 
@@ -280,7 +280,7 @@ public class MakeManager : MonoBehaviour
                     UnHoldIngredient(curAdd.Name);
                     makingpizza.AddIngredient(curAdd.Name);
                     bakingpizza.AddIngredient(curAdd.Name);
-                    holdingBakedBizza.AddIngredient(curAdd.Name);
+                    holdingBakedPizza.AddIngredient(curAdd.Name);
                     for (int i = 0; i<HPIngredients.Length; i++)
                     {
                         if (HPIngredients[i].name == curAdd.Name)
@@ -298,7 +298,7 @@ public class MakeManager : MonoBehaviour
 
     private void OnClickFinishMaking()
     {
-        if(!isingredientHolding)
+        if(!isingredientHolding && isingredientAdding)
             isingredientAdding = false;
     }
 
@@ -312,6 +312,7 @@ public class MakeManager : MonoBehaviour
             isHoldingPizza = true;
             makingpizza.FinishMaking();
             HoldingPizza.SetActive(true);
+            PizzaBatchim.gameObject.SetActive(true);
         }
 
     }
@@ -322,9 +323,10 @@ public class MakeManager : MonoBehaviour
         if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isingredientAdding && !isHoldingPizza)
         {
             rightAnimator.SetBool("HoldPizza", true);
-            bakingpizza.FinishMaking();
-            holdingBakedBizza.gameObject.SetActive(true);
-            isHoldingPizza = true;
+            bakingpizza.gameObject.SetActive(false);
+            holdingBakedPizza.gameObject.SetActive(true);
+            PizzaBatchim.gameObject.SetActive(true);
+            isHoldingBakedPizza = true;
         }
          
     }
@@ -342,6 +344,7 @@ public class MakeManager : MonoBehaviour
                 }
                 rightAnimator.SetBool("HoldPizza", false);
                 HoldingPizza.SetActive(false);
+                PizzaBatchim.gameObject.SetActive(false);
                 isHoldingPizza = false;
                 Invoke("BakedPizzaOn", 3f);
             }
@@ -376,6 +379,29 @@ public class MakeManager : MonoBehaviour
     {
         MeshRenderer meshRD = go.GetComponent<MeshRenderer>();
         meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
+    }
+
+    public void OnSelectPizzabox()
+    {
+        if (isMaking && isHoldingBakedPizza)
+            OpenPizzabox.SetActive(true);
+    }
+    public void OnSelectServingZone()
+    {
+        if(isHoldingBakedPizza)
+        {
+            holdingBakedPizza.FinishMaking();
+            holdingBakedPizza.gameObject.SetActive(false);
+            PizzaBatchim.gameObject.SetActive(false);
+            bakingpizza.gameObject.SetActive(true);
+            bakingpizza.transform.position = ClosePizzabox.transform.position;
+            isHoldingBakedPizza = false;
+        }
+        else if(!isHoldingBakedPizza && isMaking && progress.Count>0)
+        {
+            OpenPizzabox.SetActive(false);
+            ClosePizzabox.SetActive(true);
+        }
     }
 
     public void Order()
