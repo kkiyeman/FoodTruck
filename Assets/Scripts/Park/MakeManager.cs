@@ -38,6 +38,8 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject HoldingPizza;
     [SerializeField] GameObject[] HPIngredients;
     [SerializeField] Transform[] consumerPoints;
+    Animator rightAnimator;
+    Animator leftAnimator;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
     Dictionary<string, GameObject> bakedPizza = new Dictionary<string, GameObject>();
     List<ToppingsData> AddedIngredients = new List<ToppingsData>();
@@ -50,9 +52,11 @@ public class MakeManager : MonoBehaviour
 
     string holdingIng = "";
     bool isMaking;
-    bool ingredientHolding;
+    bool isingredientAdding;
+    bool isingredientHolding;
     bool isStart;
     bool isHoldingPizza;
+    bool isHoldingBakedPizza;
 
     private int curOrder = 0;
     private string curOrderPizza;
@@ -61,6 +65,8 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rightAnimator = rightHand.GetComponent<Animator>();
+        leftAnimator = leftHand.GetComponent<Animator>();
         consumermanager = ConsumerManager.GetInstance();
         ingredientmanager = IngredientManager.GetInstance();
         InitHoldingIngredients();
@@ -129,6 +135,7 @@ public class MakeManager : MonoBehaviour
     private void OnClickGameStart()
     {
         isMaking = true;
+        isingredientAdding = true;
         //StartCoroutine(InitQuest());
     }
 
@@ -213,25 +220,25 @@ public class MakeManager : MonoBehaviour
     {
         
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking && !ingredientHolding)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && !isingredientHolding && isingredientAdding)
         {
             if (hit.collider.tag == "MakingZone")
                 return;
             HoldIngredient(hit.collider.tag);
             holdingIng = hit.collider.tag;
-            ingredientHolding = true;
+            isingredientHolding = true;
+            rightAnimator.SetBool("Hold", true);
         }
-        Animator handAnim = rightHand.GetComponent<Animator>();
-        handAnim.SetBool("Hold", true);
+        
     }
 
 
     public void AddIngredientToMakingPizza()
     {
-        if (ingredientHolding)
+        if (isingredientHolding)
         {
             RaycastHit hit;
-            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isMaking)
+            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isingredientAdding)
             {
                 if (hit.collider.tag != "MakingZone")
                     return;
@@ -249,25 +256,25 @@ public class MakeManager : MonoBehaviour
                             HPIngredients[i].SetActive(true);
                     }
                 }
-                ingredientHolding = false;
+                isingredientHolding = false;
                 holdingIng = "";
             }
-            Animator handAnim = rightHand.GetComponent<Animator>();
-            handAnim.SetBool("Hold", false);
+            rightAnimator.SetBool("Hold", false);
         }
     }
 
     private void OnClickFinishMaking()
     {
-        isMaking = false;
+        isingredientAdding = false;
     }
 
     public void HoldPizza()
     {
         
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isingredientAdding && !isHoldingBakedPizza)
         {
+            rightAnimator.SetBool("HoldPizza", true);
             isHoldingPizza = true;
             makingpizza.FinishMaking();
             HoldingPizza.SetActive(true);
@@ -278,8 +285,9 @@ public class MakeManager : MonoBehaviour
     public void HoldBakedPizza()
     {
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking && !isHoldingPizza)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isingredientAdding && !isHoldingPizza)
         {
+            rightAnimator.SetBool("HoldPizza", true);
             bakingpizza.FinishMaking();
             holdingBakedBizza.gameObject.SetActive(true);
             isHoldingPizza = true;
@@ -290,7 +298,7 @@ public class MakeManager : MonoBehaviour
     public void BakePizza()
     {
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0 && !isMaking && isHoldingPizza)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && progress.Count > 0  && isHoldingPizza && !isingredientAdding)
         {
             if (hit.collider.tag == "Oven")
             {
@@ -298,6 +306,7 @@ public class MakeManager : MonoBehaviour
                 {
                     HPIngredients[i].SetActive(false);
                 }
+                rightAnimator.SetBool("HoldPizza", false);
                 HoldingPizza.SetActive(false);
                 isHoldingPizza = false;
                 Invoke("BakedPizzaOn", 3f);
@@ -312,8 +321,7 @@ public class MakeManager : MonoBehaviour
 
     public void LeftHandClick()
     {
-        Animator handAnim = leftHand.GetComponent<Animator>();
-        handAnim.SetTrigger("Click");
+        leftAnimator.SetTrigger("Click");
     }
 
     public IEnumerator LogOn(string info)

@@ -74,6 +74,7 @@ public class ObjectPoolManager : MonoBehaviour
             orderConsumer.Enqueue(consumerAvatar);
             consumerAvatar.gameObject.SetActive(true);
             consumerAvatar.gameObject.transform.SetParent(null);
+            consumerAvatar.gameObject.transform.position = _transform.position;
             return consumerAvatar;
         }
         return consumerAvatar;
