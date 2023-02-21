@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 34553218309cdb14e98fe5cf2ccca97c, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 619b619c96605d34cbd81bc571cfd943, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1.0378397, g: 1.0683202, b: 0.9455459, a: 1}
+  m_IndirectSpecularColor: {r: 0.8870133, g: 0.75835794, b: 0.6472903, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2334,8 +2334,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b4a3f65ae999246b8530eecf0438fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 0
-  buttonScale: {fileID: 0}
+  currentType: 7
+  buttonScale: {fileID: 388984082}
   nowGroup: {fileID: 439078861}
   nextGroup: {fileID: 366717477}
 --- !u!1 &404485765
@@ -4571,18 +4571,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 439078853}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &861532017
 MonoBehaviour:
@@ -8361,7 +8349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentType: 11
   buttonScale: {fileID: 1490617090}
-  nowGroup: {fileID: 0}
+  nowGroup: {fileID: 2101252316}
   nextGroup: {fileID: 0}
 --- !u!1 &1550646135
 GameObject:
@@ -11305,7 +11293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2b4a3f65ae999246b8530eecf0438fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentType: 0
+  currentType: 1
   buttonScale: {fileID: 0}
   nowGroup: {fileID: 0}
   nextGroup: {fileID: 0}
