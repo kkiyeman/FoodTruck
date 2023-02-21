@@ -218,32 +218,38 @@ public class MakeManager : MonoBehaviour
 
     public void ChooseIngredientsRight()
     {
-        
         RaycastHit hit;
-        if (rightController.TryGetCurrent3DRaycastHit(out hit) && !isingredientHolding && isingredientAdding)
+        if (rightController.TryGetCurrent3DRaycastHit(out hit) && !isingredientHolding && isingredientAdding && hit.collider.tag != "MakingZone")
         {
-            if (hit.collider.tag == "MakingZone")
-                return;
             HoldIngredient(hit.collider.tag);
             holdingIng = hit.collider.tag;
             isingredientHolding = true;
             rightAnimator.SetBool("Hold", true);
         }
+        else if(isingredientHolding)
+        {
+            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isingredientAdding && hit.collider.tag == holdingIng)
+            {
+                UnHoldIngredient(holdingIng);
+                holdingIng = "";
+                isingredientHolding = false;
+                rightAnimator.SetBool("Hold", false);
+            }
+        }
+
         
     }
 
 
     public void AddIngredientToMakingPizza()
     {
-        if (isingredientHolding)
-        {
+        if (!isingredientHolding)
+            return;
+
             RaycastHit hit;
-            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isingredientAdding)
+            if (rightController.TryGetCurrent3DRaycastHit(out hit) && isingredientAdding && hit.collider.tag == "MakingZone")
             {
-                if (hit.collider.tag != "MakingZone")
-                    return;
-                else
-                {
+
                     var curAdd = ingredientmanager.ingredientsData[holdingIng];
                     progress.Add(curAdd.Name);
                     UnHoldIngredient(curAdd.Name);
@@ -255,17 +261,16 @@ public class MakeManager : MonoBehaviour
                         if (HPIngredients[i].name == curAdd.Name)
                             HPIngredients[i].SetActive(true);
                     }
-                }
                 isingredientHolding = false;
                 holdingIng = "";
+                rightAnimator.SetBool("Hold", false);
             }
-            rightAnimator.SetBool("Hold", false);
-        }
     }
 
     private void OnClickFinishMaking()
     {
-        isingredientAdding = false;
+        if(!isingredientHolding)
+            isingredientAdding = false;
     }
 
     public void HoldPizza()
