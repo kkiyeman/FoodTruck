@@ -120,7 +120,7 @@ public class ConsumerDouble2 : ConsumerBase2
 
         orderPizzaTest = new List<string>();
         orderPizzaPrice = new List<float>();
-        //orderPizzaCnt = 1;
+        orderPizzaCnt = 1;
 
         for(int i = 0; i < 2; i++)
         {
