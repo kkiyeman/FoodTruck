@@ -16,7 +16,11 @@ public class EventTest : MonoBehaviour
 
     void Start()
     {
-
+        UIManager.GetInstance().OpenUI("uiTodaysScore");
+        GameObject uiTodaysObj = UIManager.GetInstance().SetUI("uiTodaysScore");
+        
+        UITodaysScore uiTodaysScore = uiTodaysObj.GetComponent<UITodaysScore>();
+        uiTodaysScore.SetTodayInfo(0, 0, 0, 0, 0, 0);
     }
 
     public void Order()

@@ -56,14 +56,13 @@ public class UIManager : MonoBehaviour
     {
         GameObject go = uiList[uiName];
 
-        //if (uiList.ContainsKey(uiName) == false)
-        //{
-        //    OpenUI(uiName);
-        //}
-        //else
-        //    return go;
-
-        return go;
+        if (uiList.ContainsKey(uiName) == false)
+        {
+            OpenUI(uiName);
+            return go;
+        }
+        else
+            return go;
     }
 
     public void ClearList()
