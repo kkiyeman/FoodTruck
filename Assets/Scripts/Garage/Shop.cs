@@ -300,26 +300,30 @@ public class Shop : MonoBehaviour
     ///////////////////////////////////////////////////////////
     public void BuyItem()  // 아이템 구매시 적용
     {       // playerData.money >= buyprice && 
-        if (shopdataChecker.CheckNum == 0)
+        if (playerData.money >= buyprice && shopdataChecker.CheckNum == 0)
         {
-            // playerData.money -= buyprice;
+            playerData.money -= buyprice;
             _ToppingsData[ingredientsNum].ShopAmount -= buyAmount;
             _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
             BuyToppingCountReset();
             inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
+
+            Debug.Log(playerData.money);
         }
-        else if (shopdataChecker.CheckNum == 1)
+        else if (playerData.money >= buyprice && shopdataChecker.CheckNum == 1)
         {
-            // playerData.money -= buyprice;
+            playerData.money -= buyprice;
             _BaseIngredientData[ingredientsNum].ShopAmount -= buyAmount;
             _BaseIngredientData[ingredientsNum].InvenAmount += buyAmount;
             BuyBaseCountReset();
             inventory.GetComponent<Inventory>().BuyInvenBaseCountReset(ingredientsNum);
-        }
-        // else if (playerData.money < buyprice)
-        //     Debug.Log("돈이 부족합니다.");
 
-        // ShopMyMoneySetUp();
+            Debug.Log(playerData.money);
+        }
+        else if (playerData.money < buyprice)
+            Debug.Log("돈이 부족합니다.");
+
+        ShopMyMoneySetUp();
         // inventory.InvenMyMoneySetUp();
         buyAmount = 0;
         buyprice = 0;
