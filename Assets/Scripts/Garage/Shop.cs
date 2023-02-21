@@ -42,8 +42,8 @@ public class Shop : MonoBehaviour
     private float buyprice;   // 구매 체크박스 가격
 
     private int ingredientsNum;   // 클릭된 재료 저장
-    private int saleToppingNum;   // 세일 토핑 번호
-    private int saleBaseNum;   // 세일 기본재료 번호
+    public int saleToppingNum;   // 세일 토핑 번호
+    public int saleBaseNum;   // 세일 기본재료 번호
 
 
     // 구매 자산 부족 체크박스
@@ -54,6 +54,7 @@ public class Shop : MonoBehaviour
     public PlayerData playerData = new PlayerData();
 
     public GameObject inventory;
+    public GameObject mainbaord;
 
     /// //////////////////////////////////////////////////////////////////////////////////
 
@@ -141,6 +142,9 @@ public class Shop : MonoBehaviour
         _shopToppingPrice[saleToppingNum] *= (1 - fPercent / 100);
         _shopBasePrice[saleBaseNum] *= (1 - fPercent / 100);
         ShopMyMoneySetUp();
+
+        mainbaord.GetComponent<MainBoard>().sale_1.text = _ToppingsData[saleToppingNum].Name+" -20%";
+        mainbaord.GetComponent<MainBoard>().sale_2.text = _BaseIngredientData[saleBaseNum].Name+" -20%";
     }
 
     public void ShopStartUISetUp()  // 시작전 UI 세팅
@@ -308,8 +312,7 @@ public class Shop : MonoBehaviour
             _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
             BuyToppingCountReset();
             inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
-
-            Debug.Log(playerData.money);
+            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString(); 
         }
         else if (playerData.money >= buyprice && shopdataChecker.CheckNum == 1)
         {
@@ -318,8 +321,7 @@ public class Shop : MonoBehaviour
             _BaseIngredientData[ingredientsNum].InvenAmount += buyAmount;
             BuyBaseCountReset();
             inventory.GetComponent<Inventory>().BuyInvenBaseCountReset(ingredientsNum);
-
-            Debug.Log(playerData.money);
+            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
         }
         else if (playerData.money < buyprice)
             Debug.Log("돈이 부족합니다.");

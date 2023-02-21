@@ -6,26 +6,31 @@ using TMPro;
 
 public class MainBoard : MonoBehaviour
 {
+    public GameObject goParkCheckBox;
     public Button goPark;
     public Button goParkYes;
     public Button goParkNo;
-    public Button goEvent;
-    public Button goEventYes;
-    public Button goEventNo;
+   
     public Button openInven;
+
     public TMP_Text date;
     public TMP_Text money;
-    public TMP_Text eventInfo;
-    public TMP_Text saleInfo;
-    public GameObject goParkCheckBox;
-    public GameObject goEventCheckBox;
+    public TMP_Text sale_1;
+    public TMP_Text sale_2;
+
+    public Button saleInfo;
+    public Button gosale;
+    public Button goEventCheckBox;
+    public Button goEvent;
+
     public GameObject inventory;
+    public GameObject shop;
 
 
     SceneLoadTester sceneLoad = new SceneLoadTester();
     public void Awake()
     {
-        
+        SceneSetUp();
     }
 
     public void Start()
@@ -33,14 +38,33 @@ public class MainBoard : MonoBehaviour
         ClickgoPark();
         ClickGoEvent();
         ClickOpenInven();
+        DailySaleOnClick();
     }
 
+    public void SceneSetUp()
+    {
+        //date.text = dateData
+        money.text = shop.GetComponent<Shop>().playerData.money.ToString();
+    }
+
+    public void DailySaleOnClick()
+    {
+        gosale.onClick.AddListener(() =>
+        {
+            saleInfo.gameObject.SetActive(true);
+        });
+
+        saleInfo.onClick.AddListener(() =>
+        {
+            saleInfo.gameObject.SetActive(false);
+        });
+    }
 
     public void ClickOpenInven()
     {
         openInven.onClick.AddListener(() =>
         {
-            inventory.SetActive(true);
+            inventory.gameObject.SetActive(true);
         });
     }
 
@@ -49,14 +73,14 @@ public class MainBoard : MonoBehaviour
     {
         goPark.onClick.AddListener(() =>
         {
-            goParkCheckBox.SetActive(true);
+            goParkCheckBox.gameObject.SetActive(true);
         });
 
         goParkYes.onClick.AddListener(sceneLoad.SceneChangePark);
 
         goParkNo.onClick.AddListener(() =>
         {
-            goParkCheckBox.SetActive(false);
+            goParkCheckBox.gameObject.SetActive(false);
         });
     }
 
@@ -65,34 +89,20 @@ public class MainBoard : MonoBehaviour
     {
         goEvent.onClick.AddListener(() =>
         {
-            goEventCheckBox.SetActive(true);
+            goEventCheckBox.gameObject.SetActive(true);
         });
 
-        //goEventYes.onClick.AddListener(ChangeSceneGoEvent);
-
-        goEventNo.onClick.AddListener(() =>
+        goEventCheckBox.onClick.AddListener(() =>
         {
-            goEventCheckBox.SetActive(false);
+            goEventCheckBox.gameObject.SetActive(false);
         });
     }
 
     
-    public void ChangeSceneGoPark()
-    {
-        goParkCheckBox.SetActive(false);
-    }
+    //public void GoBusinessOnClick()
+    //{
+    //    goParkCheckBox.SetActive(false);
+    //}
 
-
-    public void ChangeSceneGoEvent()
-    {
-        goEventCheckBox.SetActive(false);
-    }
-
-
-    public void SceneSetUp()
-    {
-        // date.text = dateData
-        // money.text = moneyData
-        // saleInfo.text = shopsaleData
-    }
+    
 }
