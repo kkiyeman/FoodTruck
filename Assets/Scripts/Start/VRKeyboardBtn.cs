@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class VRKeyboardBtn : MonoBehaviour
 {
     VRKeyboard keyboard;
-    TextMeshProUGUI btnText;
+    public TextMeshProUGUI btnText;
     XRSimpleInteractable interactable;
     [SerializeField] GameObject pressBtn;
     
@@ -30,6 +30,7 @@ public class VRKeyboardBtn : MonoBehaviour
         keyboard = GetComponentInParent<VRKeyboard>();
         btnText = GetComponentInChildren<TextMeshProUGUI>();
 
+        // btnText도 지정해주어야 한다
         if (btnText.text.Length == 1)
         {
             NameToBtnText();

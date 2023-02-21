@@ -20,8 +20,8 @@ using System.IO;
 public class PlayerData
 {
     public string name;
-    public int repute;
-    public int money;
+    public int repute = 0;
+    public float money = 500;
 }
 
 public class DataManager : MonoBehaviour
@@ -67,14 +67,6 @@ public class DataManager : MonoBehaviour
 
         //NowPlayer();
     }
-
-    //public void NowPlayer(string name, int repute, int money)
-    //{
-        //public string name;
-        //public int repute;
-        //public int money;
-    //}
-
 
     void Start()
     {

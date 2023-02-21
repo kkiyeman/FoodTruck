@@ -1,20 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player
 {
-    public string name;
-    public int repute;
-    public float money;
-    //public List<Ingredient> inventory;
-    //장사일지도 추가되어야함..
+    public Text name;
+    public Text repute;
+    public Text money;
 
-    public Player(string name, int repute, float money)
+    void Start()
     {
-        this.name = name;
-        this.repute = repute;
-        this.money = money;
-        //this.inventory = inventory;
+        name.text += DataManager.instance.nowPlayer.name;
+        repute.text += DataManager.instance.nowPlayer.repute.ToString();
+        money.text += DataManager.instance.nowPlayer.money.ToString();
     }
+
+    public void Save()
+    {
+        DataManager.instance.SaveData();
+    }
+
 }

@@ -81,7 +81,6 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
             // 이 저장 파일을 불러올 것이다
             case BtnType.FileCheckYes:
-                //SceneLoader.LoadSceneHandle("Play", 1); 
                 Debug.Log("Yes");
                 break;
 

@@ -11,6 +11,8 @@ public class Select : MonoBehaviour
     // 비어있는 슬롯 창을 눌렀을 때 뜨는 창을 뜻한다
     // 나는 이것을 New Game을 눌렀을 때 CreateCanvas가 뜨도록 해야하고
     // Load를 눌렀을 때, SelectCanvas가 뜨도록 해야한다
+    public DataManager dataManager;
+
     public GameManager creat;
 
     // 슬롯에 있는 문구가 바뀌도록 해준다. 배열로 만들어준다
@@ -23,7 +25,6 @@ public class Select : MonoBehaviour
 
     void Start()
     {
-        return;
 
         // 슬롯별로 저장된 데이터가 존재한는지 판단
         // 우리가 저장했던 경로를 확인해 봐야겠다는 판단이 난다
@@ -33,17 +34,20 @@ public class Select : MonoBehaviour
         // bool값을 이용해서 참인지 거짓인지 판별한다
         for (int i = 0; i < 3; i++)
         {
+            Debug.Log("check : " + DataManager.instance.path + $"{i}");
             if (File.Exists(DataManager.instance.path + $"{i}"))
             {
                 // save bool값 중에 0번은 true로 인식되게 한다
                 savefile[i] = true;
                 DataManager.instance.nowSlot = i;
                 DataManager.instance.LoadData();
-                //slotText[i].text = DataManager.instance.nowPlayer.name;
+
+                slotText[i * 3].text = DataManager.instance.nowPlayer.name;
             }
             else
             {
-                slotText[i].text = "저장한 데이터가 없습니다.";
+                // 슬롯텍스트 i가 지정되어 있지 않다. 해주어야한다
+                slotText[i * 3].text = "저장한 데이터가 없습니다.";
             }
         }
         DataManager.instance.DataClear();
@@ -67,6 +71,7 @@ public class Select : MonoBehaviour
         // 데이터가 있기 때문에 게임이 불러와지는 것이고 
         if (savefile[number])
         {
+
             DataManager.instance.LoadData();
             GoGame();
         }
@@ -103,6 +108,7 @@ public class Select : MonoBehaviour
             // 그리고 다시 한번 더 저장해 주는 것이 좋을 것이다
             DataManager.instance.SaveData();
         }
+        // 0=Start, 1=Garage 씬순서
         SceneManager.LoadScene(1);
     }
 }
