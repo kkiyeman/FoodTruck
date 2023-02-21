@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
 using System.IO;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Select : MonoBehaviour
 {
@@ -14,6 +11,8 @@ public class Select : MonoBehaviour
     public DataManager dataManager;
 
     public GameManager creat;
+
+    [SerializeField] protected Transform filecheck;
 
     // 슬롯에 있는 문구가 바뀌도록 해준다. 배열로 만들어준다
     public TMP_Text[] slotText;
@@ -75,9 +74,9 @@ public class Select : MonoBehaviour
         // 데이터가 있기 때문에 게임이 불러와지는 것이고 
         if (savefile[number])
         {
-
-            DataManager.instance.LoadData();
-            GoGame();
+            filecheck.gameObject.gameObject.SetActive(true);
+            //DataManager.instance.LoadData();
+            //GoGame();
         }
         else
         {

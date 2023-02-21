@@ -58,6 +58,13 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                 Debug.Log("Cancel");
                 break;
 
+            // 계정 생성 뒤로가기 버튼
+            case BtnType.NameCheckBackStep:
+                CanvasGroupOn(nextGroup);
+                CanvasGroupOff(nowGroup);
+                Debug.Log("BackStep");
+                break;
+
             // 불러오기
             case BtnType.Load:
                 CanvasGroupOn(nextGroup);

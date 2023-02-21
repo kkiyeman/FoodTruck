@@ -9,6 +9,7 @@ public enum BtnType
     Check,
     NameCheckYes,
     NameCheckNo,
+    NameCheckBackStep,
     Load,
     FileSlot,
     Back,
