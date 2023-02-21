@@ -18,16 +18,15 @@ public class TruckCustom : MonoBehaviour
 
     public TMP_Text myMoney;
 
-    public float testMoney;
-    
+    // public float testMoney;
 
+    PlayerData playerData = new PlayerData();
 
     public List<FoodTruckData> _FoodTruckSimpleList = new List<FoodTruckData>();
     SimpleTruck simpleTruck = new SimpleTruck();
 
     public void Awake()
     {
-        testMoney = 1000.0f;
         FoodTruckDataList();
         TruckSetUp();
     }
@@ -72,6 +71,7 @@ public class TruckCustom : MonoBehaviour
         _truckColorBtns = new Button[truckColorBtnG.GetComponentsInChildren<Button>().Length];
         _truckColorsChange = new MeshRenderer[truckG.GetComponentsInChildren<MeshRenderer>().Length];
         _truckMats = Resources.LoadAll<Material>("Material");
+        myMoney.text = playerData.money.ToString();
 
         for (int i = 0; i < truckColorBtnG.GetComponentsInChildren<Button>().Length; i++)
         {
@@ -112,11 +112,11 @@ public class TruckCustom : MonoBehaviour
         }
         else if (_FoodTruckSimpleList[idx].BuyCheck == false)
         {
-            if (_FoodTruckSimpleList[idx].Price <= testMoney)
+            if (_FoodTruckSimpleList[idx].Price <= playerData.money)
             {
                 _lockImage[idx].gameObject.SetActive(false);
                 _FoodTruckSimpleList[idx].BuyCheck = true;
-                testMoney -= _FoodTruckSimpleList[idx].Price;
+                playerData.money -= _FoodTruckSimpleList[idx].Price;
             }
         }
         Debug.Log($"선택된 번호 : {idx}");

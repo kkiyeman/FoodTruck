@@ -24,7 +24,7 @@ public class Inventory : MonoBehaviour
 
     public Button invenExit;
 
-    PlayerData playerData = new PlayerData();
+    //PlayerData playerData = new PlayerData();
     public GameObject shop;
 
 
@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
 
     public void InvenMyMoneySetUp()
     {
-        //myMoney.text = playerData.money.ToString();
+        myMoney.text = shop.GetComponent<Shop>().playerData.money.ToString();
     }
 
     public void InvenToppingBtnsSetUp()  // 토핑버튼 클릭 세팅
@@ -112,11 +112,13 @@ public class Inventory : MonoBehaviour
     public void BuyInvenBaseCountReset(int idx)
     {
         inveningredientCounttxts[idx].text = shop.GetComponent<Shop>()._BaseIngredientData[idx].InvenAmount.ToString();
+        //InvenMyMoneySetUp();
     }
 
     public void BuyInvenToppingCountReset(int idx)
     {
         inveningredientCounttxts[idx].text = shop.GetComponent<Shop>()._ToppingsData[idx].InvenAmount.ToString();
+        //InvenMyMoneySetUp();
     }
 
     public void InventoryFalse()   // 인벤토리 창 끄기

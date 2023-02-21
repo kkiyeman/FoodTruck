@@ -51,7 +51,7 @@ public class Shop : MonoBehaviour
     public Button nomoneyCancle;
 
     ShopDataChecker shopdataChecker = new ShopDataChecker();
-    PlayerData playerData = new PlayerData();
+    public PlayerData playerData = new PlayerData();
 
     public GameObject inventory;
 
@@ -248,6 +248,7 @@ public class Shop : MonoBehaviour
     public void InventoryOpen()   // 인벤토리 오픈
     {
         inventoryS.SetActive(true);
+        inventoryS.GetComponent<Inventory>().InvenMyMoneySetUp();
         inventoryS.GetComponent<Inventory>().InvenStartUISetUp();
     }
 
@@ -331,7 +332,7 @@ public class Shop : MonoBehaviour
         buyCheckbox.SetActive(false);
 
         Debug.Log(_ToppingsData[ingredientsNum].InvenAmount);
-        Debug.Log(_BaseIngredientData[ingredientsNum].InvenAmount);
+        //Debug.Log(_BaseIngredientData[ingredientsNum].InvenAmount);
     }
 
 
