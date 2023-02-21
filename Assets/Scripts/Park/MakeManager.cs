@@ -61,6 +61,8 @@ public class MakeManager : MonoBehaviour
     private int curOrder = 0;
     private string curOrderPizza;
 
+    [SerializeField] 
+    private List<XRSimpleInteractable> hoverInteractList = new List<XRSimpleInteractable>();
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +73,9 @@ public class MakeManager : MonoBehaviour
         ingredientmanager = IngredientManager.GetInstance();
         InitHoldingIngredients();
         SetButton();
+        SetHoverGameObjects();
+
+
     }
 
     private void InitHoldingIngredients()
@@ -89,6 +94,20 @@ public class MakeManager : MonoBehaviour
 
     }
 
+    private void SetHoverGameObjects()
+    {
+        for (int i = 0; i < hoverInteractList.Count; i++)
+        {
+            var curObj = hoverInteractList[i];
+            curObj.hoverEntered.AddListener((e) => {
+                HoverEnterMatChange(curObj.gameObject);
+            });
+
+            curObj.hoverExited.AddListener((e) => {
+                HoverExitMatChange(curObj.gameObject);
+            });
+        }
+    }
     private Transform GetRanConsumerPoint()
     {
         int length = consumerPoints.Length;
@@ -337,27 +356,15 @@ public class MakeManager : MonoBehaviour
         log.gameObject.SetActive(false);
     }
 
-    public void MakeZoneHoverEnter()
+    public void HoverEnterMatChange(GameObject go)
     {
-        MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
+        MeshRenderer meshRD = go.GetComponent<MeshRenderer>();
         meshRD.material = Resources.Load<Material>("Practice/Mat/HoveMat");
     }
 
-    public void MakeZoneHoverExit()
+    public void HoverExitMatChange(GameObject go)
     {
-        MeshRenderer meshRD = makingZone.GetComponent<MeshRenderer>();
-        meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
-    }
-
-    public void OvenHoverEnter()
-    {
-        MeshRenderer meshRD = OvenZone.GetComponent<MeshRenderer>();
-        meshRD.material = Resources.Load<Material>("Practice/Mat/HoveMat");
-    }
-
-    public void OvenHoverExit()
-    {
-        MeshRenderer meshRD = OvenZone.GetComponent<MeshRenderer>();
+        MeshRenderer meshRD = go.GetComponent<MeshRenderer>();
         meshRD.material = Resources.Load<Material>("Practice/Mat/DefaultMat");
     }
 
