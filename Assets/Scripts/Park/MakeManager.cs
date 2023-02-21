@@ -50,6 +50,8 @@ public class MakeManager : MonoBehaviour
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
 
+    AudioManager soundPlayer;
+
     string holdingIng = "";
     bool isMaking;
     bool isingredientAdding;
@@ -67,6 +69,8 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundPlayer = AudioManager.GetInstance();
+        soundPlayer.PlayBgm("Parkenvironment");
         rightAnimator = rightHand.GetComponent<Animator>();
         leftAnimator = leftHand.GetComponent<Animator>();
         consumermanager = ConsumerManager.GetInstance();
@@ -108,6 +112,7 @@ public class MakeManager : MonoBehaviour
             });
         }
     }
+
     private Transform GetRanConsumerPoint()
     {
         int length = consumerPoints.Length;
@@ -251,6 +256,7 @@ public class MakeManager : MonoBehaviour
             {
                 UnHoldIngredient(holdingIng);
                 holdingIng = "";
+                soundPlayer.PlaySfx("Ingredient2");
                 isingredientHolding = false;
                 rightAnimator.SetBool("Hold", false);
             }
@@ -280,6 +286,10 @@ public class MakeManager : MonoBehaviour
                         if (HPIngredients[i].name == curAdd.Name)
                             HPIngredients[i].SetActive(true);
                     }
+            if (holdingIng == "Dow")
+                soundPlayer.PlaySfx("Dow");
+            else
+                soundPlayer.PlaySfx("Ingredient1");
                 isingredientHolding = false;
                 holdingIng = "";
                 rightAnimator.SetBool("Hold", false);
@@ -390,6 +400,8 @@ public class MakeManager : MonoBehaviour
                 txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
 
             curOrder++;
+
+            soundPlayer.PlaySfx("Hellowoman1");
         }
         else
             Debug.Log("주문불가");
