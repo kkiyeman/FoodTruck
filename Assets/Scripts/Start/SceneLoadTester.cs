@@ -9,4 +9,9 @@ public class SceneLoadTester : MonoBehaviour
     {
         SceneManager.LoadScene("Garage");
     }
+
+    public void SceneChangePark()
+    {
+        SceneManager.LoadScene("Park");
+    }
 }
