@@ -1373,7 +1373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
@@ -2819,7 +2819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 0}
+  btnText: []
   pressBtn: {fileID: 21857926}
 --- !u!1 &539638808
 GameObject:
@@ -3300,11 +3300,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 610243171}
-  - component: {fileID: 610243176}
   - component: {fileID: 610243175}
   - component: {fileID: 610243174}
   - component: {fileID: 610243173}
   - component: {fileID: 610243172}
+  - component: {fileID: 610243176}
   m_Layer: 0
   m_Name: LeftHand Controller
   m_TagString: Untagged
@@ -3692,7 +3692,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 610243170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ae26e19cd956134bbdf3c6f65bf393a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
@@ -3704,163 +3704,17 @@ MonoBehaviour:
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
-  m_PositionAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Position
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 26d2aaa4-6518-4d33-8fae-419043a723d4
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -2024308242397127297, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_RotationAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Rotation
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: d7a15530-737b-416a-9d5d-a8b51ba6c682
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 8248158260566104461, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_TrackingStateAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Tracking State
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: e12d3305-8866-42f0-a9b8-2cd7f4310c31
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 684395432459739428, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_SelectAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Select
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 05483079-4b7c-4369-9176-fb8514428e98
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_SelectActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Select Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8e42f062-fb45-44df-9825-35e1dfc18834
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ActivateAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Activate
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 38e5c09b-96d2-40e4-ae8e-3bfb9eb16727
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ActivateActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Activate Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: ff2b1032-d7ae-4e1a-8e8a-a5556d5f8db5
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_UIPressAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: UI Press
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 347fe4ac-83bc-44f7-a0d2-2793a5775161
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_UIPressActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: UI Press Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 8b29ebc3-3830-4622-8c66-56f3a9b98d73
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 71106601250685021, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_HapticDeviceAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Haptic Device
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 35cfed17-bcaf-4ff9-9fe0-fa1727b7619b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -8785819595477538065, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_RotateAnchorAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Rotate Anchor
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 4fcd4b62-1769-4cc4-aaee-aea2fc40d24f
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -7363382999065477798, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_DirectionalAnchorRotationAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Directional Anchor Rotation
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 0a72890c-b3bc-4ec1-adad-df62dfa843d9
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -8811388872089202044, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_TranslateAnchorAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Translate Anchor
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 7bfe4461-8d15-4a61-9fa6-28ce950c9996
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 7779212132400271959, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ButtonPressPoint: 0.5
+  m_ControllerNode: 4
+  m_SelectUsage: 2
+  m_ActivateUsage: 2
+  m_UIPressUsage: 2
+  m_AxisToPressThreshold: 0.1
+  m_RotateAnchorLeft: 16
+  m_RotateAnchorRight: 17
+  m_MoveObjectIn: 14
+  m_MoveObjectOut: 15
+  m_DirectionalAnchorRotation: 1
+  m_PoseProvider: {fileID: 0}
 --- !u!1 &669073336
 GameObject:
   m_ObjectHideFlags: 0
@@ -10605,11 +10459,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002130492}
-  - component: {fileID: 2002130497}
   - component: {fileID: 2002130496}
   - component: {fileID: 2002130495}
   - component: {fileID: 2002130494}
   - component: {fileID: 2002130493}
+  - component: {fileID: 2002130497}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -10997,7 +10851,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002130491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
+  m_Script: {fileID: 11500000, guid: 1ae26e19cd956134bbdf3c6f65bf393a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UpdateTrackingType: 0
@@ -11009,163 +10863,17 @@ MonoBehaviour:
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
-  m_PositionAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Position
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 93ead265-4bff-4199-8ddf-33c028dcfee9
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -3326005586356538449, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_RotationAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Rotation
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: cd9a8368-32d3-4e58-86a0-6fe78d199369
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 5101698808175986029, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_TrackingStateAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Tracking State
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 7964ebc4-45e1-4431-a17a-7f2206e38661
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1277054153949319361, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_SelectAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Select
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 3207346a-8b2f-4b24-b45a-90ea1cdef7fb
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_SelectActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Select Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: dcf177a1-4c6d-42a7-b095-5f68848dadf1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ActivateAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Activate
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: ed3be3cd-637e-48d6-ae4b-dd97305eaa40
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ActivateActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Activate Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: af4d694a-0159-4acb-bf36-7b78c35a10d5
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_UIPressAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: UI Press
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 55ce5c5d-aad8-4ebf-9f21-899ff595a062
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_UIPressActionValue:
-    m_UseReference: 1
-    m_Action:
-      m_Name: UI Press Action Value
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: cdab09f7-ec37-4eee-b72c-06339cc37c8b
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -5908353012961274365, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_HapticDeviceAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Haptic Device
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 60f81e0e-3fab-4e26-90b6-a5ab762e2bb1
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -8222252007134549311, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_RotateAnchorAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Rotate Anchor
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: aca8fec0-a925-428d-a6b7-25cfbd478258
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -5913262927076077117, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_DirectionalAnchorRotationAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Directional Anchor Rotation
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: cde84d10-7ea4-4fb3-8369-aed372df2bf7
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: -440298646266941818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_TranslateAnchorAction:
-    m_UseReference: 1
-    m_Action:
-      m_Name: Translate Anchor
-      m_Type: 0
-      m_ExpectedControlType: 
-      m_Id: 161874b5-2545-4bb2-bea4-eeddeb4fabf6
-      m_Processors: 
-      m_Interactions: 
-      m_SingletonActionBindings: []
-      m_Flags: 0
-    m_Reference: {fileID: 875253871413052681, guid: c348712bda248c246b8c49b3db54643f, type: 3}
-  m_ButtonPressPoint: 0.5
+  m_ControllerNode: 5
+  m_SelectUsage: 2
+  m_ActivateUsage: 2
+  m_UIPressUsage: 2
+  m_AxisToPressThreshold: 0.1
+  m_RotateAnchorLeft: 16
+  m_RotateAnchorRight: 17
+  m_MoveObjectIn: 14
+  m_MoveObjectOut: 15
+  m_DirectionalAnchorRotation: 1
+  m_PoseProvider: {fileID: 0}
 --- !u!1 &2039657431
 GameObject:
   m_ObjectHideFlags: 0
@@ -17040,7 +16748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 2397200620507973976}
+  btnText: []
   pressBtn: {fileID: 706071629425442013}
 --- !u!114 &4610911603687101816
 MonoBehaviour:
@@ -30545,7 +30253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347418195417}
+  btnText: []
   pressBtn: {fileID: 5398105827019501660}
 --- !u!114 &8923640741515661692
 MonoBehaviour:
@@ -30559,7 +30267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347196233978}
+  btnText: []
   pressBtn: {fileID: 5398105826787958143}
 --- !u!114 &8923640741545357307
 MonoBehaviour:
@@ -30573,7 +30281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347227489917}
+  btnText: []
   pressBtn: {fileID: 5398105826820137976}
 --- !u!114 &8923640741586145363
 MonoBehaviour:
@@ -30587,7 +30295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347125684693}
+  btnText: []
   pressBtn: {fileID: 5398105826724748368}
 --- !u!114 &8923640741694656170
 MonoBehaviour:
@@ -30601,7 +30309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347082155820}
+  btnText: []
   pressBtn: {fileID: 5398105826684486313}
 --- !u!114 &8923640741781939607
 MonoBehaviour:
@@ -30615,7 +30323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346925632529}
+  btnText: []
   pressBtn: {fileID: 5398105826517494164}
 --- !u!114 &8923640741861381701
 MonoBehaviour:
@@ -30629,7 +30337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346846224323}
+  btnText: []
   pressBtn: {fileID: 5398105826446465606}
 --- !u!114 &8923640742050900104
 MonoBehaviour:
@@ -30643,7 +30351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346658767118}
+  btnText: []
   pressBtn: {fileID: 5398105826251678859}
 --- !u!114 &8923640742140894848
 MonoBehaviour:
@@ -30657,7 +30365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346631853830}
+  btnText: []
   pressBtn: {fileID: 5398105826191069827}
 --- !u!114 &8923640742142249625
 MonoBehaviour:
@@ -30671,7 +30379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346632692511}
+  btnText: []
   pressBtn: {fileID: 5398105826189674138}
 --- !u!114 &8923640742151099240
 MonoBehaviour:
@@ -30685,7 +30393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346623711982}
+  btnText: []
   pressBtn: {fileID: 5398105826215436139}
 --- !u!114 &8923640742170480849
 MonoBehaviour:
@@ -30699,7 +30407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346535090519}
+  btnText: []
   pressBtn: {fileID: 5398105826102697170}
 --- !u!114 &8923640742215319022
 MonoBehaviour:
@@ -30713,7 +30421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346563654760}
+  btnText: []
   pressBtn: {fileID: 5398105826129179117}
 --- !u!114 &8923640742216416042
 MonoBehaviour:
@@ -30727,7 +30435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953346556363436}
+  btnText: []
   pressBtn: {fileID: 5398105826149021481}
 --- !u!114 &8923640742253729203
 MonoBehaviour:
@@ -30741,7 +30449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348605389877}
+  btnText: []
   pressBtn: {fileID: 5398105828197374384}
 --- !u!114 &8923640742266385365
 MonoBehaviour:
@@ -30755,7 +30463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348592863827}
+  btnText: []
   pressBtn: {fileID: 5398105828193124310}
 --- !u!114 &8923640742531293839
 MonoBehaviour:
@@ -30769,7 +30477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348321958665}
+  btnText: []
   pressBtn: {fileID: 5398105827922996876}
 --- !u!114 &8923640742572365436
 MonoBehaviour:
@@ -30783,7 +30491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348287016954}
+  btnText: []
   pressBtn: {fileID: 5398105827845184127}
 --- !u!114 &8923640742582966932
 MonoBehaviour:
@@ -30797,7 +30505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348271923986}
+  btnText: []
   pressBtn: {fileID: 5398105827838744215}
 --- !u!114 &8923640742603775243
 MonoBehaviour:
@@ -30811,7 +30519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348318422157}
+  btnText: []
   pressBtn: {fileID: 5398105827876720904}
 --- !u!114 &8923640742704674112
 MonoBehaviour:
@@ -30825,7 +30533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953348150348998}
+  btnText: []
   pressBtn: {fileID: 5398105827708664131}
 --- !u!114 &8923640743021844928
 MonoBehaviour:
@@ -30839,7 +30547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347898155078}
+  btnText: []
   pressBtn: {fileID: 5398105827491059139}
 --- !u!114 &8923640743025549344
 MonoBehaviour:
@@ -30853,7 +30561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347900807590}
+  btnText: []
   pressBtn: {fileID: 5398105827492670499}
 --- !u!114 &8923640743178939677
 MonoBehaviour:
@@ -30867,7 +30575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347678278811}
+  btnText: []
   pressBtn: {fileID: 5398105827245891870}
 --- !u!114 &8923640743291507642
 MonoBehaviour:
@@ -30881,7 +30589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae11a6d698ff0844b7a5a5bbe5ace2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnText: {fileID: 7088953347630950972}
+  btnText: []
   pressBtn: {fileID: 5398105827221495737}
 --- !u!114 &8996128741890050653
 MonoBehaviour:

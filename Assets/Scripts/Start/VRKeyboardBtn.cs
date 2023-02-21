@@ -8,17 +8,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class VRKeyboardBtn : MonoBehaviour
 {
     VRKeyboard keyboard;
-    public TextMeshProUGUI btnText;
+    public TMP_Text[] btnText;
     XRSimpleInteractable interactable;
     [SerializeField] GameObject pressBtn;
-    
+    AudioManager audiomanager;
+
 
     void Start()
     {
+        audiomanager = AudioManager.GetInstance();
         interactable = GetComponent<XRSimpleInteractable>();
-        interactable.selectEntered.AddListener((e)=> {
-            Debug.Log("AddListener"); 
-            OnClickVRKeyBoard(); 
+        interactable.selectEntered.AddListener((e) => {
+            Debug.Log("AddListener");
+            OnClickVRKeyBoard();
         });
         interactable.selectExited.AddListener((e) => {
             OffClickVRKeyBoard();
@@ -28,32 +30,33 @@ public class VRKeyboardBtn : MonoBehaviour
         interactable.hoverExited.AddListener((e) => { OffHoverKeyBoard(); });
 
         keyboard = GetComponentInParent<VRKeyboard>();
-        btnText = GetComponentInChildren<TextMeshProUGUI>();
+        btnText = GetComponentsInChildren<TMP_Text>();
 
         // btnText도 지정해주어야 한다
-        if (btnText.text.Length == 1)
+        if (btnText.Length == 1)
         {
             NameToBtnText();
-            GetComponentInChildren<ButtonVR>().onRelease.AddListener(delegate { keyboard.InsertChar(btnText.text); });
+            GetComponentInChildren<ButtonVR>().onRelease.AddListener(delegate { keyboard.InsertChar(btnText[0].text); });
         }
     }
 
     public void NameToBtnText()
     {
-        btnText.text = gameObject.name;
+        btnText[0].text = gameObject.name;
     }
 
     public void OnClickVRKeyBoard()
     {
         Vector3 vector = pressBtn.transform.localPosition;
         pressBtn.transform.localPosition = new Vector3(vector.x, vector.y - 0.01f, vector.z);
-        keyboard.InsertChar(btnText.text);
+        keyboard.InsertChar(btnText[0].text);
+        audiomanager.PlaySfx("Keyboard");
     }
 
     public void OffClickVRKeyBoard()
     {
         Vector3 vector = pressBtn.transform.localPosition;
-        pressBtn.transform.localPosition= new Vector3(vector.x, vector.y + 0.01f, vector.z);
+        pressBtn.transform.localPosition = new Vector3(vector.x, vector.y + 0.01f, vector.z);
         //gameObject.transform.localPosition = new Vector3(0, 0.015f, 0);
     }
 
@@ -61,7 +64,7 @@ public class VRKeyboardBtn : MonoBehaviour
     {
         MeshRenderer meshrenderer = pressBtn.GetComponent<MeshRenderer>();
         meshrenderer.material = Resources.Load<Material>("Start/HovMaterial");
-        
+
     }
 
     public void OffHoverKeyBoard()
