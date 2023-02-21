@@ -541,7 +541,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &23131465
 Transform:
   m_ObjectHideFlags: 0
@@ -575,7 +575,7 @@ MonoBehaviour:
   goEvent: {fileID: 1315226724}
   goEventYes: {fileID: 556710976}
   goEventNo: {fileID: 453049010}
-  openInven: {fileID: 0}
+  openInven: {fileID: 1244161404}
   date: {fileID: 0}
   money: {fileID: 0}
   eventInfo: {fileID: 0}
@@ -13778,7 +13778,6 @@ MonoBehaviour:
   - {fileID: 1203226095}
   _truckMats: []
   myMoney: {fileID: 1949455547}
-  testMoney: 0
 --- !u!1 &1235740135
 GameObject:
   m_ObjectHideFlags: 0
@@ -14060,7 +14059,7 @@ GameObject:
   - component: {fileID: 1244161405}
   - component: {fileID: 1244161404}
   m_Layer: 5
-  m_Name: GoGarage_btn
+  m_Name: OpenInven_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

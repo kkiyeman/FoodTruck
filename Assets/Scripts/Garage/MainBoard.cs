@@ -21,6 +21,8 @@ public class MainBoard : MonoBehaviour
     public GameObject goEventCheckBox;
     public GameObject inventory;
 
+
+    SceneLoadTester sceneLoad = new SceneLoadTester();
     public void Awake()
     {
         
@@ -50,7 +52,7 @@ public class MainBoard : MonoBehaviour
             goParkCheckBox.SetActive(true);
         });
 
-        goParkYes.onClick.AddListener(ChangeSceneGoPark);
+        goParkYes.onClick.AddListener(sceneLoad.SceneChangePark);
 
         goParkNo.onClick.AddListener(() =>
         {
@@ -66,7 +68,7 @@ public class MainBoard : MonoBehaviour
             goEventCheckBox.SetActive(true);
         });
 
-        goEventYes.onClick.AddListener(ChangeSceneGoEvent);
+        //goEventYes.onClick.AddListener(ChangeSceneGoEvent);
 
         goEventNo.onClick.AddListener(() =>
         {
