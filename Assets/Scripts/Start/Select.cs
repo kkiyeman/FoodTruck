@@ -43,11 +43,15 @@ public class Select : MonoBehaviour
                 DataManager.instance.LoadData();
 
                 slotText[i * 3].text = DataManager.instance.nowPlayer.name;
+                slotText[i * 3 + 1].text = DataManager.instance.nowPlayer.repute.ToString();
+                slotText[i * 3 + 2].text = DataManager.instance.nowPlayer.money.ToString();
             }
             else
             {
                 // 슬롯텍스트 i가 지정되어 있지 않다. 해주어야한다
                 slotText[i * 3].text = "저장한 데이터가 없습니다.";
+                slotText[i * 3 + 1].text = "저장한 데이터가 없습니다.";
+                slotText[i * 3 + 2].text = "저장한 데이터가 없습니다.";
             }
         }
         DataManager.instance.DataClear();

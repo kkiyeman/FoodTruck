@@ -18,7 +18,12 @@ public enum BtnType
     GameExitYes,
     GameExitNo
 }
+
+
 public class StartManager : MonoBehaviour
 {
-
+    private void Start()
+    {
+        AudioManager.GetInstance().PlayBgm("Start");
+    }
 }
