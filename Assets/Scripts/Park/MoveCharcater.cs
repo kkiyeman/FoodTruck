@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveCharcater : MonoBehaviour
 {
-    private float moveSpeed = 1; //이동속도
+    private float moveSpeed = 2; //이동속도
     private Vector3 vector;       
     
     public float MoveSpeed { get; set; }
