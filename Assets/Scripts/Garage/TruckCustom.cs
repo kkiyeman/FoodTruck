@@ -6,9 +6,8 @@ using TMPro;
 
 public class TruckCustom : MonoBehaviour
 {
-    public GameObject truck;
-    public GameObject sideMirror1;
-    public GameObject sideMirror2;
+    public GameObject truckG;
+    public MeshRenderer[] _truckColorsChange;
 
     public GameObject truckColorBtnG;
     private Button[] _truckColorBtns;
@@ -71,6 +70,7 @@ public class TruckCustom : MonoBehaviour
     public void TruckSetUp()
     {
         _truckColorBtns = new Button[truckColorBtnG.GetComponentsInChildren<Button>().Length];
+        _truckColorsChange = new MeshRenderer[truckG.GetComponentsInChildren<MeshRenderer>().Length];
         _truckMats = Resources.LoadAll<Material>("Material");
 
         for (int i = 0; i < truckColorBtnG.GetComponentsInChildren<Button>().Length; i++)
@@ -78,9 +78,17 @@ public class TruckCustom : MonoBehaviour
             _truckColorBtns[i] = truckColorBtnG.GetComponentsInChildren<Button>()[i];
         }
 
-        truck.gameObject.GetComponent<MeshRenderer>().material = _truckMats[simpleTruck.ColorNum];
-        sideMirror1.gameObject.GetComponent<MeshRenderer>().material = _truckMats[simpleTruck.ColorNum];
-        sideMirror2.gameObject.GetComponent<MeshRenderer>().material = _truckMats[simpleTruck.ColorNum];
+        for (int i = 0; i < truckG.GetComponentsInChildren<MeshRenderer>().Length; i++)
+        {
+            _truckColorsChange[i] = truckG.GetComponentsInChildren<MeshRenderer>()[i];
+        }
+
+        for (int m = 0; m < truckG.GetComponentsInChildren<MeshRenderer>().Length; m++)
+        {
+            
+            _truckColorsChange[m].gameObject.GetComponent<MeshRenderer>().material = _truckMats[simpleTruck.ColorNum];
+
+        }
 
         for (int k = 0; k < truckColorBtnG.GetComponentsInChildren<Button>().Length; k++)
         {
@@ -96,9 +104,10 @@ public class TruckCustom : MonoBehaviour
     {
         if (_FoodTruckSimpleList[idx].BuyCheck == true)
         {
-            truck.gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
-            sideMirror1.gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
-            sideMirror2.gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
+            for (int i = 0; i < truckG.GetComponentsInChildren<MeshRenderer>().Length; i++)
+            {
+                _truckColorsChange[i].gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
+            }
             simpleTruck.ColorNum = idx;
         }
         else if (_FoodTruckSimpleList[idx].BuyCheck == false)
