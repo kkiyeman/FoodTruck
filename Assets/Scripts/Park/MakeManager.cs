@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
-
+using System;
 
 public class MakeManager : MonoBehaviour
 {
@@ -13,8 +13,15 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Button btnOrder;
     [SerializeField] Button btnServe;
     [SerializeField] Button btnStart;
+    [SerializeField] Button btnRecipeOn;
+    [SerializeField] Button btnRecipeOff;
+    [SerializeField] GameObject noticeRecipe;
     [SerializeField] TMP_Text txtOrder1;
     [SerializeField] TMP_Text txtOrder2;
+    [SerializeField] TMP_Text txtAmount1;
+    [SerializeField] TMP_Text txtAmount2;
+    [SerializeField] TMP_Text txtTotalCustomer;
+    [SerializeField] TMP_Text txtTotalRevenue;
     [SerializeField] TMP_Text txtScore;
     [SerializeField] Transform SpawnPoint;
     [SerializeField] Button btnGameStart;
@@ -42,6 +49,12 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject Bell;
     [SerializeField] GameObject MakeZonePizBatchim;
     [SerializeField] GameObject Oven;
+    [SerializeField] GameObject ovenFrame;
+
+    [SerializeField] TMP_Text txtUserName;
+    [SerializeField] TMP_Text txtDate;
+    [SerializeField] TMP_Text txtPOSOrder1;
+    [SerializeField] TMP_Text txtPOSOrder2;
     Vector3 formalBakePizzaPosition;
     Animator rightAnimator;
     Animator leftAnimator;
@@ -89,9 +102,26 @@ public class MakeManager : MonoBehaviour
         SetButton();
         SetHoverGameObjects();
         SetRanidxQueue();
+        SetUI();
 
+    }
 
+    private void Update()
+    {
+        RefreshUI();
+    }
 
+    private void SetUI()
+    {
+        //if (DataManager.instance.nowPlayer.name == null)
+        //    txtUserName.text = "textconfirm";
+        //else
+        //    txtUserName.text = DataManager.instance.nowPlayer.name;
+    }
+
+    private void RefreshUI()
+    {
+        txtDate.text = DateTime.Now.ToString("yyyy" + "-" + "M" + "-" + "dd");
     }
 
     private void SetRanidxQueue()
@@ -153,7 +183,7 @@ public class MakeManager : MonoBehaviour
 
     private Transform GetRanConsumerPoint()
     {
-        int ran = Random.Range(0,3);
+        int ran = UnityEngine.Random.Range(0,3);
         int Ran = ranindex[ran];
         return consumerPoints[ran];
     }
@@ -168,7 +198,7 @@ public class MakeManager : MonoBehaviour
         {
          yield return wait5sec;
 
-         int ran = Random.Range(1, 11);
+         int ran = UnityEngine.Random.Range(1, 11);
          if (ran < 3)
          {
              Order();
@@ -210,10 +240,10 @@ public class MakeManager : MonoBehaviour
 
     private void SetButton()
     {
-        
-        
-        
+
         btnStart.onClick.AddListener(OnClickMakeStart);
+        btnRecipeOn.onClick.AddListener(OnClickRecipeOn);
+        btnRecipeOff.onClick.AddListener(OnCilckRecipeOff);
     }
 
     private void OnClickMakeStart()
@@ -460,6 +490,7 @@ public class MakeManager : MonoBehaviour
             PizzaBatchim.gameObject.SetActive(false);
 
             bakingpizza.gameObject.SetActive(true);
+            bakingpizza.transform.SetParent(null);
             bakingpizza.transform.position = ClosePizzabox.transform.position;
             isboxOn = true;
             isHoldingBakedPizza = false;
@@ -468,6 +499,8 @@ public class MakeManager : MonoBehaviour
         {
             OpenPizzabox.SetActive(false);
             serveZone.SetActive(false);
+            bakingpizza.FinishMaking();
+            bakingpizza.transform.SetParent(ovenFrame.transform);
             bakingpizza.transform.position = formalBakePizzaPosition;
             ClosePizzabox.SetActive(true);
             isboxOn = false;
@@ -526,5 +559,15 @@ public class MakeManager : MonoBehaviour
         isboxOn = false;
         progress.Clear();
         curOrder--;
+    }
+
+    private void OnClickRecipeOn()
+    {
+        noticeRecipe.SetActive(true);
+    }
+
+    private void OnCilckRecipeOff()
+    {
+        noticeRecipe.SetActive(false);
     }
 }
