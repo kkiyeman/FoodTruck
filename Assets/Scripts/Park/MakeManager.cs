@@ -29,7 +29,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Image log;
     [SerializeField] Text txtLog;
     [SerializeField] MakingPizza makingpizza;
-    [SerializeField] GameObject makingZone;
+    [SerializeField] GameObject serveZone;
     [SerializeField] GameObject OvenZone;
     [SerializeField] BakedPizza bakingpizza;
     [SerializeField] BakedPizza holdingBakedPizza;
@@ -147,7 +147,7 @@ public class MakeManager : MonoBehaviour
     {
         Animator animator = Bell.GetComponent<Animator>();
         animator.SetTrigger("Ring");
-        Invoke("BellRing", 1f);
+        Invoke("BellRing", 0.01f);
         isStart = true;
         StartCoroutine(InitOrder());
     }
@@ -313,7 +313,7 @@ public class MakeManager : MonoBehaviour
             }
     }
 
-    private void OnClickFinishMaking()
+    public void OnClickFinishMaking()
     {
         if(!isingredientHolding && isingredientAdding)
             isingredientAdding = false;
@@ -433,10 +433,10 @@ public class MakeManager : MonoBehaviour
 
             if (orderPizza.Count > 1)
             {
-                txtOrder1.text = $"{orderPizza[0]} 1, \n{orderPizza[1]} 1";
+               // txtOrder1.text = $"{orderPizza[0]} 1, \n{orderPizza[1]} 1";
             }
             else
-                txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
+                //txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
 
             curOrder++;
 
