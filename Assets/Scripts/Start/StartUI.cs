@@ -23,7 +23,8 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Start()
     {
-        defaultScale = buttonScale.localScale;
+        if(buttonScale)
+            defaultScale = buttonScale.localScale;
     }
 
     // 버튼을 클릭하면 버튼 의미에 맞게 디버그 로그가 나온다
@@ -125,6 +126,9 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // 캔버스가 켜지는 기능
     public void CanvasGroupOn(CanvasGroup cg)
     {
+        if (cg == null)
+            return;
+
         cg.alpha = 1;
         cg.interactable = true;
         cg.blocksRaycasts = true;
@@ -135,6 +139,9 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // 캔버스가 꺼지는 기능
     public void CanvasGroupOff(CanvasGroup cg)
     {
+        if (cg == null)
+            return;
+
         cg.alpha = 0;
         cg.interactable = false;
         cg.blocksRaycasts = false;
@@ -145,11 +152,13 @@ public class StartUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // IPointerEnterHandler를 추가하려면 이것을 써야한다.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        buttonScale.localScale = defaultScale * 1.2f;
+        if(buttonScale)
+            buttonScale.localScale = defaultScale * 1.2f;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        buttonScale.localScale = defaultScale;
+        if (buttonScale)
+            buttonScale.localScale = defaultScale;
     }
 }
