@@ -41,7 +41,7 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
-    public GameObject GetConsumerAvatar(Transform _transform)       //손님아바타 풀에서 랜덤으로 가져오기
+    public GameObject GetConsumerAvatar()       //손님아바타 풀에서 랜덤으로 가져오기
     {
         GameObject consumerAvatar = null;
         int rand = Random.Range(0,4);
@@ -56,7 +56,6 @@ public class ObjectPoolManager : MonoBehaviour
             orderConsumer.Enqueue(consumerAvatar);                  //큐에 담김
             consumerAvatar.gameObject.SetActive(true);              //켜주고
             consumerAvatar.gameObject.transform.SetParent(null);    //풀에서 꺼냄
-            consumerAvatar.gameObject.transform.position = _transform.position;
             return consumerAvatar;
         }
         else if(selectedNum.Count > 0)      //사용되고 있는 아바타 o
@@ -74,7 +73,6 @@ public class ObjectPoolManager : MonoBehaviour
             orderConsumer.Enqueue(consumerAvatar);
             consumerAvatar.gameObject.SetActive(true);
             consumerAvatar.gameObject.transform.SetParent(null);
-            consumerAvatar.gameObject.transform.position = _transform.position;
             return consumerAvatar;
         }
         return consumerAvatar;

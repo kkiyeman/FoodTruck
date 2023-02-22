@@ -40,6 +40,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject ClosePizzabox;
     [SerializeField] GameObject PizzaBatchim;
     [SerializeField] GameObject Bell;
+    Vector3 formalBakePizzaPosition;
     Animator rightAnimator;
     Animator leftAnimator;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -51,6 +52,7 @@ public class MakeManager : MonoBehaviour
     public List<string> progress = new List<string>();
 
     public WaitForSecondsRealtime wait5sec = new WaitForSecondsRealtime(5);
+    List<int> ranindex = new List<int>();
 
     AudioManager soundPlayer;
 
@@ -61,6 +63,7 @@ public class MakeManager : MonoBehaviour
     bool isStart;
     bool isHoldingPizza;
     bool isHoldingBakedPizza;
+    bool isboxOn;
 
     private int curOrder = 0;
     private string curOrderPizza;
@@ -71,6 +74,7 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        formalBakePizzaPosition = bakingpizza.transform.position; 
         soundPlayer = AudioManager.GetInstance();
         soundPlayer.PlayBgm("Parkenvironment");
         rightAnimator = rightHand.GetComponent<Animator>();
@@ -78,10 +82,20 @@ public class MakeManager : MonoBehaviour
         consumermanager = ConsumerManager.GetInstance();
         ingredientmanager = IngredientManager.GetInstance();
         InitHoldingIngredients();
-        //SetButton();
+        SetButton();
         SetHoverGameObjects();
+        SetRanidxQueue();
 
 
+
+    }
+
+    private void SetRanidxQueue()
+    {
+        ranindex.Add(0);
+        ranindex.Add(1);
+        ranindex.Add(2);
+        ranindex.Add(3);
     }
 
     private void InitHoldingIngredients()
@@ -117,8 +131,8 @@ public class MakeManager : MonoBehaviour
 
     private Transform GetRanConsumerPoint()
     {
-        int length = consumerPoints.Length;
-        int ran = Random.Range(0, length);
+        int ran = Random.Range(0,3);
+        int Ran = ranindex[ran];
         return consumerPoints[ran];
     }
 
@@ -127,29 +141,35 @@ public class MakeManager : MonoBehaviour
 
     public IEnumerator InitOrder()
     {
+
         while (isStart)
         {
+         yield return wait5sec;
 
-            yield return wait5sec;
-            Order();
-
-            yield return wait5sec;
-            int ran = Random.Range(1, 11);
-            if (ran < 3)
-            {
-                Order();
-            }
+         int ran = Random.Range(1, 11);
+         if (ran < 3)
+         {
+             Order();
+         }
+                
+            
         }
-
+    
     }
 
     public void StartDay()
     {
-        Animator animator = Bell.GetComponent<Animator>();
-        animator.SetTrigger("Ring");
-        Invoke("BellRing", 0.01f);
-        isStart = true;
-        StartCoroutine(InitOrder());
+        if (!isStart)
+        {
+            Animator animator = Bell.GetComponent<Animator>();
+            animator.SetTrigger("Ring");
+            Invoke("BellRing", 0.01f);
+            isStart = true;
+            StartCoroutine(InitOrder());
+        }
+        else
+            return;
+
     }
 
     private void BellRing()
@@ -168,9 +188,9 @@ public class MakeManager : MonoBehaviour
 
     private void SetButton()
     {
-        btnReadyBake.onClick.AddListener(OnClickFinishMaking);
-        btnOrder.onClick.AddListener(Order);
-        btnServe.onClick.AddListener(ServePizza);
+        
+        
+        
         btnStart.onClick.AddListener(OnClickGameStart);
     }
 
@@ -401,7 +421,11 @@ public class MakeManager : MonoBehaviour
     public void OnSelectPizzabox()
     {
         if (isMaking && isHoldingBakedPizza)
+        {
             OpenPizzabox.SetActive(true);
+            serveZone.SetActive(true);
+        }
+
     }
     public void OnSelectServingZone()
     {
@@ -410,14 +434,19 @@ public class MakeManager : MonoBehaviour
             holdingBakedPizza.FinishMaking();
             holdingBakedPizza.gameObject.SetActive(false);
             PizzaBatchim.gameObject.SetActive(false);
+
             bakingpizza.gameObject.SetActive(true);
             bakingpizza.transform.position = ClosePizzabox.transform.position;
+            isboxOn = true;
             isHoldingBakedPizza = false;
         }
-        else if(!isHoldingBakedPizza && isMaking && progress.Count>0)
+        else if(!isHoldingBakedPizza && isMaking && progress.Count>0 && isboxOn)
         {
             OpenPizzabox.SetActive(false);
+            serveZone.SetActive(false);
+            bakingpizza.transform.position = formalBakePizzaPosition;
             ClosePizzabox.SetActive(true);
+            isboxOn = false;
         }
     }
 
@@ -426,7 +455,22 @@ public class MakeManager : MonoBehaviour
         if (curOrder < 2)
         {
             ConsumerBase2 consumerData = ConsumerManager.GetInstance().GetRandomConsumer();
-            GameObject go = ObjectPoolManager.GetInstance().GetConsumerAvatar(GetRanConsumerPoint());
+            GameObject go = ObjectPoolManager.GetInstance().GetConsumerAvatar();
+            switch(go.name)
+            {
+                case "Avatar1(Clone)":
+                    go.transform.position = consumerPoints[0].position;
+                    break;
+                case "Avatar2(Clone)":
+                    go.transform.position = consumerPoints[1].position;
+                    break;
+                case "Avatar3(Clone)":
+                    go.transform.position = consumerPoints[2].position;
+                    break;
+                case "Avatar4(Clone)":
+                    go.transform.position = consumerPoints[3].position;
+                    break;
+            }
 
             List<string> orderPizza = consumerData.Order();
             int orderPizzaCnt = consumerData.OrderPizzaCnt();
@@ -435,7 +479,7 @@ public class MakeManager : MonoBehaviour
             {
                // txtOrder1.text = $"{orderPizza[0]} 1, \n{orderPizza[1]} 1";
             }
-            else
+           // else
                 //txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
 
             curOrder++;
@@ -450,6 +494,13 @@ public class MakeManager : MonoBehaviour
     public void ServePizza()
     {
         ObjectPoolManager.GetInstance().ReturnToConsumerPool();
+        isMaking = false;
+        isingredientAdding = false;
+        isingredientHolding = false;
+        isHoldingPizza = false;
+        isHoldingBakedPizza = false;
+        isboxOn = false;
+        progress.Clear();
         curOrder--;
     }
 }
