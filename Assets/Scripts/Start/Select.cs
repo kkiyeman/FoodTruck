@@ -76,6 +76,7 @@ public class Select : MonoBehaviour
             FileCheckYesGo();
             //DataManager.instance.LoadData();
             //GoGame();
+            FileYesCreatNo();
         }
         else
         {
@@ -97,6 +98,11 @@ public class Select : MonoBehaviour
     public void Creat()
     {
         creat.gameObject.SetActive(true);
+    }
+
+    public void FileYesCreatNo()
+    {
+        creat.gameObject.SetActive(false);
     }
 
     public void FileCheckYesGo()
