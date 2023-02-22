@@ -40,6 +40,8 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject ClosePizzabox;
     [SerializeField] GameObject PizzaBatchim;
     [SerializeField] GameObject Bell;
+    [SerializeField] GameObject MakeZonePizBatchim;
+    [SerializeField] GameObject Oven;
     Vector3 formalBakePizzaPosition;
     Animator rightAnimator;
     Animator leftAnimator;
@@ -64,6 +66,7 @@ public class MakeManager : MonoBehaviour
     bool isHoldingPizza;
     bool isHoldingBakedPizza;
     bool isboxOn;
+    bool isOvenOpen;
 
     private int curOrder = 0;
     private string curOrderPizza;
@@ -74,6 +77,7 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"{GameManager.GetInstance()._ToppingInvenAcount[3]}이다아아");
         formalBakePizzaPosition = bakingpizza.transform.position; 
         soundPlayer = AudioManager.GetInstance();
         soundPlayer.PlayBgm("Parkenvironment");
@@ -98,6 +102,24 @@ public class MakeManager : MonoBehaviour
         ranindex.Add(3);
     }
 
+    public void OvenControl()
+    {
+        if(!isOvenOpen)
+        {
+            Animator ovenAnim = Oven.GetComponent<Animator>();
+            ovenAnim.SetBool("isOpen", true);
+            OvenZone.gameObject.SetActive(true);
+            isOvenOpen = true;
+        }
+        else
+        {
+            Animator ovenAnim = Oven.GetComponent<Animator>();
+            ovenAnim.SetBool("isOpen", false);
+            OvenZone.gameObject.SetActive(false);
+            isOvenOpen = false;
+        }
+
+    }
     private void InitHoldingIngredients()
     {
         var go = new GameObject();
@@ -191,15 +213,16 @@ public class MakeManager : MonoBehaviour
         
         
         
-        btnStart.onClick.AddListener(OnClickGameStart);
+        btnStart.onClick.AddListener(OnClickMakeStart);
     }
 
-    private void OnClickGameStart()
+    private void OnClickMakeStart()
     {
         if(!isMaking && !isHoldingPizza && !isingredientAdding)
         {
             isMaking = true;
             isingredientAdding = true;
+            MakeZonePizBatchim.SetActive(true);
         }
 
         //StartCoroutine(InitQuest());
@@ -348,6 +371,7 @@ public class MakeManager : MonoBehaviour
             rightAnimator.SetBool("HoldPizza", true);
             isHoldingPizza = true;
             makingpizza.FinishMaking();
+            MakeZonePizBatchim.SetActive(false);
             HoldingPizza.SetActive(true);
             PizzaBatchim.gameObject.SetActive(true);
         }
