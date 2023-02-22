@@ -7,7 +7,7 @@ public class SceneLoadTester : MonoBehaviour
 {
     public void SceneChange()
     {
-        SceneManager.LoadScene("Hangar");
+        SceneManager.LoadScene("Garage");
     }
 
     public void SceneChangePark()
