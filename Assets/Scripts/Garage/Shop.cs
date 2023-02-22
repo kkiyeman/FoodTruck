@@ -217,6 +217,7 @@ public class Shop : MonoBehaviour
 
     public void ShopToppingBtnsSetUp()  // 토핑버튼 클릭 세팅
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             shopingredientsBtns[i].GetComponent<Button>().interactable = false;
@@ -254,6 +255,7 @@ public class Shop : MonoBehaviour
 
     public void ShopBaseIngredientBtnsSetUp()  // 베이스재료 클릭 세팅
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         for (int i = 0; i < _ToppingsData.Count; i++)
         {
             shopingredientCounttxts[i].text = "";
@@ -306,6 +308,7 @@ public class Shop : MonoBehaviour
 
     public void InventoryOpen()   // 인벤토리 오픈
     {
+        AudioManager.GetInstance().PlaySfx("Click");
         inventoryS.SetActive(true);
         inventoryS.GetComponent<Inventory>().InvenMyMoneySetUp();
         //inventoryS.GetComponent<Inventory>().InvenStartUISetUp();
@@ -346,11 +349,13 @@ public class Shop : MonoBehaviour
     {
         ingredientsNum = idx;
         buyCheckbox.SetActive(true);
+        AudioManager.GetInstance().PlaySfx("Click");
     }
 
     ///////////////////////////////////////////////////////////
     public void BuyCheckBoxHide()  // 체크박스 닫힐때 세팅
     {
+        AudioManager.GetInstance().PlaySfx("Click");
         buyAmount = 0;
         buyprice = 0.00f;
         CheckBoxTxt();
@@ -369,6 +374,8 @@ public class Shop : MonoBehaviour
             inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
             mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
             GameManager.GetInstance()._ToppingInvenAcount[ingredientsNum] = _ToppingsData[ingredientsNum].InvenAmount;
+
+            AudioManager.GetInstance().PlaySfx("BuyCoin");
         }
         else if (playerData.money >= buyprice && shopdataChecker.CheckNum == 1)
         {
@@ -380,10 +387,16 @@ public class Shop : MonoBehaviour
             mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
             GameManager.GetInstance()._BaseInvenAcount[ingredientsNum] = _BaseIngredientData[ingredientsNum].InvenAmount;
 
+            AudioManager.GetInstance().PlaySfx("BuyCoin");
+
             Debug.Log(GameManager.GetInstance()._BaseInvenAcount[ingredientsNum]);
         }
         else if (playerData.money < buyprice)
+        {
+            AudioManager.GetInstance().PlaySfx("Error");
+            shortageMoney.gameObject.SetActive(true);
             Debug.Log("돈이 부족합니다.");
+        }
 
         ShopMyMoneySetUp();
         // inventory.InvenMyMoneySetUp();
@@ -426,6 +439,13 @@ public class Shop : MonoBehaviour
         countdown.onClick.AddListener(ShoppingBasketDown);
         cancle.onClick.AddListener(BuyCheckBoxHide);
         buy.onClick.AddListener(BuyItem);
+        nomoneyCancle.onClick.AddListener(NoMoneyBoxCheck);
+    }
+
+    public void NoMoneyBoxCheck()
+    {
+        AudioManager.GetInstance().PlaySfx("Click");
+        shortageMoney.gameObject.SetActive(false);
     }
 
     public void CheckBoxTxt()  // 구매 체크박스 텍스트
@@ -437,6 +457,7 @@ public class Shop : MonoBehaviour
 
     public void ShoppingBasketUp()   // 체크박스 구매 갯수 플러스 가격
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         if (shopdataChecker.CheckNum == 0 && _ToppingsData[ingredientsNum].ShopAmount > buyAmount)
         {
             buyprice += _shopToppingPrice[ingredientsNum];
@@ -456,6 +477,7 @@ public class Shop : MonoBehaviour
 
     public void ShoppingBasketDown()   // 체크박스 구매 갯수 마이너스
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         if (shopdataChecker.CheckNum == 0 && buyAmount > 0)
         {
             buyprice -= _shopToppingPrice[ingredientsNum];

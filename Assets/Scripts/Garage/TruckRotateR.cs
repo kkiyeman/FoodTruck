@@ -13,6 +13,7 @@ public class TruckRotateR : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     {
         if (isBtnDown)
         {
+            //AudioManager.GetInstance().PlaySfx("Tick");
             truck.gameObject.transform.Rotate(0f, (-3.0f) * speed, 0f, Space.Self);
         }
     }

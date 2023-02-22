@@ -97,6 +97,7 @@ public class Inventory : MonoBehaviour
 
     public void InvenToppingBtnsSetUp()  // 토핑버튼 클릭 세팅
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         for (int i = 0; i < inveningredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             inveningredientsBtns[i].GetComponent<Button>().interactable = false;
@@ -121,6 +122,7 @@ public class Inventory : MonoBehaviour
 
     public void InvenBaseIngredientBtnsSetUp()  // 베이스재료 클릭 세팅
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         for (int i = 0; i < shop.GetComponent<Shop>()._ToppingsData.Count; i++)
         {
             inveningredientCounttxts[i].text = "";
@@ -164,6 +166,7 @@ public class Inventory : MonoBehaviour
 
     public void InventoryFalse()   // 인벤토리 창 끄기
     {
+        AudioManager.GetInstance().PlaySfx("Click");
         inventory.SetActive(false);
     }
 

@@ -61,11 +61,13 @@ public class MainBoard : MonoBehaviour
     {
         gosale.onClick.AddListener(() =>
         {
+            AudioManager.GetInstance().PlaySfx("Click");
             saleInfo.gameObject.SetActive(true);
         });
 
         saleInfo.onClick.AddListener(() =>
         {
+            AudioManager.GetInstance().PlaySfx("Click");
             saleInfo.gameObject.SetActive(false);
         });
     }
@@ -74,6 +76,7 @@ public class MainBoard : MonoBehaviour
     {
         openInven.onClick.AddListener(() =>
         {
+            AudioManager.GetInstance().PlaySfx("Click");
             inventory.gameObject.SetActive(true);
         });
     }
@@ -84,6 +87,7 @@ public class MainBoard : MonoBehaviour
         goPark.onClick.AddListener(() =>
         {
             goParkCheckBox.gameObject.SetActive(true);
+            AudioManager.GetInstance().PlaySfx("Click");
         });
 
         goParkYes.onClick.AddListener(BusinessEvent);
@@ -91,18 +95,39 @@ public class MainBoard : MonoBehaviour
         goParkNo.onClick.AddListener(() =>
         {
             goParkCheckBox.gameObject.SetActive(false);
+            AudioManager.GetInstance().PlaySfx("Click");
         });
     }
 
     public void BusinessEvent()
     {
+        AudioManager.GetInstance().PlaySfx("TruckStartUp");
+        Invoke("GoParkChange", 3.0f);
+        //sceneLoad.SceneChangePark();
+
+    }
+
+    //public void TruckStartUpSound()
+    //{
+    //    AudioManager.GetInstance().PlaySfx("TruckStartUp");
+    //}
+
+    public void GoParkChange()
+    {
         sceneLoad.SceneChangePark();
+    }
+
+    public void StartSceneClick()
+    {
+        AudioManager.GetInstance().PlaySfx("Click");
+        Invoke("GoStartScene", 1.0f);
     }
 
     public void GoStartScene()
     {
         sceneLoad.SceneChangeStart();
     }
+
     public void ClickGoEvent()
     {
         
@@ -110,17 +135,20 @@ public class MainBoard : MonoBehaviour
         goEvent.onClick.AddListener(() =>
         {
             goEventCheckBox.gameObject.SetActive(true);
+            AudioManager.GetInstance().PlaySfx("Click");
         });
 
         goEventCheckBox.onClick.AddListener(() =>
         {
             goEventCheckBox.gameObject.SetActive(false);
+            AudioManager.GetInstance().PlaySfx("Click");
         });
     }
 
 
     public void SettingOnClick()
     {
+        AudioManager.GetInstance().PlaySfx("SimpleClick");
         if (settingDrop.activeSelf == false)
         {
             settingDrop.SetActive(true);

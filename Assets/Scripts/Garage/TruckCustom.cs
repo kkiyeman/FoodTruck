@@ -81,6 +81,7 @@ public class TruckCustom : MonoBehaviour
 
     public void ShortageMoneyCheck()
     {
+        AudioManager.GetInstance().PlaySfx("Click");
         shortageMoney.gameObject.SetActive(false);
     }
 
@@ -88,6 +89,7 @@ public class TruckCustom : MonoBehaviour
     {
         if (_FoodTruckSimpleList[idx].Price <= playerData.money)
         {
+            AudioManager.GetInstance().PlaySfx("BuyCoin");
             _lockImage[idx].gameObject.SetActive(false);
             _FoodTruckSimpleList[idx].BuyCheck = true;
             playerData.money -= _FoodTruckSimpleList[idx].Price;
@@ -96,6 +98,7 @@ public class TruckCustom : MonoBehaviour
 
         else
         {
+            AudioManager.GetInstance().PlaySfx("Error");
             shortageMoney.gameObject.SetActive(true);
             colorBuyCheckBox.gameObject.SetActive(false);
         }
@@ -104,6 +107,7 @@ public class TruckCustom : MonoBehaviour
 
     public void BuyNo()
     {
+        AudioManager.GetInstance().PlaySfx("Click");
         colorBuyCheckBox.gameObject.SetActive(false);
     }
 
@@ -150,6 +154,7 @@ public class TruckCustom : MonoBehaviour
         idx = c;
         if (_FoodTruckSimpleList[idx].BuyCheck == true)
         {
+            AudioManager.GetInstance().PlaySfx("ChangeClick");
             for (int i = 0; i < truckG.GetComponentsInChildren<MeshRenderer>().Length; i++)
             {
                 _truckColorsChange[i].gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
@@ -158,6 +163,7 @@ public class TruckCustom : MonoBehaviour
         }
         else if (_FoodTruckSimpleList[idx].BuyCheck == false)
         {
+            AudioManager.GetInstance().PlaySfx("Click");
             colorBuyCheckBox.gameObject.SetActive(true);
         }
         Debug.Log($"선택된 번호 : {idx}");
