@@ -22,6 +22,8 @@ public class PlayerData
     public string name;
     public int repute = 0;
     public float money = 500.0f;
+    
+
 }
 
 public class DataManager : MonoBehaviour
