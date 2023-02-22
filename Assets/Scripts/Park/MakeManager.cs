@@ -77,7 +77,7 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"{GameManager.GetInstance()._ToppingInvenAcount[3]}이다아아");
+        
         formalBakePizzaPosition = bakingpizza.transform.position; 
         soundPlayer = AudioManager.GetInstance();
         soundPlayer.PlayBgm("Parkenvironment");

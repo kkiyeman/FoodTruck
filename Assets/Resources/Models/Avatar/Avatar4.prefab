@@ -4915,10 +4915,10 @@ GameObject:
   - component: {fileID: 6157795445901016854}
   - component: {fileID: 6157795445901016855}
   - component: {fileID: 5965607348445700897}
-  - component: {fileID: -7118965088539952361}
+  - component: {fileID: 7687458366348165290}
   m_Layer: 0
   m_Name: Avatar4
-  m_TagString: Untagged
+  m_TagString: Customer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5007,7 +5007,7 @@ MonoBehaviour:
   MovementAcceleration: 22
   MovementDamping: 5
   _inputVector: {x: 0, y: 0}
---- !u!136 &-7118965088539952361
+--- !u!136 &7687458366348165290
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5017,10 +5017,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.25573912
+  m_Height: 2.0398805
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.016566604, y: 0.90865123, z: 0}
 --- !u!1 &6157795446593762131
 GameObject:
   m_ObjectHideFlags: 0
