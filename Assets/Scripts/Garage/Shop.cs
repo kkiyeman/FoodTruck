@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
 
     private TMP_Text[] shopingredientsName;
     private Button[] shopingredientsBtns;
+    private Image[] shopingredientsImgs;
     public GameObject ingredientsBtn;
 
     private TMP_Text[] shopingredientCounttxts;
@@ -52,6 +53,8 @@ public class Shop : MonoBehaviour
 
     ShopDataChecker shopdataChecker = new ShopDataChecker();
     public PlayerData playerData = new PlayerData();
+    public DataManager dataManager;
+
 
     public GameObject inventory;
     public GameObject mainbaord;
@@ -109,7 +112,7 @@ public class Shop : MonoBehaviour
         Sauce sauce = new Sauce();
         Cheese cheese = new Cheese();
         Corn corn = new Corn();
-    
+
         _BaseIngredientData.Add(dow);
         _BaseIngredientData.Add(sauce);
         _BaseIngredientData.Add(cheese);
@@ -143,8 +146,18 @@ public class Shop : MonoBehaviour
         _shopBasePrice[saleBaseNum] *= (1 - fPercent / 100);
         ShopMyMoneySetUp();
 
-        mainbaord.GetComponent<MainBoard>().sale_1.text = _ToppingsData[saleToppingNum].Name+" -20%";
-        mainbaord.GetComponent<MainBoard>().sale_2.text = _BaseIngredientData[saleBaseNum].Name+" -20%";
+        mainbaord.GetComponent<MainBoard>().sale_1.text = _ToppingsData[saleToppingNum].Name + " -20%";
+        mainbaord.GetComponent<MainBoard>().sale_2.text = _BaseIngredientData[saleBaseNum].Name + " -20%";
+
+        for (int i = 0; i < _ToppingsData.Count; i++)
+        {
+            _ToppingsData[i].InvenAmount = GameManager.GetInstance()._ToppingInvenAcount[i];
+        }
+
+        for (int i = 0; i < _BaseIngredientData.Count; i++)
+        {
+            _BaseIngredientData[i].InvenAmount = GameManager.GetInstance()._BaseInvenAcount[i];
+        }
     }
 
     public void ShopStartUISetUp()  // 시작전 UI 세팅
@@ -153,6 +166,7 @@ public class Shop : MonoBehaviour
         shopingredientsName = new TMP_Text[ingredientsBtn.GetComponentsInChildren<Button>().Length];
         saleImage = new Image[saleImagesG.GetComponentsInChildren<Image>().Length];
         shopingredientCounttxts = new TMP_Text[shopingredientCounttxtG.GetComponentsInChildren<TMP_Text>().Length];
+        shopingredientsImgs = new Image[ingredientsBtn.GetComponentsInChildren<Image>().Length];
 
 
         for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
@@ -161,6 +175,7 @@ public class Shop : MonoBehaviour
             shopingredientsName[i] = ingredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
             saleImage[i] = saleImagesG.GetComponentsInChildren<Image>()[i];
             shopingredientCounttxts[i] = shopingredientCounttxtG.GetComponentsInChildren<TMP_Text>()[i];
+            shopingredientsImgs[i] = ingredientsBtn.GetComponentsInChildren<Image>()[i];
             shopingredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
@@ -169,6 +184,7 @@ public class Shop : MonoBehaviour
             shopingredientsName[k].text = _ToppingsData[k].Name;
             shopingredientCounttxts[k].text = _ToppingsData[k].ShopAmount.ToString();
             shopingredientsBtns[k].GetComponent<Button>().interactable = true;
+            shopingredientsImgs[k].sprite = Resources.Load<Sprite>($"Image/{_ToppingsData[k].Name}");
         }
 
         for (int i = 0; i < 8; i++)
@@ -198,6 +214,7 @@ public class Shop : MonoBehaviour
             shopingredientsName[k].text = _ToppingsData[k].Name;
             shopingredientCounttxts[k].text = _ToppingsData[k].ShopAmount.ToString();
             shopingredientsBtns[k].GetComponent<Button>().interactable = true;
+            shopingredientsImgs[k].sprite = Resources.Load<Sprite>($"Image/{_ToppingsData[k].Name}");
         }
 
         saleImage[saleBaseNum].gameObject.SetActive(false);
@@ -220,6 +237,7 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < ingredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             shopingredientsBtns[i].GetComponent<Button>().interactable = false;
+            shopingredientsImgs[i].sprite = null;
         }
 
 
@@ -227,6 +245,7 @@ public class Shop : MonoBehaviour
         {
             shopingredientsName[k].text = _BaseIngredientData[k].Name;
             shopingredientCounttxts[k].text = _BaseIngredientData[k].ShopAmount.ToString();
+            shopingredientsImgs[k].sprite = Resources.Load<Sprite>($"Image/{_BaseIngredientData[k].Name}");
             shopingredientsBtns[k].GetComponent<Button>().interactable = true;
         }
 
@@ -312,7 +331,8 @@ public class Shop : MonoBehaviour
             _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
             BuyToppingCountReset();
             inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
-            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString(); 
+            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
+            GameManager.GetInstance()._ToppingInvenAcount[ingredientsNum] = _ToppingsData[ingredientsNum].InvenAmount;
         }
         else if (playerData.money >= buyprice && shopdataChecker.CheckNum == 1)
         {
@@ -322,6 +342,7 @@ public class Shop : MonoBehaviour
             BuyBaseCountReset();
             inventory.GetComponent<Inventory>().BuyInvenBaseCountReset(ingredientsNum);
             mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
+            GameManager.GetInstance()._BaseInvenAcount[ingredientsNum] = _BaseIngredientData[ingredientsNum].InvenAmount;
         }
         else if (playerData.money < buyprice)
             Debug.Log("돈이 부족합니다.");

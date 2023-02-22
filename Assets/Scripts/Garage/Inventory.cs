@@ -56,6 +56,18 @@ public class Inventory : MonoBehaviour
             inveningredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
+        Debug.Log(GameManager.GetInstance()._ToppingInvenAcount[3]);
+
+        for (int i = 0; i < GameManager.GetInstance()._ToppingInvenAcount.Count; i++)
+        {
+            shop.GetComponent<Shop>()._ToppingsData[i].InvenAmount = GameManager.GetInstance()._ToppingInvenAcount[i];
+        }
+
+        for (int i = 0; i < GameManager.GetInstance()._BaseInvenAcount.Count; i++)
+        {
+            shop.GetComponent<Shop>()._BaseIngredientData[i].InvenAmount = GameManager.GetInstance()._BaseInvenAcount[i];
+        }
+
         for (int k = 0; k < shop.GetComponent<Shop>()._ToppingsData.Count; k++)
         {
             inveningredientsName[k].text = shop.GetComponent<Shop>()._ToppingsData[k].Name;
