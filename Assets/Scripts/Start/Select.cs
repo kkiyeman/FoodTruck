@@ -10,9 +10,8 @@ public class Select : MonoBehaviour
     // Load를 눌렀을 때, SelectCanvas가 뜨도록 해야한다
     public DataManager dataManager;
 
-    public GameManager creat;
-
-    [SerializeField] protected Transform filecheck;
+    public GameManager creat; // 계정 생성 캔버스
+    public GameManager filecheck; // 저장 데이터가 있는 슬롯의 파일 체크 Yes할지
 
     // 슬롯에 있는 문구가 바뀌도록 해준다. 배열로 만들어준다
     public TMP_Text[] slotText;
@@ -74,7 +73,7 @@ public class Select : MonoBehaviour
         // 데이터가 있기 때문에 게임이 불러와지는 것이고 
         if (savefile[number])
         {
-            filecheck.gameObject.gameObject.SetActive(true);
+            FileCheckYesGo();
             //DataManager.instance.LoadData();
             //GoGame();
         }
@@ -98,6 +97,16 @@ public class Select : MonoBehaviour
     public void Creat()
     {
         creat.gameObject.SetActive(true);
+    }
+
+    public void FileCheckYesGo()
+    {
+        filecheck.gameObject.SetActive(true);
+
+        var cg = filecheck.GetComponent<CanvasGroup>();
+        cg.alpha = 1;
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
     }
 
     // 슬롯 버튼의 온클릭 기능으로 씬으로 넘어가게 하는 기능이다. 위의 Slot함수와 함께한다
