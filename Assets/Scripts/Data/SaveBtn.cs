@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SaveBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SaveBtn : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler
 {
     //이 스크립트는 다중상속을 받고 있다
 
@@ -15,6 +15,8 @@ public class SaveBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     Vector3 defaultScale;
 
+    GameManager gameManager = new GameManager();
+
     private void Start()
     { defaultScale = buttonScale.localScale; }
 
@@ -25,14 +27,15 @@ public class SaveBtn : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             // 새게임
             case SaveBtnType.Save:
+                gameManager.Save();
                 Debug.Log("Save");
                 break;
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    { buttonScale.localScale = defaultScale * 1.2f; }
-
-    public void OnPointerExit(PointerEventData eventData)
-    { buttonScale.localScale = defaultScale; }
+    //public void OnPointerEnter(PointerEventData eventData)
+    //{ buttonScale.localScale = defaultScale * 1.2f; }
+    //
+    //public void OnPointerExit(PointerEventData eventData)
+    //{ buttonScale.localScale = defaultScale; }
 }

@@ -10,7 +10,7 @@ public class MainBoard : MonoBehaviour
     public Button goPark;
     public Button goParkYes;
     public Button goParkNo;
-   
+
     public Button openInven;
 
     public TMP_Text date;
@@ -22,6 +22,10 @@ public class MainBoard : MonoBehaviour
     public Button gosale;
     public Button goEventCheckBox;
     public Button goEvent;
+
+    public Button setting;
+    public GameObject settingDrop;
+    public Button goStartScene;
 
     public GameObject inventory;
     public GameObject shop;
@@ -35,18 +39,24 @@ public class MainBoard : MonoBehaviour
 
     public void Start()
     {
-        ClickgoPark();
         ClickGoEvent();
         ClickOpenInven();
         DailySaleOnClick();
+        GoBusinessOnClick();
+        ClickGoEvent();
+        ClickCheck();
     }
 
     public void SceneSetUp()
     {
-        //date.text = dateData
         money.text = shop.GetComponent<Shop>().playerData.money.ToString();
     }
 
+    public void ClickCheck()
+    {
+        setting.onClick.AddListener(SettingOnClick);
+        goStartScene.onClick.AddListener(GoStartScene);
+    }
     public void DailySaleOnClick()
     {
         gosale.onClick.AddListener(() =>
@@ -69,14 +79,14 @@ public class MainBoard : MonoBehaviour
     }
 
 
-    public void ClickgoPark()
+    public void GoBusinessOnClick()
     {
         goPark.onClick.AddListener(() =>
         {
             goParkCheckBox.gameObject.SetActive(true);
         });
 
-        goParkYes.onClick.AddListener(sceneLoad.SceneChangePark);
+        goParkYes.onClick.AddListener(BusinessEvent);
 
         goParkNo.onClick.AddListener(() =>
         {
@@ -84,9 +94,19 @@ public class MainBoard : MonoBehaviour
         });
     }
 
+    public void BusinessEvent()
+    {
+        sceneLoad.SceneChangePark();
+    }
 
+    public void GoStartScene()
+    {
+        sceneLoad.SceneChangeStart();
+    }
     public void ClickGoEvent()
     {
+        
+
         goEvent.onClick.AddListener(() =>
         {
             goEventCheckBox.gameObject.SetActive(true);
@@ -98,11 +118,17 @@ public class MainBoard : MonoBehaviour
         });
     }
 
-    
-    //public void GoBusinessOnClick()
-    //{
-    //    goParkCheckBox.SetActive(false);
-    //}
 
-    
+    public void SettingOnClick()
+    {
+        if (settingDrop.activeSelf == false)
+        {
+            settingDrop.SetActive(true);
+        }
+
+        else if (settingDrop.activeSelf == true)
+        {
+            settingDrop.SetActive(false);
+        }
+    }
 }
