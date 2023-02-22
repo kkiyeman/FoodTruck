@@ -13,6 +13,9 @@ public class Inventory : MonoBehaviour
     private Button[] inveningredientsBtns;
     public GameObject inveningredientsBtn;
 
+    public GameObject invenTImage;
+    public Image[] invenToppImages;
+
     private TMP_Text[] inveningredientCounttxts;
     public GameObject inveningredientCounttxtG;
 
@@ -47,16 +50,25 @@ public class Inventory : MonoBehaviour
         inveningredientsBtns = new Button[inveningredientsBtn.GetComponentsInChildren<Button>().Length];
         inveningredientsName = new TMP_Text[inveningredientsBtn.GetComponentsInChildren<Button>().Length];
         inveningredientCounttxts = new TMP_Text[inveningredientCounttxtG.GetComponentsInChildren<TMP_Text>().Length];
+        invenToppImages = new Image[invenTImage.GetComponentsInChildren<Image>().Length];
 
         for (int i = 0; i < inveningredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             inveningredientsBtns[i] = inveningredientsBtn.GetComponentsInChildren<Button>()[i];
             inveningredientsName[i] = inveningredientsBtn.GetComponentsInChildren<TMP_Text>()[i];
             inveningredientCounttxts[i] = inveningredientCounttxtG.GetComponentsInChildren<TMP_Text>()[i];
+            invenToppImages[i] = invenTImage.GetComponentsInChildren<Image>()[i];
             inveningredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
         Debug.Log(GameManager.GetInstance()._ToppingInvenAcount[3]);
+
+        for (int i = 0; i < 8; i++)
+            invenToppImages[i].gameObject.SetActive(false);
+
+        for (int i = 0; i < shop.GetComponent<Shop>()._ToppingsData.Count; i++)
+            invenToppImages[i].gameObject.SetActive(true);
+
 
         for (int i = 0; i < GameManager.GetInstance()._ToppingInvenAcount.Count; i++)
         {
@@ -72,6 +84,7 @@ public class Inventory : MonoBehaviour
         {
             inveningredientsName[k].text = shop.GetComponent<Shop>()._ToppingsData[k].Name;
             inveningredientCounttxts[k].text = shop.GetComponent<Shop>()._ToppingsData[k].InvenAmount.ToString();
+            invenToppImages[k].sprite = Resources.Load<Sprite>($"Image/{shop.GetComponent<Shop>()._ToppingsData[k].Name}");
             inveningredientsBtns[k].GetComponent<Button>().interactable = true;
         }
         InvenMyMoneySetUp();
@@ -89,10 +102,17 @@ public class Inventory : MonoBehaviour
             inveningredientsBtns[i].GetComponent<Button>().interactable = false;
         }
 
+        for (int i = 0; i < 8; i++)
+            invenToppImages[i].gameObject.SetActive(false);
+
+        for (int i = 0; i < shop.GetComponent<Shop>()._ToppingsData.Count; i++)
+            invenToppImages[i].gameObject.SetActive(true);
+
         for (int k = 0; k < shop.GetComponent<Shop>()._ToppingsData.Count; k++)
         {
             inveningredientsName[k].text = shop.GetComponent<Shop>()._ToppingsData[k].Name;
             inveningredientCounttxts[k].text = shop.GetComponent<Shop>()._ToppingsData[k].InvenAmount.ToString();
+            invenToppImages[k].sprite = Resources.Load<Sprite>($"Image/{shop.GetComponent<Shop>()._ToppingsData[k].Name}");
             inveningredientsBtns[k].GetComponent<Button>().interactable = true;
         }
     }
@@ -107,16 +127,25 @@ public class Inventory : MonoBehaviour
             inveningredientsName[i].text = "";
         }
 
+        for (int i = 0; i < 8; i++)
+            invenToppImages[i].gameObject.SetActive(false);
+
+        for (int i = 0; i < shop.GetComponent<Shop>()._BaseIngredientData.Count; i++)
+            invenToppImages[i].gameObject.SetActive(true);
+
         for (int i = 0; i < inveningredientsBtn.GetComponentsInChildren<Button>().Length; i++)
         {
             inveningredientsBtns[i].GetComponent<Button>().interactable = false;
         }
+
+        
 
         for (int k = 0; k < shop.GetComponent<Shop>()._BaseIngredientData.Count; k++)
         {
             inveningredientsName[k].text = shop.GetComponent<Shop>()._BaseIngredientData[k].Name;
             inveningredientCounttxts[k].text = shop.GetComponent<Shop>()._BaseIngredientData[k].InvenAmount.ToString();
             Debug.Log(shop.GetComponent<Shop>()._BaseIngredientData[k].InvenAmount);
+            invenToppImages[k].sprite = Resources.Load<Sprite>($"Image/{shop.GetComponent<Shop>()._BaseIngredientData[k].Name}");
             inveningredientsBtns[k].GetComponent<Button>().interactable = true;
         }
     }
