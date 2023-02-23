@@ -20,7 +20,6 @@ public class MoveCharcater : MonoBehaviour
     {
         chaControl.Move(vector * Time.deltaTime);
         UpdateMove();
-        UpdateRotate();
     }
 
     public void MoveTo(Vector3 direction)
@@ -33,11 +32,6 @@ public class MoveCharcater : MonoBehaviour
         vector = new Vector3(direction.x * moveSpeed, vector.y, direction.z * moveSpeed);
     }
 
-
-    private void UpdateRotate()
-    {
-        
-    }
     private void UpdateMove()
     {
         float x = Input.GetAxisRaw("Horizontal");
