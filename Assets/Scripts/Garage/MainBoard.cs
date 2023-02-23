@@ -50,6 +50,7 @@ public class MainBoard : MonoBehaviour
     public void SceneSetUp()
     {
         money.text = shop.GetComponent<Shop>().playerData.money.ToString();
+        AudioManager.GetInstance().PlayBgm("GarageBGM");
     }
 
     public void ClickCheck()

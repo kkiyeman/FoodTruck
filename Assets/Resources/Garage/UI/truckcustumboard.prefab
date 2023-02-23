@@ -4079,8 +4079,10 @@ MonoBehaviour:
   shortageMoney: {fileID: 2079421868327194769}
   shortageMoneyCheckBtn: {fileID: 4866406832568112008}
   _truckMats: []
-  myMoney: {fileID: 8607962177297641076}
+  truckMoney: {fileID: 8607962177297641076}
   idx: 0
+  mainboard: {fileID: 8797741424998389241, guid: ccaaa3069cfd60246b36cc1df033f736, type: 3}
+  shop: {fileID: 8553563809200200194, guid: cb65db45b44328e4bac608e3245d5682, type: 3}
 --- !u!1 &8607962177074415988
 GameObject:
   m_ObjectHideFlags: 0

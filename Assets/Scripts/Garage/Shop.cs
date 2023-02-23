@@ -56,7 +56,7 @@ public class Shop : MonoBehaviour
     public PlayerData playerData = new PlayerData();
     public DataManager dataManager;
 
-
+    public GameObject truckCustom;
     public GameObject inventory;
     public GameObject mainbaord;
 
@@ -372,10 +372,10 @@ public class Shop : MonoBehaviour
             _ToppingsData[ingredientsNum].InvenAmount += buyAmount;
             BuyToppingCountReset();
             inventory.GetComponent<Inventory>().BuyInvenToppingCountReset(ingredientsNum);
-            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
             GameManager.GetInstance()._ToppingInvenAcount[ingredientsNum] = _ToppingsData[ingredientsNum].InvenAmount;
-
             AudioManager.GetInstance().PlaySfx("BuyCoin");
+            //mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
+            //truckCustom.GetComponent<TruckCustom>().myMoney.text = playerData.money.ToString();
         }
         else if (playerData.money >= buyprice && shopdataChecker.CheckNum == 1)
         {
@@ -384,10 +384,10 @@ public class Shop : MonoBehaviour
             _BaseIngredientData[ingredientsNum].InvenAmount += buyAmount;
             BuyBaseCountReset();
             inventory.GetComponent<Inventory>().BuyInvenBaseCountReset(ingredientsNum);
-            mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
             GameManager.GetInstance()._BaseInvenAcount[ingredientsNum] = _BaseIngredientData[ingredientsNum].InvenAmount;
 
             AudioManager.GetInstance().PlaySfx("BuyCoin");
+            
 
             Debug.Log(GameManager.GetInstance()._BaseInvenAcount[ingredientsNum]);
         }
@@ -399,6 +399,7 @@ public class Shop : MonoBehaviour
         }
 
         ShopMyMoneySetUp();
+        ShopMoneyText();
         // inventory.InvenMyMoneySetUp();
         buyAmount = 0;
         buyprice = 0;
@@ -409,6 +410,11 @@ public class Shop : MonoBehaviour
         //Debug.Log(_BaseIngredientData[ingredientsNum].InvenAmount);
     }
 
+    public void ShopMoneyText()
+    {
+
+        truckCustom.GetComponent<TruckCustom>().truckMoney.text = playerData.money.ToString();
+    }
 
     public void BuyBaseCountReset()
     {
@@ -431,6 +437,7 @@ public class Shop : MonoBehaviour
     public void ShopMyMoneySetUp()   // 보유자산
     {
         myMoney.text = playerData.money.ToString();
+        mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
     }
 
     public void BuyCheckBoxOnClick()   // 구매 체크박스 온클릭 체크

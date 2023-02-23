@@ -22,11 +22,13 @@ public class TruckCustom : MonoBehaviour
 
     public Material[] _truckMats;
 
-    public TMP_Text myMoney;
+    public TMP_Text truckMoney;
 
     public int idx;
 
-    PlayerData playerData = new PlayerData();
+    public GameObject mainboard;
+    public GameObject shop;
+
 
     public List<FoodTruckData> _FoodTruckSimpleList = new List<FoodTruckData>();
     SimpleTruck simpleTruck = new SimpleTruck();
@@ -87,13 +89,17 @@ public class TruckCustom : MonoBehaviour
 
     public void BuyYes()
     {
-        if (_FoodTruckSimpleList[idx].Price <= playerData.money)
+        int c = idx;
+        if (_FoodTruckSimpleList[c].Price <= shop.GetComponent<Shop>().playerData.money)
         {
             AudioManager.GetInstance().PlaySfx("BuyCoin");
-            _lockImage[idx].gameObject.SetActive(false);
-            _FoodTruckSimpleList[idx].BuyCheck = true;
-            playerData.money -= _FoodTruckSimpleList[idx].Price;
+            _lockImage[c].gameObject.SetActive(false);
+            _FoodTruckSimpleList[c].BuyCheck = true;
+            shop.GetComponent<Shop>().playerData.money -= _FoodTruckSimpleList[c].Price;
             colorBuyCheckBox.gameObject.SetActive(false);
+            truckMoney.text = shop.GetComponent<Shop>().playerData.money.ToString();
+            shop.GetComponent<Shop>().ShopMyMoneySetUp();
+            shop.GetComponent<Shop>().ShopMoneyText();
         }
 
         else
@@ -116,7 +122,7 @@ public class TruckCustom : MonoBehaviour
         _truckColorBtns = new Button[truckColorBtnG.GetComponentsInChildren<Button>().Length];
         _truckColorsChange = new MeshRenderer[truckG.GetComponentsInChildren<MeshRenderer>().Length];
         _truckMats = Resources.LoadAll<Material>("Material");
-        myMoney.text = playerData.money.ToString();
+        truckMoney.text = shop.GetComponent<Shop>().playerData.money.ToString();
 
         for (int i = 0; i < truckColorBtnG.GetComponentsInChildren<Button>().Length; i++)
         {

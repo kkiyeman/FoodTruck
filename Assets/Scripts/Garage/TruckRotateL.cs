@@ -14,7 +14,7 @@ public class TruckRotateL : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (isBtnDown)
         {
             
-            truck.gameObject.transform.Rotate(0f, (3.0f) * speed, 0f, Space.Self);
+            truck.gameObject.transform.Rotate(0f, (1.5f) * speed, 0f, Space.Self);
         }
     }
 
