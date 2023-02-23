@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class MakeManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Button btnStart;
     [SerializeField] Button btnRecipeOn;
     [SerializeField] Button btnRecipeOff;
+    [SerializeField] Button btnReceiveOrder;
+    [SerializeField] Button btnCloseShop;
+    [SerializeField] Button btnReturnToShop;
     [SerializeField] GameObject noticeRecipe;
     [SerializeField] TMP_Text txtOrder1;
     [SerializeField] TMP_Text txtOrder2;
@@ -44,18 +48,29 @@ public class MakeManager : MonoBehaviour
     [SerializeField] GameObject[] HPIngredients;
     [SerializeField] Transform[] consumerPoints;
     [SerializeField] GameObject OpenPizzabox;
-    [SerializeField] GameObject ClosePizzabox;
+    public GameObject ClosePizzabox;
     [SerializeField] GameObject PizzaBatchim;
     [SerializeField] GameObject Bell;
     [SerializeField] GameObject MakeZonePizBatchim;
     [SerializeField] GameObject Oven;
     [SerializeField] GameObject ovenFrame;
+    [SerializeField] GameObject uiStart;
+    [SerializeField] GameObject uiScore;
+    [SerializeField] Text txtUiscore;
 
-    [SerializeField] TMP_Text txtUserName;
-    [SerializeField] TMP_Text txtDate;
-    [SerializeField] TMP_Text txtPOSOrder1;
-    [SerializeField] TMP_Text txtPOSOrder2;
+    [SerializeField] Text txtUserName;
+    [SerializeField] Text txtDate;
+    [SerializeField] Text txtPOSPizza1;
+    [SerializeField] Text txtPOSPizza2;
+    [SerializeField] Text txtPOSPizza3;
+    [SerializeField] Text txtPOSPizza4;
+    [SerializeField] Text txtPOSCount1;
+    [SerializeField] Text txtPOSCount2;
+    [SerializeField] Text txtPOSCount3;
+    [SerializeField] Text txtPOSCount4;
     Vector3 formalBakePizzaPosition;
+    public Vector3 formalPizzaBoxPosition;
+    public Quaternion formalPizzaBoxRotation;
     Animator rightAnimator;
     Animator leftAnimator;
     Dictionary<string, GameObject> holdingIngredients = new Dictionary<string, GameObject>();
@@ -82,7 +97,11 @@ public class MakeManager : MonoBehaviour
     bool isOvenOpen;
 
     private int curOrder = 0;
-    private string curOrderPizza;
+    private string curOrderPizza1;
+    private string curOrderPizza2;
+    private int curScore;
+    private float curRevenue;
+    private int curCustomerNum;
 
     [SerializeField] 
     private List<XRSimpleInteractable> hoverInteractList = new List<XRSimpleInteractable>();
@@ -90,8 +109,12 @@ public class MakeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        formalBakePizzaPosition = bakingpizza.transform.position; 
+        curCustomerNum = 0;
+        curScore = 0;
+        curRevenue = 0;
+        formalBakePizzaPosition = bakingpizza.transform.position;
+        formalPizzaBoxPosition = ClosePizzabox.transform.position;
+        formalPizzaBoxRotation = ClosePizzabox.transform.rotation;
         soundPlayer = AudioManager.GetInstance();
         soundPlayer.PlayBgm("Parkenvironment");
         rightAnimator = rightHand.GetComponent<Animator>();
@@ -113,15 +136,23 @@ public class MakeManager : MonoBehaviour
 
     private void SetUI()
     {
-        //if (DataManager.instance.nowPlayer.name == null)
-        //    txtUserName.text = "textconfirm";
-        //else
-        //    txtUserName.text = DataManager.instance.nowPlayer.name;
+        if (DataManager.instance.nowPlayer.name == null)
+            txtUserName.text = "textconfirm";
+        else
+            txtUserName.text = DataManager.instance.nowPlayer.name;
+
+
     }
 
     private void RefreshUI()
     {
         txtDate.text = DateTime.Now.ToString("yyyy" + "-" + "M" + "-" + "dd");
+        txtTotalCustomer.text = $"Total Customer : {curCustomerNum}";
+        txtTotalRevenue.text = $"Total Revenue : {curRevenue}.0$";
+        if(curScore != 0&& curCustomerNum != 0)
+        txtScore.text = $"Average Score : {curScore/curCustomerNum}";
+        else
+            txtScore.text = $"Average Score : 0";
     }
 
     private void SetRanidxQueue()
@@ -213,6 +244,7 @@ public class MakeManager : MonoBehaviour
     {
         if (!isStart)
         {
+            uiStart.SetActive(false);
             Animator animator = Bell.GetComponent<Animator>();
             animator.SetTrigger("Ring");
             Invoke("BellRing", 0.01f);
@@ -244,6 +276,7 @@ public class MakeManager : MonoBehaviour
         btnStart.onClick.AddListener(OnClickMakeStart);
         btnRecipeOn.onClick.AddListener(OnClickRecipeOn);
         btnRecipeOff.onClick.AddListener(OnCilckRecipeOff);
+        btnReceiveOrder.onClick.AddListener(OnClickReceiveOrder);
     }
 
     private void OnClickMakeStart()
@@ -289,8 +322,9 @@ public class MakeManager : MonoBehaviour
 
 
 
-    private int GetScore(Pizza pizza)
+    private int GetScore(string pizzaname)
     {
+        Pizza pizza = PizzaManager.GetInstance().GetPizzaByName(pizzaname);
         int fullScore = 100;
         int recipe = pizza.Recipe.Length;
         if (progress.Count <= recipe)
@@ -507,6 +541,18 @@ public class MakeManager : MonoBehaviour
         }
     }
 
+    public void OnHoverBell()
+    {
+        if(!isStart)
+        uiStart.SetActive(true);
+    }
+
+    public void OffHoverBell()
+    {
+        if(!isStart)
+        uiStart.SetActive(false);
+    }
+
     public void Order()
     {
         if (curOrder < 2)
@@ -517,31 +563,73 @@ public class MakeManager : MonoBehaviour
             {
                 case "Avatar1(Clone)":
                     go.transform.position = consumerPoints[0].position;
+                    soundPlayer.PlaySfx("Hellowoman1");
                     break;
                 case "Avatar2(Clone)":
                     go.transform.position = consumerPoints[1].position;
+                    soundPlayer.PlaySfx("Hellowoman2");
                     break;
                 case "Avatar3(Clone)":
                     go.transform.position = consumerPoints[2].position;
+                    soundPlayer.PlaySfx("HellowMan");
                     break;
                 case "Avatar4(Clone)":
                     go.transform.position = consumerPoints[3].position;
+                    soundPlayer.PlaySfx("HellowMan");
                     break;
             }
 
             List<string> orderPizza = consumerData.Order();
             int orderPizzaCnt = consumerData.OrderPizzaCnt();
-
-            if (orderPizza.Count > 1)
+            if(curOrder == 0)
             {
-               // txtOrder1.text = $"{orderPizza[0]} 1, \n{orderPizza[1]} 1";
+                if (orderPizza.Count > 1)
+                {
+                    curOrderPizza1 = orderPizza[0];
+                    txtPOSPizza1.text = $"{orderPizza[0]}";
+                    txtPOSPizza2.text = $"{orderPizza[1]}";
+                    txtPOSCount1.text = "1";
+                    txtPOSCount2.text = "1";
+      
+                }
+                else
+                {
+                    curOrderPizza1 = orderPizza[0];
+                    txtPOSPizza1.text = $"{orderPizza[0]}";
+                    txtPOSPizza2.text = $"";
+                    txtPOSCount1.text = "1";
+                    txtPOSCount2.text = "";
+
+                }
+
+
+                
             }
-           // else
-                //txtOrder1.text = $"{orderPizza[0]} {orderPizzaCnt}";
+            if(curOrder == 1)
+            {
+                if (orderPizza.Count > 1)
+                {
+                    txtPOSPizza3.text = $"{orderPizza[0]}";
+                    txtPOSPizza4.text = $"{orderPizza[1]}";
+                    txtPOSCount3.text = "1";
+                    txtPOSCount4.text = "1";
+                }
+                else
+                {
+                    txtPOSPizza3.text = $"{orderPizza[0]}";
+                    txtPOSPizza4.text = "";
+                    txtPOSCount3.text = "1";
+                    txtPOSCount4.text = "";
+                }
+              
+            }
+
+
 
             curOrder++;
 
-            soundPlayer.PlaySfx("Hellowoman1");
+
+
         }
         else
             Debug.Log("주문불가");
@@ -558,7 +646,36 @@ public class MakeManager : MonoBehaviour
         isHoldingBakedPizza = false;
         isboxOn = false;
         progress.Clear();
+        txtPOSPizza1.text = txtPOSPizza3.text;
+        txtPOSCount1.text = txtPOSCount3.text;
+        txtPOSPizza2.text = txtPOSPizza4.text;
+        txtPOSCount2.text = txtPOSCount4.text;
+        txtPOSPizza3.text = "";
+        txtPOSPizza4.text = "";
+        txtPOSCount3.text = "";
+        txtPOSCount4.text = "";
+        ClosePizzabox.transform.position = formalPizzaBoxPosition;
+        ClosePizzabox.transform.rotation = formalPizzaBoxRotation;
+        ClosePizzabox.SetActive(false);
+        txtOrder1.gameObject.SetActive(false);
+        txtAmount1.gameObject.SetActive(false);
+        txtOrder2.gameObject.SetActive(false);
+        txtAmount2.gameObject.SetActive(false);
+        ShowScore(GetScore(curOrderPizza1));
+        curScore += GetScore(curOrderPizza1);
+        curCustomerNum++;
+        curRevenue += PizzaManager.GetInstance().GetPizzaByName(curOrderPizza1).Price;
         curOrder--;
+    }
+
+    private void OnClickReceiveOrder()
+    {
+        txtOrder1.text = txtPOSPizza1.text;
+        txtOrder2.text = txtPOSPizza2.text;
+        txtAmount1.text = txtPOSCount1.text;
+        txtAmount2.text = txtPOSCount2.text;
+        txtOrder1.gameObject.SetActive(true);
+        txtOrder2.gameObject.SetActive(true);
     }
 
     private void OnClickRecipeOn()
@@ -569,5 +686,28 @@ public class MakeManager : MonoBehaviour
     private void OnCilckRecipeOff()
     {
         noticeRecipe.SetActive(false);
+    }
+
+    public void ShowScore(int score)
+    {
+        txtUiscore.text = $"+{score}";
+        uiScore.SetActive(true);
+        Invoke("HideScore", 2f);
+    }
+    
+    private void HideScore()
+    {
+        uiScore.SetActive(false);
+    }
+
+    private void OnClickCloseShop()
+    {
+        StopAllCoroutines();
+
+    }
+
+    private void OnClickReturn()
+    {
+        SceneManager.LoadScene("Garage");
     }
 }
