@@ -97,7 +97,7 @@ public class TruckCustom : MonoBehaviour
             _FoodTruckSimpleList[c].BuyCheck = true;
             shop.GetComponent<Shop>().playerData.money -= _FoodTruckSimpleList[c].Price;
             colorBuyCheckBox.gameObject.SetActive(false);
-            truckMoney.text = shop.GetComponent<Shop>().playerData.money.ToString();
+            GameManager.GetInstance()._TruckColor[c] = true;
             shop.GetComponent<Shop>().ShopMyMoneySetUp();
             shop.GetComponent<Shop>().ShopMoneyText();
         }
@@ -109,6 +109,8 @@ public class TruckCustom : MonoBehaviour
             colorBuyCheckBox.gameObject.SetActive(false);
         }
 
+        Debug.Log($"³»µ· : {shop.GetComponent<Shop>().playerData.money}");
+        truckMoney.text = shop.GetComponent<Shop>().playerData.money.ToString();
     }
 
     public void BuyNo()
@@ -119,6 +121,12 @@ public class TruckCustom : MonoBehaviour
 
     public void TruckSetUp()
     {
+        for(int i = 0; i < _FoodTruckSimpleList.Count; i++)
+            _FoodTruckSimpleList[i].BuyCheck = GameManager.GetInstance()._TruckColor[i];
+
+        simpleTruck.ColorNum = GameManager.GetInstance().colorCustomCheck;
+
+
         _truckColorBtns = new Button[truckColorBtnG.GetComponentsInChildren<Button>().Length];
         _truckColorsChange = new MeshRenderer[truckG.GetComponentsInChildren<MeshRenderer>().Length];
         _truckMats = Resources.LoadAll<Material>("Material");
@@ -164,6 +172,7 @@ public class TruckCustom : MonoBehaviour
             for (int i = 0; i < truckG.GetComponentsInChildren<MeshRenderer>().Length; i++)
             {
                 _truckColorsChange[i].gameObject.GetComponent<MeshRenderer>().material = _truckMats[idx];
+                GameManager.GetInstance().colorCustomCheck = idx;
             }
             simpleTruck.ColorNum = idx;
         }

@@ -398,8 +398,12 @@ public class Shop : MonoBehaviour
             Debug.Log("돈이 부족합니다.");
         }
 
+
+        Debug.Log($"샵돈 : {playerData.money}");
+
         ShopMyMoneySetUp();
         ShopMoneyText();
+
         // inventory.InvenMyMoneySetUp();
         buyAmount = 0;
         buyprice = 0;
@@ -412,7 +416,6 @@ public class Shop : MonoBehaviour
 
     public void ShopMoneyText()
     {
-
         truckCustom.GetComponent<TruckCustom>().truckMoney.text = playerData.money.ToString();
     }
 
@@ -438,6 +441,7 @@ public class Shop : MonoBehaviour
     {
         myMoney.text = playerData.money.ToString();
         mainbaord.GetComponent<MainBoard>().money.text = playerData.money.ToString();
+        truckCustom.GetComponent<TruckCustom>().truckMoney.text = playerData.money.ToString();
     }
 
     public void BuyCheckBoxOnClick()   // 구매 체크박스 온클릭 체크

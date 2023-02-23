@@ -27,18 +27,28 @@ public class GameManager : MonoBehaviour
         instance = this;
         ToppingInvenAcount();
         BaseInvenAcount();
+        TruckColorSave();
     }
     #endregion
-
+    public int colorCustomCheck;
     public List<int> _ToppingInvenAcount = new List<int>();
     public List<int> _BaseInvenAcount = new List<int>();
-
+    public List<bool> _TruckColor = new List<bool>();
 
     void Start()
     {
 
     }
 
+
+    public void TruckColorSave()
+    {
+        _TruckColor.Add(true);
+        _TruckColor.Add(false);
+        _TruckColor.Add(false);
+        _TruckColor.Add(false);
+        _TruckColor.Add(false);
+    }
     public void ToppingInvenAcount()
     {
         _ToppingInvenAcount.Add(0);
