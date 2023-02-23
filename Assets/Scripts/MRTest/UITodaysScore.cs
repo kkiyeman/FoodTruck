@@ -15,7 +15,7 @@ public class UITodaysScore : MonoBehaviour
     public Button btnClose;         //´Ý±â
 
 
-    public void SetTodayInfo(int score, int salesCount, int totalStf, int salesAmt, int totalTip, int totalMoney)
+    public void SetTodayInfo(int score, int salesCount, int totalStf, float salesAmt, float totalTip, float totalMoney)
     {
         txtScore.text = $"{score.ToString()}/100";
         txtSalesCnt.text = salesCount.ToString();

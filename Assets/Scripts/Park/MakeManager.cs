@@ -68,6 +68,7 @@ public class MakeManager : MonoBehaviour
     [SerializeField] Text txtPOSCount2;
     [SerializeField] Text txtPOSCount3;
     [SerializeField] Text txtPOSCount4;
+    [SerializeField] UITodaysScore uiTodayScore;
     Vector3 formalBakePizzaPosition;
     public Vector3 formalPizzaBoxPosition;
     public Quaternion formalPizzaBoxRotation;
@@ -102,6 +103,7 @@ public class MakeManager : MonoBehaviour
     private int curScore;
     private float curRevenue;
     private int curCustomerNum;
+    private int averageScore;
 
     [SerializeField] 
     private List<XRSimpleInteractable> hoverInteractList = new List<XRSimpleInteractable>();
@@ -137,7 +139,7 @@ public class MakeManager : MonoBehaviour
     private void SetUI()
     {
         if (DataManager.instance.nowPlayer.name == null)
-            txtUserName.text = "textconfirm";
+            txtUserName.text = "POTATO";
         else
             txtUserName.text = DataManager.instance.nowPlayer.name;
 
@@ -146,11 +148,15 @@ public class MakeManager : MonoBehaviour
 
     private void RefreshUI()
     {
+        if (curScore != 0 && curCustomerNum != 0)
+            averageScore = curScore / curCustomerNum;
+        else
+            averageScore = 0;
         txtDate.text = DateTime.Now.ToString("yyyy" + "-" + "M" + "-" + "dd");
         txtTotalCustomer.text = $"Total Customer : {curCustomerNum}";
         txtTotalRevenue.text = $"Total Revenue : {curRevenue}.0$";
         if(curScore != 0&& curCustomerNum != 0)
-        txtScore.text = $"Average Score : {curScore/curCustomerNum}";
+        txtScore.text = $"Average Score : {averageScore}";
         else
             txtScore.text = $"Average Score : 0";
     }
@@ -277,6 +283,8 @@ public class MakeManager : MonoBehaviour
         btnRecipeOn.onClick.AddListener(OnClickRecipeOn);
         btnRecipeOff.onClick.AddListener(OnCilckRecipeOff);
         btnReceiveOrder.onClick.AddListener(OnClickReceiveOrder);
+        btnCloseShop.onClick.AddListener(OnClickCloseShop);
+        btnReturnToShop.onClick.AddListener(OnClickReturn);
     }
 
     private void OnClickMakeStart()
@@ -638,6 +646,7 @@ public class MakeManager : MonoBehaviour
     //피자 제공
     public void ServePizza()
     {
+        soundPlayer.PlaySfx("BuyCoin");
         ObjectPoolManager.GetInstance().ReturnToConsumerPool();
         isMaking = false;
         isingredientAdding = false;
@@ -656,6 +665,7 @@ public class MakeManager : MonoBehaviour
         txtPOSCount4.text = "";
         ClosePizzabox.transform.position = formalPizzaBoxPosition;
         ClosePizzabox.transform.rotation = formalPizzaBoxRotation;
+        bakingpizza.gameObject.SetActive(false);
         ClosePizzabox.SetActive(false);
         txtOrder1.gameObject.SetActive(false);
         txtAmount1.gameObject.SetActive(false);
@@ -703,10 +713,18 @@ public class MakeManager : MonoBehaviour
     private void OnClickCloseShop()
     {
         StopAllCoroutines();
-
+        uiTodayScore.SetTodayInfo(averageScore,curCustomerNum,curScore,curRevenue,0,curRevenue);
+        uiTodayScore.gameObject.SetActive(true);
+        soundPlayer.PlayBgm("Finishsell");
     }
 
     private void OnClickReturn()
+    {
+        soundPlayer.PlaySfx("TruckStartUp");
+        Invoke("Return", 2f);
+    }
+
+    private void Return()
     {
         SceneManager.LoadScene("Garage");
     }
